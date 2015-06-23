@@ -1,11 +1,8 @@
 package services;
 
 import static org.junit.Assert.assertTrue;
-
 import java.util.List;
-
 import model.Dog;
-
 import org.junit.Before;
 import org.junit.Test;
 
