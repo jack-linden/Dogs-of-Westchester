@@ -2,12 +2,15 @@ package services;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -30,11 +33,27 @@ public class UploadService extends HttpServlet {
 		return _instance;
 	}
 
+	/**
+	 * UploadService.uploadCSV
+	 * 
+	 * This function will upload a CSV file to google's datastore. Refer to
+	 * excel template for formatting.
+	 * 
+	 * @param filename
+	 *            The filename of the file to upload
+	 * @param inTestingMode
+	 *            Boolean flag true if for testing purposes
+	 * @throws IOException
+	 */
 	public void uploadCSV(String filename, boolean inTestingMode) throws IOException {
+		if (filename == null) {
+			throw new IllegalArgumentException("Did not expect a null filename argument");
+		}
+
 		InputStream is;
 		mockDB = new ArrayList<String>();
 		if (inTestingMode) {
-			is = new FileInputStream("/Users/jiayanzhang/Desktop/1530/project_repo/src/main/webapp/WEB-INF/" + filename);
+			is = new FileInputStream(System.getProperty("user.dir") + "/test-files/" + filename);
 		} else {
 			datastore = DatastoreServiceFactory.getDatastoreService();
 			context = this.getServletContext();
@@ -84,4 +103,5 @@ public class UploadService extends HttpServlet {
 			line = in.readLine();
 		}
 	}
+
 }
