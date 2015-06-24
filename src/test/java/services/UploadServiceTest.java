@@ -1,10 +1,8 @@
 package services;
 
 import static org.junit.Assert.assertArrayEquals;
-
 import java.io.IOException;
 import java.io.FileNotFoundException;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -65,5 +63,4 @@ public class UploadServiceTest {
 		String[] expected = { "White Plains", "Lucky", "Altered", "Male", "Boston Terrier", "Red and white" };
 		assertArrayEquals(expected, uploadService.mockDB.toArray());
 	}
-
 }

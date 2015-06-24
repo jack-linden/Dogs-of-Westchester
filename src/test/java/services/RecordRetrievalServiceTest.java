@@ -26,7 +26,7 @@ public class RecordRetrievalServiceTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void queryRecordsByNameNullParameterTest() {
-		recordService.queryRecordsByName(null);
+		recordService.queryRecordsByName(null, true);
 	}
 
 	/*
@@ -38,7 +38,7 @@ public class RecordRetrievalServiceTest {
 	@Test
 	public void queryRecordsByNameNonExistentRecordTest() {
 
-		List<Dog> dogRecords = recordService.queryRecordsByName(NON_EXISTENT_DOG_NAME);
+		List<Dog> dogRecords = recordService.queryRecordsByName(NON_EXISTENT_DOG_NAME, true);
 		assertTrue(dogRecords.isEmpty());
 	}
 }
