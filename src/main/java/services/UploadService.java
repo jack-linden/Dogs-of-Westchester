@@ -25,7 +25,12 @@ public class UploadService extends HttpServlet {
 
 	public static UploadService getInstance() {
 		if (_instance == null) {
-			_instance = new UploadService();
+			// Lazy threadsafe implementation
+			synchronized (UploadService.class) {
+				if (_instance == null) {
+					_instance = new UploadService();
+				}
+			}
 		}
 		return _instance;
 	}
