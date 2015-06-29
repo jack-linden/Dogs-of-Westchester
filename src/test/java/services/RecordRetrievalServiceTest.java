@@ -1,16 +1,17 @@
 package services;
 
 import static org.junit.Assert.assertTrue;
-import java.util.List;
+import java.util.Set;
 import model.Dog;
 import org.junit.Before;
 import org.junit.Test;
 
 public class RecordRetrievalServiceTest {
 
-	public final String NON_EXISTENT_DOG_NAME = "LD@()";
-	public final String DOG_NAME_A = "Buddy";
-
+	public final String NON_EXISTENT_DOG_NAME = "LD@()";	
+	public final String NON_EXISTENT_PROPERTY_TYPE = "Age";
+	public final String NON_EXISTENT_PROPERTY_VALUE = "5";
+	
 	public RecordRetrievalService recordService;
 
 	@Before
@@ -19,26 +20,37 @@ public class RecordRetrievalServiceTest {
 	}
 
 	/*
-	 * TC1.queryRecordsByName
+	 * TC1.queryDogRecords
 	 * 
-	 * This test queries the database with a null argument for name. Expects an
-	 * IllegalArgumentException to be thrown.
+	 * This test queries the database with a null argument for property type Breed and
+	 * expects an IllegalArgumentException to be thrown.
 	 */
 	@Test(expected = IllegalArgumentException.class)
-	public void queryRecordsByNameNullParameterTest() {
-		recordService.queryRecordsByName(null, true);
+	public void queryDogRecordsNullParameterTest() {
+		recordService.queryDogRecords("Breed", null, true);
 	}
 
 	/*
-	 * TC2.queryRecordsByName
+	 * TC2.queryDogRecords
 	 * 
-	 * This test queries the database with a non-existent name. Expects to
-	 * receive an empty list of dog records.
+	 * This test queries the database with a non-existent argument for property type Name and 
+	 * expects to receive an empty list of dog records.
 	 */
 	@Test
-	public void queryRecordsByNameNonExistentRecordTest() {
+	public void queryDogRecordsNonExistentNameTest() {
 
-		List<Dog> dogRecords = recordService.queryRecordsByName(NON_EXISTENT_DOG_NAME, true);
+		Set<Dog> dogRecords = recordService.queryDogRecords("Name", NON_EXISTENT_DOG_NAME, true);
 		assertTrue(dogRecords.isEmpty());
+	}
+	
+	/*
+	 * TC3.queryDogRecords
+	 * 
+	 * This test queries the database with a non-existent property type and 
+	 * expects an IllegalArgumentException to be thrown.
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void queryDogRecordsNonExistentPropertyTypeTest() {
+		recordService.queryDogRecords(NON_EXISTENT_PROPERTY_TYPE, NON_EXISTENT_PROPERTY_VALUE, true);		
 	}
 }

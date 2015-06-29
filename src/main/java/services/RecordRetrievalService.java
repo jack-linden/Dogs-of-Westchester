@@ -1,7 +1,7 @@
 package services;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -24,22 +24,29 @@ public class RecordRetrievalService {
 	 * 
 	 * This function will run queries against google's datastore
 	 * 
+	 * @param propertyType
+	 * 			The property of the dog to search for. (e.g. Name, Breed, City)
 	 * @param name
-	 *            The dog name to search for.
+	 *          The dog name to search for.
 	 * @param inTestingMode
-	 *            Boolean flag true if for testing purposes
+	 *          Boolean flag true if for testing purposes
 	 * @return The list of records matching that name.
 	 */
-	public List<Dog> queryRecordsByName(String name, boolean inTestingMode) {
-		if (name == null) {
+	public Set<Dog> queryDogRecords(String propertyType, String query, boolean inTestingMode) {
+		if (query == null) {
 			throw new IllegalArgumentException("Did not expect name to be null.");
 		}
+		
+		if (propertyType != "Name" && propertyType != "Condition" && propertyType != "Sex" && propertyType != "Breed"
+				&& propertyType != "Color" && propertyType != "City") {
+			throw new IllegalArgumentException("Property type can only be Name, Condition, Sex, Breed, Color, or City.");
+		}
 
-		List<Dog> dogRecords = new ArrayList<Dog>();
-
+		Set<Dog> dogRecords = new HashSet<Dog>();
+				
 		if (!inTestingMode) {
 			datastore = DatastoreServiceFactory.getDatastoreService();
-			Filter dogNameFilter = new FilterPredicate("Name", FilterOperator.EQUAL, name);
+			Filter dogNameFilter = new FilterPredicate(propertyType, FilterOperator.EQUAL, query);
 			Query q = new Query("Dog").setFilter(dogNameFilter);
 			PreparedQuery pq = datastore.prepare(q);
 			for (Entity result : pq.asIterable()) {
