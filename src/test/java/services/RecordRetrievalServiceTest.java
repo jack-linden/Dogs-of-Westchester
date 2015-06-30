@@ -1,8 +1,12 @@
 package services;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.Set;
+
 import model.Dog;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,9 +29,23 @@ public class RecordRetrievalServiceTest {
 	 * This test queries the database with a null argument for property type Breed and
 	 * expects an IllegalArgumentException to be thrown.
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void queryDogRecordsNullParameterTest() {
-		recordService.queryDogRecords("Breed", null, true);
+		try{
+			recordService.queryDogRecords("Breed", null, true);
+			fail("Expected an IllegalArgumentException");
+		}
+		catch (IllegalArgumentException e){
+			assertTrue(true);
+		}
+		
+		try{
+			recordService.queryDogRecords(null, "Lucy", true);
+			fail("Expected an IllegalArgumentException");
+		}
+		catch (IllegalArgumentException e){
+			assertTrue(true);
+		}				
 	}
 
 	/*
@@ -38,7 +56,6 @@ public class RecordRetrievalServiceTest {
 	 */
 	@Test
 	public void queryDogRecordsNonExistentNameTest() {
-
 		Set<Dog> dogRecords = recordService.queryDogRecords("Name", NON_EXISTENT_DOG_NAME, true);
 		assertTrue(dogRecords.isEmpty());
 	}
