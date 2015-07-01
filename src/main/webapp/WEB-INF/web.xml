@@ -8,9 +8,17 @@
         <servlet-name>main</servlet-name>
         <servlet-class>web.MainServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>search</servlet-name>
+        <servlet-class>web.SearchServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>main</servlet-name>
         <url-pattern>/main</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>search</servlet-name>
+        <url-pattern>/search</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
