@@ -40,6 +40,9 @@ public class RecordRetrievalService {
 		if (!inTestingMode) {
 			dogRecords = DogDAO.getDogsFromQuery(propertyType, query);			
 		}
+		
+		
+		
 
 		return dogRecords;
 	}

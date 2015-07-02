@@ -52,7 +52,7 @@ public class UploadService extends HttpServlet {
 	 *            Boolean flag true if for testing purposes
 	 * @throws IOException
 	 */
-	public void uploadCSV(HttpServletRequest req, HttpServletResponse resp, String filename, boolean inTestingMode) throws IOException {		
+	public void uploadCSV(String filename, boolean inTestingMode) throws IOException {		
 		
 		if (filename == null) {
 			throw new IllegalArgumentException("Did not expect a null filename argument");
@@ -60,7 +60,7 @@ public class UploadService extends HttpServlet {
 
 		InputStream is;
 		mockDB = new ArrayList<String>();		
-		PrintWriter writer = new PrintWriter(System.out);
+		//PrintWriter writer = new PrintWriter(System.out);
 		
 		if (inTestingMode) {
 			is = new FileInputStream(System.getProperty("user.dir") + "/test-files/" + filename);
@@ -69,8 +69,8 @@ public class UploadService extends HttpServlet {
 			datastore = DatastoreServiceFactory.getDatastoreService();
 			context = this.getServletContext();
 			is = context.getResourceAsStream("/WEB-INF/" + filename);
-			resp.setContentType("text/plain");		
-			writer = resp.getWriter();
+//			resp.setContentType("text/plain");		
+//			writer = resp.getWriter();
 		}
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(is));
@@ -123,8 +123,8 @@ public class UploadService extends HttpServlet {
 				}
 			}
 			else {	
-				if (inTestingMode) System.out.println("Warning: line " + lineCounter + " in " + filename + " is not properly formatted!");
-				else writer.println("Warning: line " + lineCounter + " in " + filename + " is not properly formatted!"); 
+//				if (inTestingMode) System.out.println("Warning: line " + lineCounter + " in " + filename + " is not properly formatted!");
+//				else writer.println("Warning: line " + lineCounter + " in " + filename + " is not properly formatted!"); 
 			}
 
 			line = in.readLine();
