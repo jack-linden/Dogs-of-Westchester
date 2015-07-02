@@ -35,7 +35,8 @@ public class RecordRetrievalService {
 		}
 
 		Set<Dog> dogRecords = new HashSet<Dog>();
-				
+		query = query.toLowerCase();
+		
 		if (!inTestingMode) {
 			dogRecords = DogDAO.getDogsFromQuery(propertyType, query);			
 		}

@@ -2,22 +2,36 @@ package model;
 
 public class Dog {
 
-	private int idNumber;
+	private String idNumber;
 	private String name;
 	private String condition;
 	private String sex;
 	private String breed;
 	private String color;
 	private String location;
-
+		
+	public Dog() {		
+	
+	}
+	
+	public Dog(String idNumber, String name, String condition, String sex, String breed, String color, String location) {
+		this.setIdNumber(idNumber);
+		this.setName(name);
+		this.setCondition(condition);
+		this.setSex(sex);
+		this.setBreed(breed);
+		this.setColor(color);
+		this.setLocation(location);
+	}
+		
 	/*
 	 * Getters and Setters for DogRecord fields.
-	 */
-	public int getIdNumber() {
+	 */		
+	public String getIdNumber() {
 		return idNumber;
 	}
 
-	public void setIdNumber(int idNumber) {
+	public void setIdNumber(String idNumber) {
 		this.idNumber = idNumber;
 	}
 
@@ -67,5 +81,14 @@ public class Dog {
 
 	public void setLocation(String location) {
 		this.location = location;
-	}
+	}	
+
+	
+	/*
+	 * Override the equals() method
+	 */
+	public boolean equals(Dog other) {
+       if (this.idNumber.equals(other.idNumber)) return true;
+       else return false;
+    }
 }

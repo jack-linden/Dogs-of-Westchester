@@ -23,7 +23,7 @@ public class UploadServiceTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void nullParameterFilenameTest() throws IOException {
-		uploadService.uploadCSV(null, true);
+		uploadService.uploadCSV(null, null, null, true);
 	}
 
 	/*
@@ -34,7 +34,7 @@ public class UploadServiceTest {
 	 */
 	@Test(expected = FileNotFoundException.class)
 	public void nonExistentFileTest() throws IOException {
-		uploadService.uploadCSV(NON_EXISTENT_FILE, true);
+		uploadService.uploadCSV(null, null, NON_EXISTENT_FILE, true);
 	}
 
 	/*
@@ -45,9 +45,9 @@ public class UploadServiceTest {
 	 */
 	@Test
 	public void wellFormattedCSVFileTest() throws IOException {
-		uploadService.uploadCSV("White_Plains.csv", true);
-		String[] expected = { "White Plains", "Duke", "Altered", "Male", "Great Dane", "Black", "White Plains", "Rico", "Intact", "Male", "Chihuahua",
-				"Grey/Bluemerle", "White Plains", "Lucky", "Altered", "Male", "Boston Terrier", "Red and white" };
+		uploadService.uploadCSV(null, null, "White_Plains.csv", true);
+		String[] expected = {"white plains", "duke", "altered", "male", "great dane", "black", "white plains", "rico", "intact", "male", "chihuahua",
+				"grey/bluemerle", "white plains", "lucky", "altered", "male", "boston terrier", "red and white"};
 		assertArrayEquals(expected, uploadService.mockDB.toArray());
 	}
 
@@ -59,8 +59,8 @@ public class UploadServiceTest {
 	 */
 	@Test
 	public void badlyFormattedCSVFileTest() throws IOException {
-		uploadService.uploadCSV("White_Plains_bad.csv", true);
-		String[] expected = { "White Plains", "Lucky", "Altered", "Male", "Boston Terrier", "Red and white" };
+		uploadService.uploadCSV(null, null, "White_Plains_bad.csv", true);
+		String[] expected = {"white plains", "lucky", "altered", "male", "boston terrier", "red and white"};
 		assertArrayEquals(expected, uploadService.mockDB.toArray());
 	}
 }
