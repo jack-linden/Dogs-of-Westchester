@@ -16,7 +16,7 @@ import com.google.appengine.api.datastore.Query.FilterPredicate;
 public class DogDAO {	
 	public static Set<Dog> getDogsFromQuery(String propertyType, String query){
 		Set<Dog> dogRecords = new HashSet<Dog>();
-		query = query.toLowerCase();
+		query = query.toUpperCase();
 		
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();			
 		Filter dogNameFilter = new FilterPredicate(propertyType, FilterOperator.EQUAL, query);

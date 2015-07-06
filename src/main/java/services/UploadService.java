@@ -78,7 +78,7 @@ public class UploadService extends HttpServlet {
 		String firstLine = in.readLine();
 		lineCounter++;
 		String[] getCityName = firstLine.split(",");
-		String cityName = getCityName[1].toLowerCase();
+		String cityName = getCityName[1].toUpperCase();
 		
 		in.readLine(); // ignore the second line
 		lineCounter++;
@@ -92,11 +92,11 @@ public class UploadService extends HttpServlet {
 			String[] tokens = line.split(",");
 
 			if (tokens.length == 5) {
-				String dogname = tokens[0].toLowerCase();
-				String condition = tokens[1].toLowerCase();
-				String sex = tokens[2].toLowerCase();
-				String breed = tokens[3].toLowerCase();
-				String color = tokens[4].toLowerCase();
+				String dogname = tokens[0].toUpperCase();
+				String condition = tokens[1].toUpperCase();
+				String sex = tokens[2].toUpperCase();
+				String breed = tokens[3].toUpperCase();
+				String color = tokens[4].toUpperCase();
 
 				if (inTestingMode) {
 					mockDB.add(cityName);
