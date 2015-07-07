@@ -1,6 +1,8 @@
 /Users/jiayanzhang/Desktop/1530/project_repo/src/main/java/web/SearchServlet.java
+/Users/jiayanzhang/Desktop/1530/project_repo/src/main/java/web/AdminServlet.java
 /Users/jiayanzhang/Desktop/1530/project_repo/src/main/java/services/RecordRetrievalService.java
 /Users/jiayanzhang/Desktop/1530/project_repo/src/main/java/web/MainServlet.java
 /Users/jiayanzhang/Desktop/1530/project_repo/src/main/java/dataaccess/DogDAO.java
 /Users/jiayanzhang/Desktop/1530/project_repo/src/main/java/model/Dog.java
 /Users/jiayanzhang/Desktop/1530/project_repo/src/main/java/services/UploadService.java
+/Users/jiayanzhang/Desktop/1530/project_repo/src/main/java/web/UploadServlet.java
