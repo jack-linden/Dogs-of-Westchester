@@ -22,8 +22,6 @@ public class UploadService extends HttpServlet {
 
 	private static UploadService _instance = null;
 	private DatastoreService datastore;
-	private ServletContext context;
-	protected ArrayList<String> mockDB;
 
 	protected UploadService() {
 
@@ -53,83 +51,88 @@ public class UploadService extends HttpServlet {
 	 *            Boolean flag true if for testing purposes
 	 * @throws IOException
 	 */
-	public void uploadCSV(String filename, byte[] fileContents, boolean inTestingMode) throws IOException {		
-		
-		if (filename == null) {
-			throw new IllegalArgumentException("Did not expect a null filename argument");
+	public byte[] uploadCSV(String filename, byte[] fileContents) throws IOException {
+
+		if (filename == null || fileContents == null || fileContents.length == 0) {
+			throw new IllegalArgumentException("Did not expect a null filename argument or an empty/null byte array.");
 		}
 
-		InputStream is;
-		mockDB = new ArrayList<String>();		
-		//PrintWriter writer = new PrintWriter(System.out);
-		
-		if (inTestingMode) {
-			is = new FileInputStream(System.getProperty("user.dir") + "/test-files/" + filename);
-		}
-		else {
-			datastore = DatastoreServiceFactory.getDatastoreService();
-			//context = this.getServletContext();
-			is = new ByteArrayInputStream(fileContents);
-//			resp.setContentType("text/plain");		
-//			writer = resp.getWriter();
-		}
+		InputStream is = new ByteArrayInputStream(fileContents);
+		datastore = DatastoreServiceFactory.getDatastoreService();
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(is));
-		int lineCounter = 0;
 		String firstLine = in.readLine();
-		lineCounter++;
-		String[] getCityName = firstLine.split(",");
-		String cityName = getCityName[1].toUpperCase();
-		
-		in.readLine(); // ignore the second line
-		lineCounter++;
-		in.readLine(); // ignore the third line
-		lineCounter++;
-		
-		String line = in.readLine();
-		lineCounter++;
-		
-		while (line != null) {
-			String[] tokens = line.split(",");
+		in.readLine(); // Skip the excel headers
+		String cityName = getCityName(firstLine);
 
-			if (tokens.length == 5) {
-				String dogname = tokens[0].toUpperCase();
-				String condition = tokens[1].toUpperCase();
-				String sex = tokens[2].toUpperCase();
-				String breed = tokens[3].toUpperCase();
-				String color = tokens[4].toUpperCase();
-
-				if (inTestingMode) {
-					mockDB.add(cityName);
-					mockDB.add(dogname);
-					mockDB.add(condition);
-					mockDB.add(sex);
-					mockDB.add(breed);
-					mockDB.add(color);
-				}
-
-				else {
-					Entity dog = new Entity("Dog");
-					
-					//TODO output ID to an separate file or append it to the current csv file? 
-					String idNumber = dog.getKey().toString();
-					
-					dog.setProperty("City", cityName);
-					dog.setProperty("Name", dogname);
-					dog.setProperty("Condition", condition);
-					dog.setProperty("Sex", sex);
-					dog.setProperty("Breed", breed);
-					dog.setProperty("Color", color);
-					datastore.put(dog);
-				}
+		StringBuilder sb = new StringBuilder();
+		for (String line = in.readLine(); line != null; line = in.readLine()) {
+			String[] tokens = prepareTokens(line.toUpperCase().split(","));
+			if( tokens.length != 6){
+				continue;
 			}
-			else {	
-//				if (inTestingMode) System.out.println("Warning: line " + lineCounter + " in " + filename + " is not properly formatted!");
-//				else writer.println("Warning: line " + lineCounter + " in " + filename + " is not properly formatted!"); 
+			String dogname = tokens[0];
+			String condition = tokens[1];
+			String sex = tokens[2];
+			String breed = tokens[3];
+			String color = tokens[4];
+			String idNumber = tokens[5];
+			String newCSVLine = line;
+			
+			if (!validIdExists(idNumber)) {
+				String newIdNumber = datastore.put(createDogEntity(cityName, dogname, condition, sex, breed, color)).toString();
+				newCSVLine = appendDogIdToCSVLine(line, newIdNumber);
 			}
-
-			line = in.readLine();
-			lineCounter++;
+			sb.append(newCSVLine);
+			sb.append("\n");
 		}
+		return sb.toString().getBytes();
+	}
+
+	private String[] prepareTokens(String[] tokens) {
+
+		for (int i = 0; i < tokens.length - 1; i++) {
+			if ( tokens[i].equals("")) {
+				tokens[i] = "UNKNOWN";
+			}
+		}
+		return tokens;
+	}
+
+	private boolean validIdExists(String idNumber) {
+		return idNumber.length() == 16;
+	}
+
+	private String appendDogIdToCSVLine(String line, String idNumber) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(line);
+		sb.append(idNumber);
+		return sb.toString();
+
+	}
+
+	private Entity createDogEntity(String cityName, String dogname, String condition, String sex, String breed, String color) {
+		Entity dog = new Entity("Dog");
+
+		dog.setProperty("City", cityName);
+		dog.setProperty("Name", dogname);
+		dog.setProperty("Condition", condition);
+		dog.setProperty("Sex", sex);
+		dog.setProperty("Breed", breed);
+		dog.setProperty("Color", color);
+
+		return dog;
+	}
+
+	/**
+	 * Parses first line of CSV file and returns the city name which is located
+	 * at cell 0.
+	 * 
+	 * @param line
+	 * @return String of city name.
+	 * 
+	 */
+	private String getCityName(String line) {
+		return line.split(",")[0].toUpperCase();
 	}
 }

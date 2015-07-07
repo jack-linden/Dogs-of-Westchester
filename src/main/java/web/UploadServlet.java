@@ -1,6 +1,7 @@
 package web;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
@@ -9,23 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import services.UploadService;
+
 import com.google.appengine.api.blobstore.BlobInfo;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
-import com.google.appengine.api.blobstore.FileInfo;
-
-import services.UploadService;
+import com.google.appengine.api.datastore.Blob;
 
 public class UploadServlet extends HttpServlet {
-    private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+	private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+		res.setContentType("text/csv");
 		Map<String, List<BlobInfo>> blobInfos = blobstoreService.getBlobInfos(req);
-		
-		
+
 		if (blobInfos == null || blobInfos.isEmpty()) {
 			res.sendRedirect("/");
 		} else {
@@ -34,8 +34,8 @@ public class UploadServlet extends HttpServlet {
 			BlobKey blobKey = blobInfo.getBlobKey();
 			byte[] byteArray = blobstoreService.fetchData(blobKey, 0, blobInfo.getSize());
 			UploadService uploadFile = UploadService.getInstance();
-			uploadFile.uploadCSV(blobInfo.getFilename(), byteArray, false);			
-			res.sendRedirect("/");			
+			byte[] newByteArray = uploadFile.uploadCSV(blobInfo.getFilename(), byteArray);
+			res.getOutputStream().write(newByteArray);
 		}
 	}
 }
