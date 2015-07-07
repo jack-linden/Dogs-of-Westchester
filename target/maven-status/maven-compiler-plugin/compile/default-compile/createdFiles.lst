@@ -1,7 +1,9 @@
+web/AdminServlet.class
+dataaccess/DogDAO.class
+web/UploadServlet.class
+services/UploadService.class
+model/Dog.class
 services/RecordRetrievalService.class
 web/SearchServlet$1.class
 web/SearchServlet.class
-dataaccess/DogDAO.class
 web/MainServlet.class
-services/UploadService.class
-model/Dog.class

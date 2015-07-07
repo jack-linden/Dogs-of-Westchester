@@ -1,6 +1,6 @@
 package web;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +14,8 @@ import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.blobstore.FileInfo;
+
+import services.UploadService;
 
 public class UploadServlet extends HttpServlet {
     private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
@@ -31,7 +33,9 @@ public class UploadServlet extends HttpServlet {
 			BlobInfo blobInfo = infos.get(0);
 			BlobKey blobKey = blobInfo.getBlobKey();
 			byte[] byteArray = blobstoreService.fetchData(blobKey, 0, blobInfo.getSize());
-			res.sendRedirect("/");
+			UploadService uploadFile = UploadService.getInstance();
+			uploadFile.uploadCSV(blobInfo.getFilename(), byteArray, false);			
+			res.sendRedirect("/");			
 		}
 	}
 }

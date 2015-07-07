@@ -1,6 +1,7 @@
 package services;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,7 +53,7 @@ public class UploadService extends HttpServlet {
 	 *            Boolean flag true if for testing purposes
 	 * @throws IOException
 	 */
-	public void uploadCSV(String filename, boolean inTestingMode) throws IOException {		
+	public void uploadCSV(String filename, byte[] fileContents, boolean inTestingMode) throws IOException {		
 		
 		if (filename == null) {
 			throw new IllegalArgumentException("Did not expect a null filename argument");
@@ -67,8 +68,8 @@ public class UploadService extends HttpServlet {
 		}
 		else {
 			datastore = DatastoreServiceFactory.getDatastoreService();
-			context = this.getServletContext();
-			is = context.getResourceAsStream("/WEB-INF/" + filename);
+			//context = this.getServletContext();
+			is = new ByteArrayInputStream(fileContents);
 //			resp.setContentType("text/plain");		
 //			writer = resp.getWriter();
 		}
