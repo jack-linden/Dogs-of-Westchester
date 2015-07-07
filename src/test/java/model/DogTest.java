@@ -18,4 +18,10 @@ public class DogTest {
 		Dog dog2 = new Dog("00000002","white plains", "lucky", "altered", "male", "boston terrier", "red and white");	
 		assertFalse(dog1.equals(dog2));
 	}		
+	
+	@Test
+	public void dogNullName(){
+		Dog dog = new Dog("00000001","white plains", null, "altered", "male", "boston terrier", "red and white");
+		assertNull(dog.getName());
+	}
 }
