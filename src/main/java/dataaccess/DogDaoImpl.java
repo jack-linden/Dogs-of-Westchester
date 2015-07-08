@@ -67,7 +67,7 @@ public class DogDaoImpl implements DogDao {
 	 * 
 	 * @param dog
 	 *            The Dog object that contains the dog information
-	 * @return An new dog Entity that is ready to be inserted to the database
+	 * @return a new dog Entity that is ready to be inserted to the database
 	 */
 	private Entity createDogEntity(Dog dog) {
 		Entity dogEntity = new Entity("Dog");
