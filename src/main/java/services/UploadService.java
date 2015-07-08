@@ -97,9 +97,11 @@ public class UploadService extends HttpServlet {
 	 */
 	private String[] prepareTokens(String[] tokens) {
 		String[] newTokens = new String[6];
-		for (int i = 0; i < newTokens.length - 1; i++) {
+		for (int i = 0; i < tokens.length; i++) {
 			if (tokens[i].equals("")) {
 				newTokens[i] = "UNKNOWN";
+			} else{
+				newTokens[i] = tokens[i];
 			}
 		}
 		if (tokens.length == 6) {
@@ -108,6 +110,9 @@ public class UploadService extends HttpServlet {
 			} else {
 				newTokens[5] = tokens[5];
 			}
+		}
+		if(newTokens[5] == null){
+			newTokens[5] = "UNKNOWN";
 		}
 
 		return newTokens;

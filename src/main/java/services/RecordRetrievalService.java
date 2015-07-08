@@ -9,11 +9,15 @@ import model.Dog;
 
 public class RecordRetrievalService {
 
+	private DogDaoImpl dogDao;
 	/**
 	 * Class constructor.
 	 */
 	public RecordRetrievalService() {
-
+		setDogDao(new DogDaoImpl());
+	}
+	public void setDogDao(DogDaoImpl dogDao){
+		this.dogDao = dogDao;
 	}
 
 	/**
@@ -36,7 +40,6 @@ public class RecordRetrievalService {
 
 		Set<Dog> dogRecords = new HashSet<Dog>();
 		query = query.toUpperCase();
-		DogDao dogDao = new DogDaoImpl();
 		dogRecords = dogDao.getDogsFromQuery(propertyType, query);
 
 		return dogRecords;
@@ -51,7 +54,7 @@ public class RecordRetrievalService {
 	 *         (eg. Name, Breed, City or etc.) otherwise return false
 	 */
 	private boolean propertyTypeIsValid(String propertyType) {
-		return propertyType.equals("Name") && !propertyType.equals("Condition") && !propertyType.equals("Sex") && !propertyType.equals("Breed")
-				&& !propertyType.equals("Color") && !propertyType.equals("City");
+		return propertyType.equals("Name") || propertyType.equals("Condition") || propertyType.equals("Sex") || propertyType.equals("Breed")
+				|| propertyType.equals("Color") || propertyType.equals("City");
 	}
 }
