@@ -12,8 +12,6 @@ import org.junit.runner.RunWith;
 
 import dataaccess.DogDao;
 import model.Dog;
-import mockit.*;
-import mockit.integration.junit4.JMockit;
 
 public class RecordRetrievalServiceTest {
 
@@ -22,11 +20,9 @@ public class RecordRetrievalServiceTest {
 	public final String NON_EXISTENT_PROPERTY_VALUE = "5";
 
 	public RecordRetrievalService recordService;
-	@Mocked private DogDao mockedDao = null;
 	@Before
 	public void prepareTests() {
 		recordService = new RecordRetrievalService();
-		mockedDao = recordService.dogDao;
 	}
 
 	/*
@@ -58,11 +54,7 @@ public class RecordRetrievalServiceTest {
 	 */
 //	@Test
 //	public void queryDogRecordsNonExistentNameTest() {
-//		new Expectations(){{
-//				mockedDao.getDogsFromQuery("Name", NON_EXISTENT_DOG_NAME); result = new HashSet<Dog>(); 
-//		}};
-//		Set<Dog> dogRecords = recordService.queryDogRecords("Name", NON_EXISTENT_DOG_NAME);
-//		assertTrue(dogRecords.isEmpty());
+//		DogDao dogDao = mock(DogDao.class);
 //	}
 
 	/*

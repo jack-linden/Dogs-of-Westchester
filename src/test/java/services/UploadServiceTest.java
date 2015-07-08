@@ -11,8 +11,6 @@ import org.junit.runner.RunWith;
 
 import dataaccess.DogDao;
 import dataaccess.DogDaoImpl;
-import mockit.*;
-import mockit.integration.junit4.*;
 
 public class UploadServiceTest {
 	
