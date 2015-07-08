@@ -9,13 +9,15 @@ import model.Dog;
 
 public class RecordRetrievalService {
 
-	public DogDao dogDao = new DogDaoImpl();
-
+	private DogDaoImpl dogDao;
 	/**
 	 * Class constructor.
 	 */
 	public RecordRetrievalService() {
-
+		setDogDao(new DogDaoImpl());
+	}
+	public void setDogDao(DogDaoImpl dogDao){
+		this.dogDao = dogDao;
 	}
 
 	/**
