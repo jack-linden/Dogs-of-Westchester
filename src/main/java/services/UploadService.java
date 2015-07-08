@@ -39,7 +39,7 @@ public class UploadService extends HttpServlet {
 	 * excel template for formatting.
 	 * 
 	 * @param fileContents
-	 *            The content of the data file to upload	
+	 *            The content of the data file to upload
 	 * @throws IOException
 	 */
 	public byte[] uploadCSV(byte[] fileContents) throws IOException {

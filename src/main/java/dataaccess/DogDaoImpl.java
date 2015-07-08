@@ -41,12 +41,10 @@ public class DogDaoImpl implements DogDao {
 
 	public String insertDog(Dog dog) {
 		Entity dogEntity = createDogEntity(dog);
-
 		return dataStoreService.put(dogEntity).toString();
 	}
 
 	private Entity createDogEntity(Dog dog) {
-
 		Entity dogEntity = new Entity("Dog");
 		dogEntity.setProperty("City", dog.getLocation());
 		dogEntity.setProperty("Name", dog.getName());
