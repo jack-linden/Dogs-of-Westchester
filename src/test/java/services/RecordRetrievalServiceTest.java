@@ -81,7 +81,7 @@ public class RecordRetrievalServiceTest {
 	/*
 	 * This tests the queryDogRecords() method. 
 	 * It queries the database with a valid unknown location value
-	 * and expects to get a set of dogs that matches the query
+	 * and expects to get a set of dogs that contains the query
 	 */
 	@Test
 	public void queryDogRecordsUnknownLocationTest() {			
@@ -98,7 +98,7 @@ public class RecordRetrievalServiceTest {
 	/*
 	 * This tests the queryDogRecords() method. 
 	 * It queries the database with a valid name value
-	 * and expects to get a set of dogs that matches the query
+	 * and expects to get a set of dogs that contains the query
 	 */
 	@Test
 	public void queryDogRecordsNameTest() {			
@@ -115,7 +115,7 @@ public class RecordRetrievalServiceTest {
 	/*
 	 * This tests the queryDogRecords() method. 
 	 * It queries the database with a valid breed value
-	 * and expects to get a set of dogs that matches the query
+	 * and expects to get a set of dogs that contains the query
 	 */
 	@Test
 	public void queryDogRecordsBreedTest() {			

@@ -14,39 +14,38 @@ import dataaccess.DogDaoImpl;
 
 public class UploadServiceTest {
 	
-//	public UploadService uploadService;	
-//	@Mocked private DogDao mockedDogDao = null;    
-//	//public final String NON_EXISTENT_FILE = "NON_EXISTENT_FILE.lol";
-//
-//	@Before
-//	public void prepareTests() {
-//		uploadService = UploadService.getInstance();	
-//		mockedDogDao = new DogDaoImpl();
-//	}
-//
-//	/*	 
-//	 * This tests the uploadCSV method will throw an illegal argument exception
-//	 * if a null is passed
-//	 */
-//	@Test(expected = IllegalArgumentException.class)
-//	public void nullParameterFilenameTest() throws IOException {
-//		uploadService.uploadCSV(null);
-//	}
+	public UploadService uploadService;	
+	private DogDao mockedDogDao = null;    
+	//public final String NON_EXISTENT_FILE = "NON_EXISTENT_FILE.lol";
+
+	@Before
+	public void prepareTests() {
+		uploadService = UploadService.getInstance();	
+		mockedDogDao = new DogDaoImpl();
+	}
 
 //	/*	 
-//	 * This tests that the uploadCSV method will throw a file not found exception if
-//	 * the file does not exist
+//	 * This tests the uploadCSV method will throw an illegal argument exception
+//	 * if a null byte array is passed
 //	 */
-//	@Test(expected = FileNotFoundException.class)
-//	public void nonExistentFileTest() throws IOException {
-//		uploadService.uploadCSV(NON_EXISTENT_FILE);
-//	}
-//
-//		
+	@Test(expected = IllegalArgumentException.class)
+	public void nullParameterFilenameTest() throws IOException {
+		uploadService.uploadCSV(null);
+	}
+
 //	/*	 
-//	 * This tests that the uploadCSV method can parse a well formatted csv file
-//	 * correctly Expects an array of dog info
+//	 * This tests that the uploadCSV method will throw an illegal argument exception if
+//	 * the file contents are empty
 //	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void nonExistentFileTest() throws IOException {
+		uploadService.uploadCSV(new byte[0]);
+	}
+		
+////	/*	 
+////	 * This tests that the uploadCSV method can parse a well formatted csv file
+////	 * correctly Expects an array of dog info
+////	 */
 //	@Test
 //	public void wellFormattedCSVFileTest() throws IOException {
 //		String s = 
@@ -56,10 +55,10 @@ public class UploadServiceTest {
 //		assertArrayEquals(expected, uploadService.mockDB.toArray());
 //	}
 //
-//	/*	
-//	 * This tests that the uploadCSV method will ignore the lines that are not
-//	 * well-formated in the csv file Expects an array of dog info
-//	 */
+////	/*	
+////	 * This tests that the uploadCSV method will ignore the lines that are not
+////	 * well-formated in the csv file Expects an array of dog info
+////	 */
 //	@Test
 //	public void badlyFormattedCSVFileTest() throws IOException {
 //		uploadService.uploadCSV("White_Plains_bad.csv", true);
