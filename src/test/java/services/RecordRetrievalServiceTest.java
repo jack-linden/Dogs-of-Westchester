@@ -5,69 +5,79 @@ import static org.junit.Assert.fail;
 
 import java.util.Set;
 
-import model.Dog;
-
 import org.junit.Before;
 import org.junit.Test;
 
+import model.Dog;
+
+import mockit.*;
+
 public class RecordRetrievalServiceTest {
 
-	public final String NON_EXISTENT_DOG_NAME = "LD@()";	
+	public final String NON_EXISTENT_DOG_NAME = "LD@()";
 	public final String NON_EXISTENT_PROPERTY_TYPE = "Age";
 	public final String NON_EXISTENT_PROPERTY_VALUE = "5";
-	
-	public RecordRetrievalService recordService;
 
+	public RecordRetrievalService recordService;
+	@Mocked private Dog mockedDog = null;   
 	@Before
 	public void prepareTests() {
 		recordService = new RecordRetrievalService();
+		mockedDog = new Dog();
 	}
 
 	/*
-	 * TC1.queryDogRecords
-	 * 
-	 * This test queries the database with a null argument for property type Breed and
-	 * expects an IllegalArgumentException to be thrown.
+	 * This tests the queryDogRecords() method. 
+	 * It queries the database with a null argument for property type Breed 
+	 * and expects an IllegalArgumentException to be thrown.
 	 */
 	@Test
 	public void queryDogRecordsNullParameterTest() {
-		try{
-			recordService.queryDogRecords("Breed", null, true);
+		try {
+			recordService.queryDogRecords("Breed", null);
 			fail("Expected an IllegalArgumentException");
-		}
-		catch (IllegalArgumentException e){
+		} catch (IllegalArgumentException e) {
 			assertTrue(true);
 		}
-		
-		try{
-			recordService.queryDogRecords(null, "Lucy", true);
+
+		try {
+			recordService.queryDogRecords(null, "Lucy");
 			fail("Expected an IllegalArgumentException");
-		}
-		catch (IllegalArgumentException e){
+		} catch (IllegalArgumentException e) {
 			assertTrue(true);
-		}				
+		}
 	}
 
-	/*
-	 * TC2.queryDogRecords
-	 * 
-	 * This test queries the database with a non-existent argument for property type Name and 
-	 * expects to receive an empty list of dog records.
+	/*	 
+	 * This tests the queryDogRecords() method. 
+	 * It queries the database with a non-existent argument for property type Name
+	 * and expects to receive an empty list of dog records.
 	 */
 	@Test
 	public void queryDogRecordsNonExistentNameTest() {
-		Set<Dog> dogRecords = recordService.queryDogRecords("Name", NON_EXISTENT_DOG_NAME, true);
+		Set<Dog> dogRecords = recordService.queryDogRecords("Name", NON_EXISTENT_DOG_NAME);
 		assertTrue(dogRecords.isEmpty());
 	}
-	
+
 	/*
-	 * TC3.queryDogRecords
-	 * 
-	 * This test queries the database with a non-existent property type and 
-	 * expects an IllegalArgumentException to be thrown.
+	 * This tests the queryDogRecords() method. 
+	 * It queries the database with a non-existent property type 
+	 * and expects an IllegalArgumentException to be thrown.
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void queryDogRecordsNonExistentPropertyTypeTest() {
-		recordService.queryDogRecords(NON_EXISTENT_PROPERTY_TYPE, NON_EXISTENT_PROPERTY_VALUE, true);		
+		recordService.queryDogRecords(NON_EXISTENT_PROPERTY_TYPE, NON_EXISTENT_PROPERTY_VALUE);
+	}
+	
+	/*
+	 * This tests the queryDogRecords() method. 
+	 * It queries the database with a valid location value
+	 * and expects to get a set of dogs that matches the query
+	 */
+	@Test
+	public void queryDogRecordsLocationTest() {			
+		mockedDog.setLocation("UNKNOWN");
+		mockedDog.setIdNumber("0000000000000001");		
+		assertTrue(recordService.queryDogRecords("Location", "UNKNOWN").contains(mockedDog));
 	}
 }
