@@ -2,7 +2,9 @@ package services;
 
 import java.util.Set;
 import java.util.HashSet;
-import dataaccess.DogDAO;
+
+import dataaccess.DogDao;
+import dataaccess.DogDaoImpl;
 import model.Dog;
 
 public class RecordRetrievalService {
@@ -35,10 +37,11 @@ public class RecordRetrievalService {
 		}
 
 		Set<Dog> dogRecords = new HashSet<Dog>();
-		query = query.toLowerCase();
+		query = query.toUpperCase();
 		
+		DogDao dogDao = new DogDaoImpl();
 		if (!inTestingMode) {
-			dogRecords = DogDAO.getDogsFromQuery(propertyType, query);			
+			dogRecords = dogDao.getDogsFromQuery(propertyType, query);
 		}
 		
 		

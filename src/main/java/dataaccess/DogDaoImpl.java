@@ -13,16 +13,17 @@ import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 
-public class DogDAO {	
-	public static Set<Dog> getDogsFromQuery(String propertyType, String query){
+public class DogDaoImpl implements DogDao {
+	private DatastoreService dataStoreService = DatastoreServiceFactory.getDatastoreService();
+
+	public Set<Dog> getDogsFromQuery(String propertyType, String query) {
 		Set<Dog> dogRecords = new HashSet<Dog>();
-		query = query.toLowerCase();
-		
-		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();			
+		query = query.toUpperCase();
+
 		Filter dogNameFilter = new FilterPredicate(propertyType, FilterOperator.EQUAL, query);
 		Query q = new Query("Dog").setFilter(dogNameFilter);
-		PreparedQuery pq = datastore.prepare(q);
-		
+		PreparedQuery pq = dataStoreService.prepare(q);
+
 		for (Entity result : pq.asIterable()) {
 			Dog dog = new Dog();
 			dog.setName((String) result.getProperty("Name"));
@@ -33,7 +34,25 @@ public class DogDAO {
 			dog.setLocation((String) result.getProperty("City"));
 			dogRecords.add(dog);
 		}
-		
-		return dogRecords;		
+
+		return dogRecords;
+	}
+
+	public String insertDog(Dog dog) {
+		Entity dogEntity = createDogEntity(dog);
+
+		return dataStoreService.put(dogEntity).toString();
+	}
+
+	private Entity createDogEntity(Dog dog) {
+
+		Entity dogEntity = new Entity("Dog");
+		dogEntity.setProperty("City", dog.getLocation());
+		dogEntity.setProperty("Name", dog.getName());
+		dogEntity.setProperty("Condition", dog.getCondition());
+		dogEntity.setProperty("Sex", dog.getSex());
+		dogEntity.setProperty("Breed", dog.getBreed());
+		dogEntity.setProperty("Color", dog.getColor());
+		return dogEntity;
 	}
 }
