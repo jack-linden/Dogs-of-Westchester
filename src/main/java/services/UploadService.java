@@ -13,6 +13,7 @@ import dataaccess.DogDaoImpl;
 import model.Dog;
 
 public class UploadService extends HttpServlet {
+	private final int IDNUMBERLENGTH = 16;	
 
 	private static UploadService _instance = null;
 
@@ -120,7 +121,7 @@ public class UploadService extends HttpServlet {
 	 * @return true if idNumber is 16-digit long, otherwise return false
 	 */
 	private boolean validIdExists(String idNumber) {
-		return idNumber.length() == 16;
+		return idNumber.matches("[0-9]+") && idNumber.length() == IDNUMBERLENGTH;		 
 	}
 
 	/**

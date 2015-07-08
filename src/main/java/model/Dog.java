@@ -10,6 +10,10 @@ public class Dog {
 	private String color;
 	private String location;
 
+	private final int IDNUMBERLENGTH = 16;
+	private final String DEFAULTIDNUMBER = "0000000000000000";
+	private final String DEFAULTSEX = "UNKNOWN";
+	
 	/**
 	 * Class constructor.
 	 */
@@ -50,7 +54,10 @@ public class Dog {
 	}
 
 	public void setIdNumber(String idNumber) {
-		this.idNumber = idNumber;
+		if (idNumber.matches("[0-9]+") && idNumber.length() == IDNUMBERLENGTH)			
+			this.idNumber = idNumber;	
+		else
+			this.idNumber = DEFAULTIDNUMBER;
 	}
 
 	/**
@@ -83,7 +90,10 @@ public class Dog {
 	}
 
 	public void setSex(String sex) {
-		this.sex = sex;
+		if (sex.equalsIgnoreCase("male") || sex.equalsIgnoreCase("female") || sex.equalsIgnoreCase("unknown"))
+			this.sex = sex;
+		else
+			this.sex = DEFAULTSEX;
 	}
 
 	/**
