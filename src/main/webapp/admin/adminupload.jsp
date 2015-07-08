@@ -5,7 +5,7 @@
 <html>
 <jsp:include page="/header.jsp" />
 
-<body
+<body>
 
 <% BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService(); %>
 	<form action="<%= blobstoreService.createUploadUrl("/admin/upload") %>" method="post" enctype="multipart/form-data">
