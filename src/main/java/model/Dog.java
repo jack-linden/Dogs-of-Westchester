@@ -9,11 +9,11 @@ public class Dog {
 	private String breed;
 	private String color;
 	private String location;
-		
-	public Dog() {		
-	
+
+	public Dog() {
+
 	}
-	
+
 	public Dog(String idNumber, String name, String condition, String sex, String breed, String color, String location) {
 		this.setIdNumber(idNumber);
 		this.setName(name);
@@ -23,10 +23,10 @@ public class Dog {
 		this.setColor(color);
 		this.setLocation(location);
 	}
-		
+
 	/*
 	 * Getters and Setters for DogRecord fields.
-	 */		
+	 */
 	public String getIdNumber() {
 		return idNumber;
 	}
@@ -81,14 +81,15 @@ public class Dog {
 
 	public void setLocation(String location) {
 		this.location = location;
-	}	
+	}
 
-	
 	/*
 	 * Override the equals() method
 	 */
 	public boolean equals(Dog other) {
-       if (this.idNumber.equals(other.idNumber)) return true;
-       else return false;
-    }
+		if (this.idNumber.equals(other.idNumber))
+			return true;
+		else
+			return false;
+	}
 }

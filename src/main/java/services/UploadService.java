@@ -2,26 +2,19 @@ package services;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
+import dataaccess.DogDao;
+import dataaccess.DogDaoImpl;
+import model.Dog;
 
 public class UploadService extends HttpServlet {
 
 	private static UploadService _instance = null;
-	private DatastoreService datastore;
 
 	protected UploadService() {
 
@@ -58,7 +51,7 @@ public class UploadService extends HttpServlet {
 		}
 
 		InputStream is = new ByteArrayInputStream(fileContents);
-		datastore = DatastoreServiceFactory.getDatastoreService();
+		DogDao dogDao = new DogDaoImpl();
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(is));
 		String firstLine = in.readLine();
@@ -68,17 +61,19 @@ public class UploadService extends HttpServlet {
 		StringBuilder sb = new StringBuilder();
 		for (String line = in.readLine(); line != null; line = in.readLine()) {
 			String[] tokens = prepareTokens(line.toUpperCase().split(","));
-			
-			String dogname = tokens[0];
-			String condition = tokens[1];
-			String sex = tokens[2];
-			String breed = tokens[3];
-			String color = tokens[4];
+
+			Dog dog = new Dog();
+			dog.setLocation(cityName);
+			dog.setName(tokens[0]);
+			dog.setCondition(tokens[1]);
+			dog.setSex(tokens[2]);
+			dog.setBreed(tokens[3]);
+			dog.setColor(tokens[4]);
 			String idNumber = tokens[5];
 			String newCSVLine = line;
-			
+
 			if (!validIdExists(idNumber)) {
-				String newIdNumber = datastore.put(createDogEntity(cityName, dogname, condition, sex, breed, color)).toString();
+				String newIdNumber = dogDao.insertDog(dog);
 				newCSVLine = appendDogIdToCSVLine(line, newIdNumber);
 			}
 			sb.append(newCSVLine);
@@ -88,21 +83,20 @@ public class UploadService extends HttpServlet {
 	}
 
 	private String[] prepareTokens(String[] tokens) {
-		String [] newTokens = new String[6];
+		String[] newTokens = new String[6];
 		for (int i = 0; i < newTokens.length - 1; i++) {
-			if ( tokens[i].equals("")) {
+			if (tokens[i].equals("")) {
 				newTokens[i] = "UNKNOWN";
 			}
 		}
-		if(tokens.length == 6){
-			if(tokens[5].equals("")){
+		if (tokens.length == 6) {
+			if (tokens[5].equals("")) {
 				newTokens[5] = "UKNOWN";
-			}
-			else{
+			} else {
 				newTokens[5] = tokens[5];
 			}
 		}
-			
+
 		return newTokens;
 	}
 
@@ -116,19 +110,6 @@ public class UploadService extends HttpServlet {
 		sb.append(idNumber);
 		return sb.toString();
 
-	}
-
-	private Entity createDogEntity(String cityName, String dogname, String condition, String sex, String breed, String color) {
-		Entity dog = new Entity("Dog");
-
-		dog.setProperty("City", cityName);
-		dog.setProperty("Name", dogname);
-		dog.setProperty("Condition", condition);
-		dog.setProperty("Sex", sex);
-		dog.setProperty("Breed", breed);
-		dog.setProperty("Color", color);
-
-		return dog;
 	}
 
 	/**

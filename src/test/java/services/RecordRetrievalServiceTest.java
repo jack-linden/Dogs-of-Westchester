@@ -5,10 +5,10 @@ import static org.junit.Assert.fail;
 
 import java.util.Set;
 
-import model.Dog;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import model.Dog;
 
 public class RecordRetrievalServiceTest {
 
