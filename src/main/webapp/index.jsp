@@ -1,33 +1,7 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Dogs of Westchester</title>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-	<script src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
-	<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
-  	
-  </head>
-  <style>
-	  body {
-	    margin-top: 100px;
-	    margin-bottom: 100px;
-	    margin-right: 150px;
-	    margin-left: 50px;  	
-	  }
-  </style>
-  
-  <body>
-	<div class="page-header">
-	  <h1>Dogs of Westchester<small>	Searchable database and mapping tool</small></h1>
-	  <a href="/admin">Admin Login</a>
-	
-	</div>
-	
+
+<html>  
+<jsp:include page="header.jsp" />
+  <body>	
 	<div class="form-group" id="search-bar">
 		<div class="row">
   			<div class="col-lg-6">
