@@ -1,7 +1,9 @@
 package model;
 
-import static org.junit.Assert.*;
-import org.junit.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
+import org.junit.Test;
 
 public class DogTest {
 	
