@@ -46,6 +46,6 @@ public class UploadServlet extends HttpServlet {
 	}
 
 	private boolean blobExists(HttpServletRequest req) {
-		return blobstoreService.getBlobInfos(req).isEmpty();
+		return !blobstoreService.getBlobInfos(req).isEmpty();
 	}
 }

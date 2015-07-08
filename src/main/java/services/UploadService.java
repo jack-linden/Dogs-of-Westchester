@@ -100,6 +100,8 @@ public class UploadService extends HttpServlet {
 		for (int i = 0; i < newTokens.length - 1; i++) {
 			if (tokens[i].equals("")) {
 				newTokens[i] = "UNKNOWN";
+			} else{
+				newTokens[i] = tokens[i];
 			}
 		}
 		if (tokens.length == 6) {

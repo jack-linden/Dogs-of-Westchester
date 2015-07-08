@@ -4,12 +4,12 @@ public class DogDaoImplTest {
 	/**
 	 * This tests the getDogsFromQuery() methods
 	 */
-	@Test
+	//@Test
 	
 	
 	/**
 	 * This tests the getDogsFromQuery() methods
 	 */
-	@Test
+	//@Test
 	
 }

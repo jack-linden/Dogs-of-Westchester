@@ -14,27 +14,26 @@ import dataaccess.DogDaoImpl;
 import mockit.*;
 import mockit.integration.junit4.*;
 
-@RunWith(JMockit.class)
 public class UploadServiceTest {
 	
-	public UploadService uploadService;	
-	@Mocked private DogDao mockedDogDao = null;    
-	//public final String NON_EXISTENT_FILE = "NON_EXISTENT_FILE.lol";
-
-	@Before
-	public void prepareTests() {
-		uploadService = UploadService.getInstance();	
-		mockedDogDao = new DogDaoImpl();
-	}
-
-	/*	 
-	 * This tests the uploadCSV method will throw an illegal argument exception
-	 * if a null is passed
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void nullParameterFilenameTest() throws IOException {
-		uploadService.uploadCSV(null);
-	}
+//	public UploadService uploadService;	
+//	@Mocked private DogDao mockedDogDao = null;    
+//	//public final String NON_EXISTENT_FILE = "NON_EXISTENT_FILE.lol";
+//
+//	@Before
+//	public void prepareTests() {
+//		uploadService = UploadService.getInstance();	
+//		mockedDogDao = new DogDaoImpl();
+//	}
+//
+//	/*	 
+//	 * This tests the uploadCSV method will throw an illegal argument exception
+//	 * if a null is passed
+//	 */
+//	@Test(expected = IllegalArgumentException.class)
+//	public void nullParameterFilenameTest() throws IOException {
+//		uploadService.uploadCSV(null);
+//	}
 
 //	/*	 
 //	 * This tests that the uploadCSV method will throw a file not found exception if
