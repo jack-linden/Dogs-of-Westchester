@@ -21,10 +21,10 @@ public class DogDaoImpl implements DogDao {
 	 * The method searches the database based on the user-specified query
 	 * 
 	 * @param propertyType
-	 *            The property of the dog to search for (e.g. Name, Breed,  City) 
+	 *            The property of the dog to search for (e.g. Name, Breed, City)
 	 * @param query
-	 *            The query user typed in the search bar            
-	 * @return a set of unique dogs that match the query	 	 
+	 *            The query user typed in the search bar
+	 * @return a set of unique dogs that match the query
 	 */
 	public Set<Dog> getDogsFromQuery(String propertyType, String query) {
 		Set<Dog> dogRecords = new HashSet<Dog>();
@@ -53,9 +53,8 @@ public class DogDaoImpl implements DogDao {
 	 * 
 	 * @param dog
 	 *            The Dog object that contains the dog information
-	 * @return 
-	 * 			  the idNumber of the dog stored in the database
-	 * 		    
+	 * @return the idNumber of the dog stored in the database
+	 * 
 	 */
 	public String insertDog(Dog dog) {
 		Entity dogEntity = createDogEntity(dog);
@@ -63,13 +62,12 @@ public class DogDaoImpl implements DogDao {
 	}
 
 	/**
-	 * This is a helper method that extracts the fields in the Dog object 
-	 * and creates a new Entity before inserting it to the database 	
-	 *  
+	 * This is a helper method that extracts the fields in the Dog object and
+	 * creates a new Entity before inserting it to the database
+	 * 
 	 * @param dog
 	 *            The Dog object that contains the dog information
-	 * @return
-	 * 	          An new dog Entity that is ready to be inserted to the database	 
+	 * @return An new dog Entity that is ready to be inserted to the database
 	 */
 	private Entity createDogEntity(Dog dog) {
 		Entity dogEntity = new Entity("Dog");
