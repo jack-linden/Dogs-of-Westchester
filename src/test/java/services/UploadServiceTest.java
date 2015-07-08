@@ -16,6 +16,7 @@ import mockit.integration.junit4.*;
 
 @RunWith(JMockit.class)
 public class UploadServiceTest {
+	
 	public UploadService uploadService;	
 	@Mocked private DogDao mockedDogDao = null;    
 	//public final String NON_EXISTENT_FILE = "NON_EXISTENT_FILE.lol";
@@ -26,10 +27,8 @@ public class UploadServiceTest {
 		mockedDogDao = new DogDaoImpl();
 	}
 
-	/*
-	 * TC1.nullParameterFilenameTest
-	 * 
-	 * Tests that the uploadCSV method will throw an illegal argument exception
+	/*	 
+	 * This tests the uploadCSV method will throw an illegal argument exception
 	 * if a null is passed
 	 */
 	@Test(expected = IllegalArgumentException.class)
@@ -37,10 +36,8 @@ public class UploadServiceTest {
 		uploadService.uploadCSV(null);
 	}
 
-//	/*
-//	 * TC2.nonExistentFileTest
-//	 * 
-//	 * Tests that the uploadCSV method will throw a file not found exception if
+//	/*	 
+//	 * This tests that the uploadCSV method will throw a file not found exception if
 //	 * the file does not exist
 //	 */
 //	@Test(expected = FileNotFoundException.class)
@@ -49,10 +46,8 @@ public class UploadServiceTest {
 //	}
 //
 //		
-//	/*
-//	 * TC3.parseWellFormattedCSV
-//	 * 
-//	 * Tests that the uploadCSV method can parse a well formatted csv file
+//	/*	 
+//	 * This tests that the uploadCSV method can parse a well formatted csv file
 //	 * correctly Expects an array of dog info
 //	 */
 //	@Test
@@ -64,10 +59,8 @@ public class UploadServiceTest {
 //		assertArrayEquals(expected, uploadService.mockDB.toArray());
 //	}
 //
-//	/*
-//	 * TC4.parseBadlyFormattedCSV
-//	 * 
-//	 * Tests that the uploadCSV method will ignore the lines that are not
+//	/*	
+//	 * This tests that the uploadCSV method will ignore the lines that are not
 //	 * well-formated in the csv file Expects an array of dog info
 //	 */
 //	@Test

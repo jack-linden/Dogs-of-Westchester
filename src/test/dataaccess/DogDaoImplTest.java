@@ -2,13 +2,13 @@ package test;
 
 public class DogDaoImplTest {
 	/**
-	 * TC1.getDogsFromQuery
+	 * This tests the getDogsFromQuery() methods
 	 */
 	@Test
 	
 	
 	/**
-	 * TC2.getDogsFromQuery
+	 * This tests the getDogsFromQuery() methods
 	 */
 	@Test
 	
