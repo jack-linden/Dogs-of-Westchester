@@ -66,7 +66,8 @@ public class UploadService extends HttpServlet {
 			if( tokens.length != 6){
 				continue;
 			}
-			Dog dog = new Dog();
+			Dog dog = new Dog();			
+			dog.setLocation(cityName);
 			dog.setName(tokens[0]);
 			dog.setCondition(tokens[1]);
 			dog.setSex(tokens[2]);
