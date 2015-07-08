@@ -1,14 +1,17 @@
 package services;
 
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.io.FileNotFoundException;
+
+import model.Dog;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static org.easymock.EasyMock.*;
 import dataaccess.DogDao;
 import dataaccess.DogDaoImpl;
 
@@ -24,45 +27,36 @@ public class UploadServiceTest {
 		mockedDogDao = new DogDaoImpl();
 	}
 
-//	/*	 
-//	 * This tests the uploadCSV method will throw an illegal argument exception
-//	 * if a null byte array is passed
-//	 */
+	/*	 
+	 * This tests the uploadCSV method will throw an illegal argument exception
+	 * if a null byte array is passed
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void nullParameterFilenameTest() throws IOException {
 		uploadService.uploadCSV(null);
 	}
 
-//	/*	 
-//	 * This tests that the uploadCSV method will throw an illegal argument exception if
-//	 * the file contents are empty
-//	 */
+	/*	 
+	 * This tests that the uploadCSV method will throw an illegal argument exception if
+	 * the file contents are empty
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void nonExistentFileTest() throws IOException {
 		uploadService.uploadCSV(new byte[0]);
 	}
 		
-////	/*	 
-////	 * This tests that the uploadCSV method can parse a well formatted csv file
-////	 * correctly Expects an array of dog info
-////	 */
-//	@Test
-//	public void wellFormattedCSVFileTest() throws IOException {
-//		String s = 
-//		uploadService.uploadCSV("White_Plains.csv");
-//		String[] expected = {"WHITE PLAINS", "DUKE", "ALTERED", "MALE", "GREAT DANE", "BLACK", "WHITE PLAINS", "RICO", "INTACT", "MALE", "CHIHUAHUA",
-//				"GREY/BLUEMERLE", "WHITE PLAINS", "LUCKY", "ALTERED", "MALE", "BOSTON TERRIER", "RED AND WHITE"};
-//		assertArrayEquals(expected, uploadService.mockDB.toArray());
-//	}
-//
-////	/*	
-////	 * This tests that the uploadCSV method will ignore the lines that are not
-////	 * well-formated in the csv file Expects an array of dog info
-////	 */
-//	@Test
-//	public void badlyFormattedCSVFileTest() throws IOException {
-//		uploadService.uploadCSV("White_Plains_bad.csv", true);
-//		String[] expected = {"WHITE PLAINS", "LUCKY", "ALTERED", "MALE", "BOSTON TERRIER", "RED AND WHITE"};
-//		assertArrayEquals(expected, uploadService.mockDB.toArray());
-//	}
+	/*	 
+	 * This tests that the uploadCSV method can parse a well formatted csv file
+	 * correctly Expects an array of dog info
+	 */
+	@Test
+	public void wellFormattedCSVFileTest() throws IOException {			
+		String expected = "WHITE PLAINS,,,,,\nDUKE,ALTERED,MALE,GREAT DANE,BLACK,\n";
+		String newResult = "DUKE,ALTERED,MALE,GREAT DANE,BLACK,0000000000000001\n";
+		uploadService.uploadCSV(expected.getBytes());
+		DogDaoImpl mock = createMock(DogDaoImpl.class);
+		expect(mock.insertDog(new Dog("UNKNOWN", "DUKE", "ALTERED", "MALE", "GREAT DANE", "BLACK", "WHITE PLAINS"))).andReturn("0000000000000001");
+		byte[] returnedByteArr = uploadService.uploadCSV(expected.getBytes());
+		assertEquals(newResult.getBytes(), returnedByteArr);
+	}
 }
