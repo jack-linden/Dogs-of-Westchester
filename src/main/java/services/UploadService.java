@@ -16,13 +16,21 @@ public class UploadService extends HttpServlet {
 
 	private static UploadService _instance = null;
 
+	/**
+	 * Class constructor.
+	 * 
+	 */
 	protected UploadService() {
 
 	}
 
+	/**
+	 * Class constructor.
+	 * 
+	 * Used singleton pattern and lazy thread-safe implementation
+	 */
 	public static UploadService getInstance() {
 		if (_instance == null) {
-			// Lazy threadsafe implementation
 			synchronized (UploadService.class) {
 				if (_instance == null) {
 					_instance = new UploadService();
@@ -33,8 +41,6 @@ public class UploadService extends HttpServlet {
 	}
 
 	/**
-	 * UploadService.uploadCSV
-	 * 
 	 * This function will upload a CSV file to google's datastore. Refer to
 	 * excel template for formatting.
 	 * 
@@ -80,6 +86,14 @@ public class UploadService extends HttpServlet {
 		return sb.toString().getBytes();
 	}
 
+	/**
+	 * This is a helper method that changes all the empty data fields of a dog
+	 * to be "UNKNOWN"
+	 * 
+	 * @param tokens
+	 *            a list of dog properties (eg. Name, Sex, Color)
+	 * @return a list of non-empty string tokens
+	 */
 	private String[] prepareTokens(String[] tokens) {
 		String[] newTokens = new String[6];
 		for (int i = 0; i < newTokens.length - 1; i++) {
@@ -89,7 +103,7 @@ public class UploadService extends HttpServlet {
 		}
 		if (tokens.length == 6) {
 			if (tokens[5].equals("")) {
-				newTokens[5] = "UKNOWN";
+				newTokens[5] = "UNKNOWN";
 			} else {
 				newTokens[5] = tokens[5];
 			}
@@ -98,25 +112,40 @@ public class UploadService extends HttpServlet {
 		return newTokens;
 	}
 
+	/**
+	 * This is a helper method that checks the validity of the dog idNumber
+	 * 
+	 * @param idNumber
+	 *            the idNumber to be validated
+	 * @return true if idNumber is 16-digit long, otherwise return false
+	 */
 	private boolean validIdExists(String idNumber) {
 		return idNumber.length() == 16;
 	}
 
+	/**
+	 * This is a helper method that appends the idNumber of the dog returned by
+	 * the database to a CSV file
+	 * 
+	 * @param line
+	 *            the specific line that the idNumber should be appended to
+	 * @param idNumber
+	 *            the idNumber to be appended
+	 * @return String of dog data that now has the idNumber appended to the end
+	 */
 	private String appendDogIdToCSVLine(String line, String idNumber) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(line);
 		sb.append(idNumber);
 		return sb.toString();
-
 	}
 
 	/**
-	 * Parses first line of CSV file and returns the city name which is located
-	 * at cell 0.
+	 * This is a helper method that parses first line of CSV file and returns
+	 * the city name which is located at the first cell.
 	 * 
 	 * @param line
 	 * @return String of city name.
-	 * 
 	 */
 	private String getCityName(String line) {
 		return line.split(",")[0].toUpperCase();
