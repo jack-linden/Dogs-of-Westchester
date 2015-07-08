@@ -32,7 +32,7 @@ public class SearchServlet extends HttpServlet {
 
 		Set<Dog> dogs = new HashSet<Dog>();
 		for (String property : queryProperties) {
-			dogs.addAll(recordService.queryDogRecords(property, queryText, false));
+			dogs.addAll(recordService.queryDogRecords(property, queryText));
 		}
 
 		String jsonDogsString = gson.toJson(dogs);
