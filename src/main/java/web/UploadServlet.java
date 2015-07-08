@@ -30,7 +30,7 @@ public class UploadServlet extends HttpServlet {
 
 		BlobInfo blobInfo = getBlobInfo(req);
 		byte[] fileContents = blobstoreService.fetchData(blobInfo.getBlobKey(), 0, blobInfo.getSize());
-		byte[] newByteArray = uploadFileService.uploadCSV(blobInfo.getFilename(), fileContents);
+		byte[] newByteArray = uploadFileService.uploadCSV(fileContents);
 
 		res.setContentType("text/csv");
 		res.getOutputStream().write(newByteArray);

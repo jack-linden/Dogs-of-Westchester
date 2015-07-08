@@ -38,15 +38,13 @@ public class UploadService extends HttpServlet {
 	 * This function will upload a CSV file to google's datastore. Refer to
 	 * excel template for formatting.
 	 * 
-	 * @param filename
-	 *            The filename of the file to upload
-	 * @param inTestingMode
-	 *            Boolean flag true if for testing purposes
+	 * @param fileContents
+	 *            The content of the data file to upload
 	 * @throws IOException
 	 */
-	public byte[] uploadCSV(String filename, byte[] fileContents) throws IOException {
+	public byte[] uploadCSV(byte[] fileContents) throws IOException {
 
-		if (filename == null || fileContents == null || fileContents.length == 0) {
+		if (fileContents == null || fileContents.length == 0) {
 			throw new IllegalArgumentException("Did not expect a null filename argument or an empty/null byte array.");
 		}
 

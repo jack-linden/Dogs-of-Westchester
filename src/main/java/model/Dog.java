@@ -10,10 +10,16 @@ public class Dog {
 	private String color;
 	private String location;
 
+	/**
+	 * Class constructor.
+	 */
 	public Dog() {
 
 	}
 
+	/**
+	 * Class constructor specifying the properties of the dog.
+	 */
 	public Dog(String idNumber, String name, String condition, String sex, String breed, String color, String location) {
 		this.setIdNumber(idNumber);
 		this.setName(name);
@@ -24,8 +30,21 @@ public class Dog {
 		this.setLocation(location);
 	}
 
-	/*
-	 * Getters and Setters for DogRecord fields.
+	/**
+	 * Override the equals() method so that Dog objects are comparable.
+	 * 
+	 * @param other
+	 *           the other Dog object to be compared.
+	 * @return 
+	 *        true if two Dog objects have the same idNumber 
+	 *        false if two Dog objects have different idNumber	  	 
+	 */
+	public boolean equals(Dog other) {
+		return this.idNumber.equals(other.idNumber);
+	}
+
+	/**
+	 * Getter and Setter for the private field idNumber
 	 */
 	public String getIdNumber() {
 		return idNumber;
@@ -35,6 +54,9 @@ public class Dog {
 		this.idNumber = idNumber;
 	}
 
+	/**
+	 * Getter and Setter for the private field name
+	 */
 	public String getName() {
 		return name;
 	}
@@ -43,6 +65,9 @@ public class Dog {
 		this.name = name;
 	}
 
+	/**
+	 * Getter and Setter for the private field condition
+	 */
 	public String getCondition() {
 		return condition;
 	}
@@ -51,6 +76,9 @@ public class Dog {
 		this.condition = condition;
 	}
 
+	/**
+	 * Getter and Setter for the private field sex
+	 */
 	public String getSex() {
 		return sex;
 	}
@@ -59,6 +87,9 @@ public class Dog {
 		this.sex = sex;
 	}
 
+	/**
+	 * Getter and Setter for the private field breed
+	 */
 	public String getBreed() {
 		return breed;
 	}
@@ -67,6 +98,9 @@ public class Dog {
 		this.breed = breed;
 	}
 
+	/**
+	 * Getter and Setter for the private field color
+	 */
 	public String getColor() {
 		return color;
 	}
@@ -75,21 +109,14 @@ public class Dog {
 		this.color = color;
 	}
 
+	/**
+	 * Getter and Setter for the private field location
+	 */
 	public String getLocation() {
 		return location;
 	}
 
 	public void setLocation(String location) {
 		this.location = location;
-	}
-
-	/*
-	 * Override the equals() method
-	 */
-	public boolean equals(Dog other) {
-		if (this.idNumber.equals(other.idNumber))
-			return true;
-		else
-			return false;
 	}
 }
