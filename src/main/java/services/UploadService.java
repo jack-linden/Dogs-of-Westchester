@@ -68,9 +68,7 @@ public class UploadService extends HttpServlet {
 		StringBuilder sb = new StringBuilder();
 		for (String line = in.readLine(); line != null; line = in.readLine()) {
 			String[] tokens = prepareTokens(line.toUpperCase().split(","));
-			if( tokens.length != 6){
-				continue;
-			}
+			
 			String dogname = tokens[0];
 			String condition = tokens[1];
 			String sex = tokens[2];
@@ -90,13 +88,22 @@ public class UploadService extends HttpServlet {
 	}
 
 	private String[] prepareTokens(String[] tokens) {
-
-		for (int i = 0; i < tokens.length - 1; i++) {
+		String [] newTokens = new String[6];
+		for (int i = 0; i < newTokens.length - 1; i++) {
 			if ( tokens[i].equals("")) {
-				tokens[i] = "UNKNOWN";
+				newTokens[i] = "UNKNOWN";
 			}
 		}
-		return tokens;
+		if(tokens.length == 6){
+			if(tokens[5].equals("")){
+				newTokens[5] = "UKNOWN";
+			}
+			else{
+				newTokens[5] = tokens[5];
+			}
+		}
+			
+		return newTokens;
 	}
 
 	private boolean validIdExists(String idNumber) {
