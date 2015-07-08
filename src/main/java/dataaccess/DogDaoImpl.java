@@ -17,6 +17,15 @@ import model.Dog;
 public class DogDaoImpl implements DogDao {
 	private DatastoreService dataStoreService = DatastoreServiceFactory.getDatastoreService();
 
+	/**
+	 * The method searches the database based on the user-specified query
+	 * 
+	 * @param propertyType
+	 *            The property of the dog to search for (e.g. Name, Breed,  City) 
+	 * @param query
+	 *            The query user typed in the search bar            
+	 * @return a set of unique dogs that match the query	 	 
+	 */
 	public Set<Dog> getDogsFromQuery(String propertyType, String query) {
 		Set<Dog> dogRecords = new HashSet<Dog>();
 		query = query.toUpperCase();
@@ -39,11 +48,29 @@ public class DogDaoImpl implements DogDao {
 		return dogRecords;
 	}
 
+	/**
+	 * The method inserts new dog data into the database
+	 * 
+	 * @param dog
+	 *            The Dog object that contains the dog information
+	 * @return 
+	 * 			  the idNumber of the dog stored in the database
+	 * 		    
+	 */
 	public String insertDog(Dog dog) {
 		Entity dogEntity = createDogEntity(dog);
 		return dataStoreService.put(dogEntity).toString();
 	}
 
+	/**
+	 * This is a helper method that extracts the fields in the Dog object 
+	 * and creates a new Entity before inserting it to the database 	
+	 *  
+	 * @param dog
+	 *            The Dog object that contains the dog information
+	 * @return
+	 * 	          An new dog Entity that is ready to be inserted to the database	 
+	 */
 	private Entity createDogEntity(Dog dog) {
 		Entity dogEntity = new Entity("Dog");
 		dogEntity.setProperty("City", dog.getLocation());
