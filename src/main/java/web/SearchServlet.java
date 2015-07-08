@@ -20,6 +20,9 @@ public class SearchServlet extends HttpServlet {
 
 	public final Gson gson = new Gson();
 
+	/**
+	 * The method handles the search request from the website
+	 */
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		resp.setContentType("application/json");
@@ -37,8 +40,6 @@ public class SearchServlet extends HttpServlet {
 
 		String jsonDogsString = gson.toJson(dogs);
 		resp.getWriter().print("{ \"query\": \"" + dogs.size() + "\", \"dogs\": " + jsonDogsString + " }");
-		;
 		resp.getWriter().flush();
 	}
-
 }

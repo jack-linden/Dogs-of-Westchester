@@ -18,6 +18,9 @@ import services.UploadService;
 public class UploadServlet extends HttpServlet {
 	private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 
+	/**
+	 * The method handles the upload data request from the website
+	 */
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 

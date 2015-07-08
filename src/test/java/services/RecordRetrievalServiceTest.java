@@ -32,7 +32,7 @@ public class RecordRetrievalServiceTest {
 	@Test
 	public void queryDogRecordsNullParameterTest() {
 		try{
-			recordService.queryDogRecords("Breed", null, true);
+			recordService.queryDogRecords("Breed", null);
 			fail("Expected an IllegalArgumentException");
 		}
 		catch (IllegalArgumentException e){
@@ -40,7 +40,7 @@ public class RecordRetrievalServiceTest {
 		}
 		
 		try{
-			recordService.queryDogRecords(null, "Lucy", true);
+			recordService.queryDogRecords(null, "Lucy");
 			fail("Expected an IllegalArgumentException");
 		}
 		catch (IllegalArgumentException e){
@@ -56,7 +56,7 @@ public class RecordRetrievalServiceTest {
 	 */
 	@Test
 	public void queryDogRecordsNonExistentNameTest() {
-		Set<Dog> dogRecords = recordService.queryDogRecords("Name", NON_EXISTENT_DOG_NAME, true);
+		Set<Dog> dogRecords = recordService.queryDogRecords("Name", NON_EXISTENT_DOG_NAME);
 		assertTrue(dogRecords.isEmpty());
 	}
 	
@@ -68,6 +68,6 @@ public class RecordRetrievalServiceTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void queryDogRecordsNonExistentPropertyTypeTest() {
-		recordService.queryDogRecords(NON_EXISTENT_PROPERTY_TYPE, NON_EXISTENT_PROPERTY_VALUE, true);		
+		recordService.queryDogRecords(NON_EXISTENT_PROPERTY_TYPE, NON_EXISTENT_PROPERTY_VALUE);		
 	}
 }
