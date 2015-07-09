@@ -140,9 +140,9 @@ public class UploadServiceTest {
 	public void appendDogIdToCSVLineNullParameterTest() {
 		Class[] parameterTypes = { java.lang.String.class, java.lang.String.class };
 		Object[] parameters = { null, "0123456789123456" };
-		Method validIdExists = getPrivateMethod(UploadService.class, "appendDogIdToCSVLine", parameterTypes);
+		Method appendDogIdToCSVLine = getPrivateMethod(UploadService.class, "appendDogIdToCSVLine", parameterTypes);
 		try {
-			validIdExists.invoke(uploadService, parameters);
+			appendDogIdToCSVLine.invoke(uploadService, parameters);
 			fail();
 		} catch (Exception e) {
 			if (!(e.getCause() instanceof IllegalArgumentException)) {
@@ -152,7 +152,7 @@ public class UploadServiceTest {
 		}
 		Object[] parameters2 = { "CSVLINE,", null };
 		try {
-			validIdExists.invoke(uploadService, parameters2);
+			appendDogIdToCSVLine.invoke(uploadService, parameters2);
 			fail();
 		} catch (Exception e) {
 			if (!(e.getCause() instanceof IllegalArgumentException)) {
@@ -170,10 +170,10 @@ public class UploadServiceTest {
 	public void appendDogIdToCSVLineEmptyStringTest() {
 		Class[] parameterTypes = { java.lang.String.class, java.lang.String.class };
 		Object[] parameters = { "", "0123456789123456" };
-		Method validIdExists = getPrivateMethod(UploadService.class, "appendDogIdToCSVLine", parameterTypes);
+		Method appendDogIdToCSVLine = getPrivateMethod(UploadService.class, "appendDogIdToCSVLine", parameterTypes);
 
 		try {
-			validIdExists.invoke(uploadService, parameters);
+			appendDogIdToCSVLine.invoke(uploadService, parameters);
 			fail();
 		} catch (Exception e) {
 			if (!(e.getCause() instanceof IllegalArgumentException)) {
@@ -183,7 +183,7 @@ public class UploadServiceTest {
 		}
 		Object[] parameters2 = { "CSVLINE,", "" };
 		try {
-			validIdExists.invoke(uploadService, parameters2);
+			appendDogIdToCSVLine.invoke(uploadService, parameters2);
 			fail();
 		} catch (Exception e) {
 			if (!(e.getCause() instanceof IllegalArgumentException)) {
@@ -201,20 +201,77 @@ public class UploadServiceTest {
 	public void appendDogIdToCSVLineNormalTest() {
 		Class[] parameterTypes = { java.lang.String.class, java.lang.String.class };
 		Object[] parameters = { "CSVLINE,", "0123456789123456" };
-		Method validIdExists = getPrivateMethod(UploadService.class, "appendDogIdToCSVLine", parameterTypes);
+		Method appendDogIdToCSVLine = getPrivateMethod(UploadService.class, "appendDogIdToCSVLine", parameterTypes);
 		String expectedResult = "CSVLINE,0123456789123456";
 		try {
-			String result = (String)validIdExists.invoke(uploadService, parameters);
+			String result = (String) appendDogIdToCSVLine.invoke(uploadService, parameters);
 			assertEquals(expectedResult, result);
 		} catch (Exception e) {
 			fail();
 		}
-		
+
 	}
+
 	/*
-	 * This tests that the uploadCSV method can parse a well formatted csv file
-	 * correctly Expects an array of dog info
+	 * This tests that the private method getCityName will throw an
+	 * IllegalArgumentException if a null string is passed
 	 */
+	@Test
+	public void getCityNameNullParameterTest() {
+		Class[] parameterTypes = { java.lang.String.class };
+		Object[] parameters = { null };
+		Method getCityName = getPrivateMethod(UploadService.class, "getCityName", parameterTypes);
+		try {
+			getCityName.invoke(uploadService, parameters);
+			fail();
+		} catch (Exception e) {
+			if (!(e.getCause() instanceof IllegalArgumentException)) {
+				e.getCause().printStackTrace();
+				fail();
+			}
+		}
+	}
+
+	/*
+	 * This tests that the private method getCityName will thrown an
+	 * IllegalArgumentException if an empty string is passed.
+	 */
+	@Test
+	public void getCityNameEmptyStringTest() {
+		Class[] parameterTypes = { java.lang.String.class };
+		Object[] parameters = { "" };
+		Method getCityName = getPrivateMethod(UploadService.class, "getCityName", parameterTypes);
+		try {
+			getCityName.invoke(uploadService, parameters);
+			fail();
+		} catch (Exception e) {
+			if (!(e.getCause() instanceof IllegalArgumentException)) {
+				e.getCause().printStackTrace();
+				fail();
+			}
+		}
+
+	}
+
+	/*
+	 * This tests that the private method getCityName correctly parse the line
+	 * and return the city name
+	 */
+	@Test
+	public void getCityNameNormalTest() {
+		Class[] parameterTypes = { java.lang.String.class };
+		Object[] parameters = { "NEW YORK CITY,,,,," };
+		Method getCityName = getPrivateMethod(UploadService.class, "getCityName", parameterTypes);
+		String expectedCityName = "NEW YORK CITY";
+		try {
+			String returnedCityName = (String) getCityName.invoke(uploadService, parameters);
+			assertEquals(expectedCityName, returnedCityName);
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+
+	}
 	// @Test
 	// public void wellFormattedCSVFileTest() throws IOException {
 	// String expected =

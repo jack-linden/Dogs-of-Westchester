@@ -160,6 +160,9 @@ public class UploadService extends HttpServlet {
 	 * @return String of city name.
 	 */
 	private String getCityName(String line) {
+		if (line == null || line.length() == 0) {
+			throw new IllegalArgumentException("Did not expect line to be null or empty.");
+		}
 		return line.split(",")[0].toUpperCase();
 	}
 }
