@@ -7,23 +7,20 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
-import javax.servlet.http.HttpServlet;
-
+import model.Dog;
 import dataaccess.DogDao;
 import dataaccess.DogDaoImpl;
-import model.Dog;
 
-public class UploadService extends HttpServlet {
-	private final int IDNUMBERLENGTH = 16;
-
+public class UploadService {
+	private final int ID_NUMBER_LENGTH = 16;
 	private static UploadService _instance = null;
-
+	private DogDao dogDao = null;
 	/**
 	 * Class constructor.
 	 * 
 	 */
 	protected UploadService() {
-
+		setDogDao(new DogDaoImpl());
 	}
 
 	/**
@@ -43,6 +40,16 @@ public class UploadService extends HttpServlet {
 	}
 
 	/**
+	 * Class constructor.
+	 * 
+	 * Used singleton pattern and lazy thread-safe implementation
+	 */
+
+	public void setDogDao(DogDaoImpl dogDao) {
+		this.dogDao = dogDao;
+	}
+
+	/**
 	 * This function will upload a CSV file to google's datastore. Refer to
 	 * excel template for formatting.
 	 * 
@@ -57,14 +64,18 @@ public class UploadService extends HttpServlet {
 		}
 
 		InputStream is = new ByteArrayInputStream(fileContents);
-		DogDao dogDao = new DogDaoImpl();
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(is));
 		String firstLine = in.readLine();
-		in.readLine(); // Skip the excel headers
 		String cityName = getCityName(firstLine);
+		String headersLine = in.readLine();
 
 		StringBuilder sb = new StringBuilder();
+		sb.append(firstLine);
+		sb.append("\r\n");
+		sb.append(headersLine);
+		sb.append("\r\n");
+
 		for (String line = in.readLine(); line != null; line = in.readLine()) {
 			String[] tokens = prepareTokens(line.toUpperCase());
 
@@ -83,14 +94,15 @@ public class UploadService extends HttpServlet {
 				newCSVLine = appendDogIdToCSVLine(line, newIdNumber);
 			}
 			sb.append(newCSVLine);
-			sb.append("\n");
+			sb.append("\r\n");
 		}
 		return sb.toString().getBytes();
 	}
 
 	/**
 	 * This is a helper method that changes all the empty data fields of a dog
-	 * to be "UNKNOWN"
+	 * to be "UNKNOWN" except for the 6th field idNumber which is left blank if
+	 * empty
 	 * 
 	 * @param tokens
 	 *            a list of dog properties (eg. Name, Sex, Color)
@@ -104,17 +116,17 @@ public class UploadService extends HttpServlet {
 		String[] tokens = line.split(",");
 		String[] preparedTokens = new String[6];
 		Arrays.fill(preparedTokens, 0, 5, "UNKNOWN");
-		for( int i = 0; i < tokens.length; i++ ){
-			if( !tokens[i].equals("") ){
+		for (int i = 0; i < tokens.length; i++) {
+			if (!tokens[i].equals("")) {
 				preparedTokens[i] = tokens[i];
-			} 
+			}
 		}
-		if( tokens.length == 6 ){
+		if (tokens.length == 6) {
 			preparedTokens[5] = tokens[5];
-		} else{
+		} else {
 			preparedTokens[5] = "";
 		}
-		return preparedTokens ;
+		return preparedTokens;
 	}
 
 	/**
@@ -128,7 +140,7 @@ public class UploadService extends HttpServlet {
 		if (idNumber == null) {
 			throw new IllegalArgumentException("Expected a non-null idNumber String.");
 		}
-		return idNumber.matches("[0-9]+") && idNumber.length() == IDNUMBERLENGTH;
+		return idNumber.matches("[0-9]+") && idNumber.length() == ID_NUMBER_LENGTH;
 	}
 
 	/**

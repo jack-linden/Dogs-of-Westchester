@@ -1,30 +1,38 @@
 package services;
 
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.isA;
+import static org.easymock.EasyMock.replay;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Method;
 
+import model.Dog;
+
+import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
 
-import dataaccess.DogDao;
 import dataaccess.DogDaoImpl;
 
 public class UploadServiceTest {
 
-	public UploadService uploadService;
-	private DogDao mockedDogDao = null;
-
-	// public final String NON_EXISTENT_FILE = "NON_EXISTENT_FILE.lol";
+	public UploadService uploadService = null;
+	public DogDaoImpl mockedDogDao = null;
 
 	@Before
 	public void prepareTests() {
-		uploadService = UploadService.getInstance();
-		mockedDogDao = new DogDaoImpl();
+		uploadService = new UploadService();
+		mockedDogDao = createMock(DogDaoImpl.class);
+		uploadService.setDogDao(mockedDogDao);
 	}
 
 	public Method getPrivateMethod(Class<UploadService> targetClass, String methodName, Class[] parameterTypes) {
@@ -39,6 +47,24 @@ public class UploadServiceTest {
 		}
 		method.setAccessible(true);
 		return method;
+	}
+	
+	public byte[] getBytesFromFile( String filepath ){
+		InputStream is = null;
+		try {
+			is = new FileInputStream(filepath);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		byte[] fileBytes = null;
+		try {
+			fileBytes = IOUtils.toByteArray(is);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return fileBytes;
 	}
 
 	// uploadCSV Tests
@@ -56,8 +82,31 @@ public class UploadServiceTest {
 	 * exception if the file contents are empty.
 	 */
 	@Test(expected = IllegalArgumentException.class)
-	public void nonExistentFileTest() throws IOException {
+	public void uploadCSVEmptyFileContentsTest() throws IOException {
 		uploadService.uploadCSV(new byte[0]);
+	}
+
+	/*
+	 * This tests that the uploadCSV method's byte[] output matches the byte[]
+	 * contents of the test-file White_Plains_Expected.csv
+	 */
+	@Test
+	public void uploadCSVNormalTest() {
+		byte[] bytesToPass = getBytesFromFile("test-files/White_Plains.csv");
+		byte[] expectedBytes = getBytesFromFile("test-files/White_Plains_Expected.csv");
+		expect(mockedDogDao.insertDog(isA(Dog.class))).andReturn("0123456789123456").times(3);
+		replay(mockedDogDao);
+		try {
+			byte[] returnedBytes = uploadService.uploadCSV(bytesToPass);
+			for( int i = 0; i < expectedBytes.length; i++ ){
+				System.out.println((char)returnedBytes[i]);
+				assertEquals((char)returnedBytes[i], (char)expectedBytes[i]);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			fail();
+		}
+		
 	}
 
 	// validIdExists Tests
@@ -385,17 +434,4 @@ public class UploadServiceTest {
 
 	}
 
-	// @Test
-	// public void wellFormattedCSVFileTest() throws IOException {
-	// String expected =
-	// "WHITE PLAINS,,,,,\nDUKE,ALTERED,MALE,GREAT DANE,BLACK,\n";
-	// String newResult =
-	// "DUKE,ALTERED,MALE,GREAT DANE,BLACK,0000000000000001\n";
-	// uploadService.uploadCSV(expected.getBytes());
-	// DogDaoImpl mock = createMock(DogDaoImpl.class);
-	// expect(mock.insertDog(new Dog("UNKNOWN", "DUKE", "ALTERED", "MALE",
-	// "GREAT DANE", "BLACK", "WHITE PLAINS"))).andReturn("0000000000000001");
-	// byte[] returnedByteArr = uploadService.uploadCSV(expected.getBytes());
-	// assertEquals(newResult.getBytes(), returnedByteArr);
-	// }
 }
