@@ -99,7 +99,6 @@ public class UploadServiceTest {
 		try {
 			byte[] returnedBytes = uploadService.uploadCSV(bytesToPass);
 			for( int i = 0; i < expectedBytes.length; i++ ){
-				System.out.println((char)returnedBytes[i]);
 				assertEquals((char)returnedBytes[i], (char)expectedBytes[i]);
 			}
 		} catch (IOException e) {
