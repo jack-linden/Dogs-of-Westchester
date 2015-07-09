@@ -5,24 +5,22 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
-import javax.servlet.http.HttpServlet;
-
+import model.Dog;
 import dataaccess.DogDao;
 import dataaccess.DogDaoImpl;
-import model.Dog;
 
-public class UploadService extends HttpServlet {
-	private final int IDNUMBERLENGTH = 16;	
-
+public class UploadService {
+	private final int ID_NUMBER_LENGTH = 16;
 	private static UploadService _instance = null;
-
+	private DogDao dogDao = null;
 	/**
 	 * Class constructor.
 	 * 
 	 */
 	protected UploadService() {
-
+		setDogDao(new DogDaoImpl());
 	}
 
 	/**
@@ -42,6 +40,16 @@ public class UploadService extends HttpServlet {
 	}
 
 	/**
+	 * Class constructor.
+	 * 
+	 * Used singleton pattern and lazy thread-safe implementation
+	 */
+
+	public void setDogDao(DogDaoImpl dogDao) {
+		this.dogDao = dogDao;
+	}
+
+	/**
 	 * This function will upload a CSV file to google's datastore. Refer to
 	 * excel template for formatting.
 	 * 
@@ -56,16 +64,20 @@ public class UploadService extends HttpServlet {
 		}
 
 		InputStream is = new ByteArrayInputStream(fileContents);
-		DogDao dogDao = new DogDaoImpl();
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(is));
 		String firstLine = in.readLine();
-		in.readLine(); // Skip the excel headers
 		String cityName = getCityName(firstLine);
+		String headersLine = in.readLine();
 
 		StringBuilder sb = new StringBuilder();
+		sb.append(firstLine);
+		sb.append("\r\n");
+		sb.append(headersLine);
+		sb.append("\r\n");
+
 		for (String line = in.readLine(); line != null; line = in.readLine()) {
-			String[] tokens = prepareTokens(line.toUpperCase().split(","));
+			String[] tokens = prepareTokens(line.toUpperCase());
 
 			Dog dog = new Dog();
 			dog.setLocation(cityName);
@@ -82,40 +94,39 @@ public class UploadService extends HttpServlet {
 				newCSVLine = appendDogIdToCSVLine(line, newIdNumber);
 			}
 			sb.append(newCSVLine);
-			sb.append("\n");
+			sb.append("\r\n");
 		}
 		return sb.toString().getBytes();
 	}
 
 	/**
 	 * This is a helper method that changes all the empty data fields of a dog
-	 * to be "UNKNOWN"
+	 * to be "UNKNOWN" except for the 6th field idNumber which is left blank if
+	 * empty
 	 * 
 	 * @param tokens
 	 *            a list of dog properties (eg. Name, Sex, Color)
 	 * @return a list of non-empty string tokens
 	 */
-	private String[] prepareTokens(String[] tokens) {
-		String[] newTokens = new String[6];
+	private String[] prepareTokens(String line) {
+
+		if (line == null || line.length() == 0) {
+			throw new IllegalArgumentException("Did not expect line to be null or empty.");
+		}
+		String[] tokens = line.split(",");
+		String[] preparedTokens = new String[6];
+		Arrays.fill(preparedTokens, 0, 5, "UNKNOWN");
 		for (int i = 0; i < tokens.length; i++) {
-			if (tokens[i].equals("")) {
-				newTokens[i] = "UNKNOWN";
-			} else{
-				newTokens[i] = tokens[i];
+			if (!tokens[i].equals("")) {
+				preparedTokens[i] = tokens[i];
 			}
 		}
 		if (tokens.length == 6) {
-			if (tokens[5].equals("")) {
-				newTokens[5] = "UNKNOWN";
-			} else {
-				newTokens[5] = tokens[5];
-			}
+			preparedTokens[5] = tokens[5];
+		} else {
+			preparedTokens[5] = "";
 		}
-		if(newTokens[5] == null){
-			newTokens[5] = "UNKNOWN";
-		}
-
-		return newTokens;
+		return preparedTokens;
 	}
 
 	/**
@@ -126,7 +137,10 @@ public class UploadService extends HttpServlet {
 	 * @return true if idNumber is 16-digit long, otherwise return false
 	 */
 	private boolean validIdExists(String idNumber) {
-		return idNumber.matches("[0-9]+") && idNumber.length() == IDNUMBERLENGTH;		 
+		if (idNumber == null) {
+			throw new IllegalArgumentException("Expected a non-null idNumber String.");
+		}
+		return idNumber.matches("[0-9]+") && idNumber.length() == ID_NUMBER_LENGTH;
 	}
 
 	/**
@@ -140,9 +154,13 @@ public class UploadService extends HttpServlet {
 	 * @return String of dog data that now has the idNumber appended to the end
 	 */
 	private String appendDogIdToCSVLine(String line, String idNumber) {
+		if (line == null || idNumber == null || line.length() == 0 || idNumber.length() == 0) {
+			throw new IllegalArgumentException("Did not expect line or idNumber Strings to be null or empty.");
+		}
 		StringBuilder sb = new StringBuilder();
 		sb.append(line);
 		sb.append(idNumber);
+		// TODO EXTRACT IDNUMBERS FROM "DOG(xxxxxxxxxxxxxxxx)"
 		return sb.toString();
 	}
 
@@ -154,6 +172,9 @@ public class UploadService extends HttpServlet {
 	 * @return String of city name.
 	 */
 	private String getCityName(String line) {
+		if (line == null || line.length() == 0) {
+			throw new IllegalArgumentException("Did not expect line to be null or empty.");
+		}
 		return line.split(",")[0].toUpperCase();
 	}
 }
