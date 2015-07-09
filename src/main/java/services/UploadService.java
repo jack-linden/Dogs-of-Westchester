@@ -160,6 +160,7 @@ public class UploadService {
 		StringBuilder sb = new StringBuilder();
 		sb.append(line);
 		sb.append(idNumber);
+		// TODO EXTRACT IDNUMBERS FROM "DOG(xxxxxxxxxxxxxxxx)"
 		return sb.toString();
 	}
 

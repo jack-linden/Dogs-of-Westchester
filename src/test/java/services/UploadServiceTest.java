@@ -54,7 +54,6 @@ public class UploadServiceTest {
 		try {
 			is = new FileInputStream(filepath);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -181,7 +180,7 @@ public class UploadServiceTest {
 	}
 
 	/*
-	 * This tests that the private method validIdExists will throw an
+	 * This tests that the private method appendDogIdToCSVLine will throw an
 	 * IllegalArgumentException if a null String is passed
 	 */
 	@Test

@@ -78,6 +78,8 @@ public class RecordRetrievalServiceTest {
 		recordService.queryDogRecords(NON_EXISTENT_PROPERTY_TYPE, NON_EXISTENT_PROPERTY_VALUE);
 	}
 	
+	// TODO ADD TEST: SELECT MULTIPLE PROPERTIES
+	
 	/*
 	 * This tests the queryDogRecords() method. 
 	 * It queries the database with a valid unknown location value
