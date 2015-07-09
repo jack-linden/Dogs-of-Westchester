@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 import javax.servlet.http.HttpServlet;
 
@@ -65,7 +66,7 @@ public class UploadService extends HttpServlet {
 
 		StringBuilder sb = new StringBuilder();
 		for (String line = in.readLine(); line != null; line = in.readLine()) {
-			String[] tokens = prepareTokens(line.toUpperCase().split(","));
+			String[] tokens = prepareTokens(line.toUpperCase());
 
 			Dog dog = new Dog();
 			dog.setLocation(cityName);
@@ -95,27 +96,25 @@ public class UploadService extends HttpServlet {
 	 *            a list of dog properties (eg. Name, Sex, Color)
 	 * @return a list of non-empty string tokens
 	 */
-	private String[] prepareTokens(String[] tokens) {
-		String[] newTokens = new String[6];
-		for (int i = 0; i < tokens.length; i++) {
-			if (tokens[i].equals("")) {
-				newTokens[i] = "UNKNOWN";
-			} else {
-				newTokens[i] = tokens[i];
-			}
-		}
-		if (tokens.length == 6) {
-			if (tokens[5].equals("")) {
-				newTokens[5] = "UNKNOWN";
-			} else {
-				newTokens[5] = tokens[5];
-			}
-		}
-		if (newTokens[5] == null) {
-			newTokens[5] = "UNKNOWN";
-		}
+	private String[] prepareTokens(String line) {
 
-		return newTokens;
+		if (line == null || line.length() == 0) {
+			throw new IllegalArgumentException("Did not expect line to be null or empty.");
+		}
+		String[] tokens = line.split(",");
+		String[] preparedTokens = new String[6];
+		Arrays.fill(preparedTokens, 0, 5, "UNKNOWN");
+		for( int i = 0; i < tokens.length; i++ ){
+			if( !tokens[i].equals("") ){
+				preparedTokens[i] = tokens[i];
+			} 
+		}
+		if( tokens.length == 6 ){
+			preparedTokens[5] = tokens[5];
+		} else{
+			preparedTokens[5] = "";
+		}
+		return preparedTokens ;
 	}
 
 	/**

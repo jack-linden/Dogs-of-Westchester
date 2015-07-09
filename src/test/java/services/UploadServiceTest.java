@@ -272,6 +272,119 @@ public class UploadServiceTest {
 		}
 
 	}
+
+	/*
+	 * This tests that the private method prepareTokens will throw an
+	 * IllegalArgumentException if a null string is passed
+	 */
+	@Test
+	public void prepareTokensNullParameterTest() {
+		Class[] parameterTypes = { java.lang.String.class };
+		Object[] parameters = { null };
+		Method prepareTokens = getPrivateMethod(UploadService.class, "prepareTokens", parameterTypes);
+		try {
+			prepareTokens.invoke(uploadService, parameters);
+			fail();
+		} catch (Exception e) {
+			if (!(e.getCause() instanceof IllegalArgumentException)) {
+				e.getCause().printStackTrace();
+				fail();
+			}
+		}
+	}
+
+	/*
+	 * This tests that the private method prepareTokens will thrown an
+	 * IllegalArgumentException if an empty string is passed.
+	 */
+	@Test
+	public void prepareTokensEmptyStringTest() {
+		Class[] parameterTypes = { java.lang.String.class };
+		Object[] parameters = { "" };
+		Method prepareTokens = getPrivateMethod(UploadService.class, "prepareTokens", parameterTypes);
+		try {
+			prepareTokens.invoke(uploadService, parameters);
+			fail();
+		} catch (Exception e) {
+			if (!(e.getCause() instanceof IllegalArgumentException)) {
+				e.getCause().printStackTrace();
+				fail();
+			}
+		}
+
+	}
+
+	/*
+	 * This tests that the private method prepareTokens fills in "UNKNOWN" for
+	 * the first 5 CSV line columns that are empty and the empty string for the
+	 * 6th column (the dog ID).
+	 */
+	@Test
+	public void prepareTokensMissingValuesTest() {
+		Class[] parameterTypes = { java.lang.String.class };
+		String csvLine = "MAGGIE,,FEMALE,GOLDEN RETRIEVER,,";
+		Object[] parameters = { csvLine };
+		Method prepareTokens = getPrivateMethod(UploadService.class, "prepareTokens", parameterTypes);
+		String[] expectedTokens = { "MAGGIE", "UNKNOWN", "FEMALE", "GOLDEN RETRIEVER", "UNKNOWN", "" };
+
+		try {
+			String[] resultTokens = (String[]) prepareTokens.invoke(uploadService, parameters);
+			for (int i = 0; i < expectedTokens.length; i++) {
+				assertEquals(expectedTokens[i], resultTokens[i]);
+			}
+		} catch (Exception e) {
+			fail();
+		}
+
+	}
+
+	/*
+	 * This tests that the private method prepareTokens fills in "UNKNOWN" for
+	 * the first 5 CSV line columns if they are empty and the present dog ID in
+	 * the 6th.
+	 */
+	@Test
+	public void prepareTokensDogIdExistsTest() {
+		Class[] parameterTypes = { java.lang.String.class };
+		String csvLine = "MAGGIE,,FEMALE,GOLDEN RETRIEVER,,0123456789123456";
+		Object[] parameters = { csvLine };
+		Method prepareTokens = getPrivateMethod(UploadService.class, "prepareTokens", parameterTypes);
+		String[] expectedTokens = { "MAGGIE", "UNKNOWN", "FEMALE", "GOLDEN RETRIEVER", "UNKNOWN", "0123456789123456" };
+
+		try {
+			String[] resultTokens = (String[]) prepareTokens.invoke(uploadService, parameters);
+			for (int i = 0; i < expectedTokens.length; i++) {
+				assertEquals(expectedTokens[i], resultTokens[i]);
+			}
+		} catch (Exception e) {
+			fail();
+		}
+
+	}
+
+	/*
+	 * This tests that the private method prepareTokens fills in all the correct
+	 * tokens for a CSV line that contains all requested values/columns.
+	 */
+	@Test
+	public void prepareTokensAllTokensExistTest() {
+		Class[] parameterTypes = { java.lang.String.class };
+		String csvLine = "MAGGIE,NEUTERED,FEMALE,GOLDEN RETRIEVER,BROWN,0123456789123456";
+		Object[] parameters = { csvLine };
+		Method prepareTokens = getPrivateMethod(UploadService.class, "prepareTokens", parameterTypes);
+		String[] expectedTokens = { "MAGGIE", "NEUTERED", "FEMALE", "GOLDEN RETRIEVER", "BROWN", "0123456789123456" };
+
+		try {
+			String[] resultTokens = (String[]) prepareTokens.invoke(uploadService, parameters);
+			for (int i = 0; i < expectedTokens.length; i++) {
+				assertEquals(expectedTokens[i], resultTokens[i]);
+			}
+		} catch (Exception e) {
+			fail();
+		}
+
+	}
+
 	// @Test
 	// public void wellFormattedCSVFileTest() throws IOException {
 	// String expected =
