@@ -1,5 +1,6 @@
 package services;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -131,6 +132,85 @@ public class UploadServiceTest {
 		}
 	}
 
+	/*
+	 * This tests that the private method validIdExists will throw an
+	 * IllegalArgumentException if a null String is passed
+	 */
+	@Test
+	public void appendDogIdToCSVLineNullParameterTest() {
+		Class[] parameterTypes = { java.lang.String.class, java.lang.String.class };
+		Object[] parameters = { null, "0123456789123456" };
+		Method validIdExists = getPrivateMethod(UploadService.class, "appendDogIdToCSVLine", parameterTypes);
+		try {
+			validIdExists.invoke(uploadService, parameters);
+			fail();
+		} catch (Exception e) {
+			if (!(e.getCause() instanceof IllegalArgumentException)) {
+				e.getCause().printStackTrace();
+				fail();
+			}
+		}
+		Object[] parameters2 = { "CSVLINE,", null };
+		try {
+			validIdExists.invoke(uploadService, parameters2);
+			fail();
+		} catch (Exception e) {
+			if (!(e.getCause() instanceof IllegalArgumentException)) {
+				e.getCause().printStackTrace();
+				fail();
+			}
+		}
+	}
+
+	/*
+	 * This tests that the private method appendDogIdToCSVLine throws an
+	 * IllegalArgumentException if an empty string is passed
+	 */
+	@Test
+	public void appendDogIdToCSVLineEmptyStringTest() {
+		Class[] parameterTypes = { java.lang.String.class, java.lang.String.class };
+		Object[] parameters = { "", "0123456789123456" };
+		Method validIdExists = getPrivateMethod(UploadService.class, "appendDogIdToCSVLine", parameterTypes);
+
+		try {
+			validIdExists.invoke(uploadService, parameters);
+			fail();
+		} catch (Exception e) {
+			if (!(e.getCause() instanceof IllegalArgumentException)) {
+				e.getCause().printStackTrace();
+				fail();
+			}
+		}
+		Object[] parameters2 = { "CSVLINE,", "" };
+		try {
+			validIdExists.invoke(uploadService, parameters2);
+			fail();
+		} catch (Exception e) {
+			if (!(e.getCause() instanceof IllegalArgumentException)) {
+				e.getCause().printStackTrace();
+				fail();
+			}
+		}
+	}
+
+	/*
+	 * This tests that the private method appendDogIdToCSVLine correctly appends
+	 * the two arguments together and returns the resulting string
+	 */
+	@Test
+	public void appendDogIdToCSVLineNormalTest() {
+		Class[] parameterTypes = { java.lang.String.class, java.lang.String.class };
+		Object[] parameters = { "CSVLINE,", "0123456789123456" };
+		Method validIdExists = getPrivateMethod(UploadService.class, "appendDogIdToCSVLine", parameterTypes);
+		String expectedResult = "CSVLINE,0123456789123456";
+		try {
+			String result = (String)validIdExists.invoke(uploadService, parameters);
+			assertEquals(expectedResult, result);
+		} catch (Exception e) {
+			fail();
+		}
+		
+	}
 	/*
 	 * This tests that the uploadCSV method can parse a well formatted csv file
 	 * correctly Expects an array of dog info

@@ -13,7 +13,7 @@ import dataaccess.DogDaoImpl;
 import model.Dog;
 
 public class UploadService extends HttpServlet {
-	private final int IDNUMBERLENGTH = 16;	
+	private final int IDNUMBERLENGTH = 16;
 
 	private static UploadService _instance = null;
 
@@ -100,7 +100,7 @@ public class UploadService extends HttpServlet {
 		for (int i = 0; i < tokens.length; i++) {
 			if (tokens[i].equals("")) {
 				newTokens[i] = "UNKNOWN";
-			} else{
+			} else {
 				newTokens[i] = tokens[i];
 			}
 		}
@@ -111,7 +111,7 @@ public class UploadService extends HttpServlet {
 				newTokens[5] = tokens[5];
 			}
 		}
-		if(newTokens[5] == null){
+		if (newTokens[5] == null) {
 			newTokens[5] = "UNKNOWN";
 		}
 
@@ -126,10 +126,10 @@ public class UploadService extends HttpServlet {
 	 * @return true if idNumber is 16-digit long, otherwise return false
 	 */
 	private boolean validIdExists(String idNumber) {
-		if( idNumber == null ){
+		if (idNumber == null) {
 			throw new IllegalArgumentException("Expected a non-null idNumber String.");
 		}
-		return idNumber.matches("[0-9]+") && idNumber.length() == IDNUMBERLENGTH;		 
+		return idNumber.matches("[0-9]+") && idNumber.length() == IDNUMBERLENGTH;
 	}
 
 	/**
@@ -143,6 +143,9 @@ public class UploadService extends HttpServlet {
 	 * @return String of dog data that now has the idNumber appended to the end
 	 */
 	private String appendDogIdToCSVLine(String line, String idNumber) {
+		if (line == null || idNumber == null || line.length() == 0 || idNumber.length() == 0) {
+			throw new IllegalArgumentException("Did not expect line or idNumber Strings to be null or empty.");
+		}
 		StringBuilder sb = new StringBuilder();
 		sb.append(line);
 		sb.append(idNumber);
