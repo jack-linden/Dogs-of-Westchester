@@ -126,6 +126,9 @@ public class UploadService extends HttpServlet {
 	 * @return true if idNumber is 16-digit long, otherwise return false
 	 */
 	private boolean validIdExists(String idNumber) {
+		if( idNumber == null ){
+			throw new IllegalArgumentException("Expected a non-null idNumber String.");
+		}
 		return idNumber.matches("[0-9]+") && idNumber.length() == IDNUMBERLENGTH;		 
 	}
 
