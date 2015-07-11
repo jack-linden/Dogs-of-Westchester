@@ -80,6 +80,8 @@ public class RecordRetrievalServiceTest {
 	
 	// TODO ADD TEST: SELECT MULTIPLE PROPERTIES
 	
+	
+	
 	/*
 	 * This tests the queryDogRecords() method. 
 	 * It queries the database with a valid unknown location value
@@ -131,4 +133,5 @@ public class RecordRetrievalServiceTest {
 		assertTrue(returnedDogs.contains(dog));
 		
 	}
+	
 }

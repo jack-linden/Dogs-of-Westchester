@@ -96,6 +96,7 @@ public class UploadService {
 			sb.append(newCSVLine);
 			sb.append("\r\n");
 		}
+		is.close();
 		return sb.toString().getBytes();
 	}
 
