@@ -90,6 +90,7 @@
 					$(document).ready(function() {
 						$("#search-results-table").dataTable();
 					});
+					//TODO Pass data.dogs to map populating function
 		    	}
 		        
 		    });
