@@ -1,11 +1,7 @@
-<html>  
 <jsp:include page="header.jsp" /> 
 
-<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-<script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
-<link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
 
-  <body>	
+
 	<div class="form-group" id="search-bar">
 		<div class="row">
   			<div class="col-lg-6">
@@ -28,6 +24,7 @@
       				</span>      				
 			    </div>
   			</div>
+	</div>
 	</div>
 	<br><br>
 	<div>
@@ -123,6 +120,5 @@
 		
 		}
     </script>
-	
-  </body>
-</html>
+<jsp:include page="footer.jsp" /> 
+
