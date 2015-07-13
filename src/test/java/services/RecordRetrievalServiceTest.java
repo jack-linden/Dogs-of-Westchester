@@ -3,7 +3,9 @@ package services;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
@@ -40,8 +42,10 @@ public class RecordRetrievalServiceTest {
 	 */
 	@Test
 	public void queryDogRecordsNullParameterTest() {
+		List<String> propertyTypes = new ArrayList<String>();
+		propertyTypes.add("Breed");
 		try {
-			recordService.queryDogRecords("Breed", null);
+			recordService.queryDogRecords(propertyTypes, null);
 			fail("Expected an IllegalArgumentException");
 		} catch (IllegalArgumentException e) {
 			assertTrue(true);
@@ -62,9 +66,11 @@ public class RecordRetrievalServiceTest {
 	 */
 	@Test
 	public void queryDogRecordsNonExistentNameTest() {
-		expect(dogDao.getDogsFromQuery("Name", NON_EXISTENT_DOG_NAME)).andReturn(new HashSet<Dog>());
+		List<String> propertyTypes = new ArrayList<String>();
+		propertyTypes.add("Name");
+		expect(dogDao.getDogsFromQuery(propertyTypes, NON_EXISTENT_DOG_NAME)).andReturn(new HashSet<Dog>());
 		replay(dogDao);
-		Set<Dog> dogs = recordService.queryDogRecords("Name", NON_EXISTENT_DOG_NAME);
+		Set<Dog> dogs = recordService.queryDogRecords(propertyTypes, NON_EXISTENT_DOG_NAME);
 		assertTrue(dogs.isEmpty());
 	}
 
@@ -75,7 +81,9 @@ public class RecordRetrievalServiceTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void queryDogRecordsNonExistentPropertyTypeTest() {
-		recordService.queryDogRecords(NON_EXISTENT_PROPERTY_TYPE, NON_EXISTENT_PROPERTY_VALUE);
+		List<String> invalidPropertyTypes = new ArrayList<String>();
+		invalidPropertyTypes.add("Fish");
+		recordService.queryDogRecords(invalidPropertyTypes, "LOL");
 	}
 	
 	// TODO ADD TEST: SELECT MULTIPLE PROPERTIES
@@ -88,13 +96,15 @@ public class RecordRetrievalServiceTest {
 	 * and expects to get a set of dogs that contains the query
 	 */
 	@Test
-	public void queryDogRecordsUnknownLocationTest() {			
+	public void queryDogRecordsUnknownLocationTest() {	
+		List<String> propertyTypes = new ArrayList<String>();
+		propertyTypes.add("City");
 		Set<Dog> mockedDogs = new HashSet<Dog>();
 		Dog dog = new Dog("0000000000000001", "lucky", "altered", "female", "boston terrier", "red and white", "UNKNOWN");
 		mockedDogs.add(dog);
-		expect(dogDao.getDogsFromQuery("City", "UNKNOWN")).andReturn(mockedDogs);
+		expect(dogDao.getDogsFromQuery(propertyTypes, "UNKNOWN")).andReturn(mockedDogs);
 		replay(dogDao);
-		Set<Dog> returnedDogs = recordService.queryDogRecords("City", "UNKNOWN");
+		Set<Dog> returnedDogs = recordService.queryDogRecords(propertyTypes, "UNKNOWN");
 		assertTrue(returnedDogs.size() == 1);
 		assertTrue(returnedDogs.contains(dog));
 		
@@ -105,13 +115,15 @@ public class RecordRetrievalServiceTest {
 	 * and expects to get a set of dogs that contains the query
 	 */
 	@Test
-	public void queryDogRecordsNameTest() {			
+	public void queryDogRecordsNameTest() {		
+		List<String> propertyTypes = new ArrayList<String>();
+		propertyTypes.add("Name");
 		Set<Dog> mockedDogs = new HashSet<Dog>();
 		Dog dog = new Dog("0000000000000001", "lucky", "ALTERED", "FEMALE", "boston terrier", "red and white", "White Plains");
 		mockedDogs.add(dog);
-		expect(dogDao.getDogsFromQuery("Name", "LUCKY")).andReturn(mockedDogs);
+		expect(dogDao.getDogsFromQuery(propertyTypes, "LUCKY")).andReturn(mockedDogs);
 		replay(dogDao);
-		Set<Dog> returnedDogs = recordService.queryDogRecords("Name", "lucky");
+		Set<Dog> returnedDogs = recordService.queryDogRecords(propertyTypes, "lucky");
 		assertTrue(returnedDogs.size() == 1);
 		assertTrue(returnedDogs.contains(dog));
 		
@@ -122,13 +134,15 @@ public class RecordRetrievalServiceTest {
 	 * and expects to get a set of dogs that contains the query
 	 */
 	@Test
-	public void queryDogRecordsBreedTest() {			
+	public void queryDogRecordsBreedTest() {	
+		List<String> propertyTypes = new ArrayList<String>();
+		propertyTypes.add("Breed");
 		Set<Dog> mockedDogs = new HashSet<Dog>();
 		Dog dog = new Dog("0000000000000001", "lucky", "altered", "female", "BOSTON TERRIER", "red and white", "UNKNOWN");
 		mockedDogs.add(dog);
-		expect(dogDao.getDogsFromQuery("Breed", "BOSTON TERRIER")).andReturn(mockedDogs);
+		expect(dogDao.getDogsFromQuery(propertyTypes, "BOSTON TERRIER")).andReturn(mockedDogs);
 		replay(dogDao);
-		Set<Dog> returnedDogs = recordService.queryDogRecords("Breed", "boston terrier");
+		Set<Dog> returnedDogs = recordService.queryDogRecords(propertyTypes, "boston terrier");
 		assertTrue(returnedDogs.size() == 1);
 		assertTrue(returnedDogs.contains(dog));
 		

@@ -1,5 +1,6 @@
 package dataaccess;
 
+import java.util.List;
 import java.util.Set;
 
 import model.Dog;
@@ -14,7 +15,7 @@ public interface DogDao {
 	 *            The query user typed in the search bar
 	 * @return a set of unique dogs that match the query
 	 */
-	public Set<Dog> getDogsFromQuery(String propertyType, String query);
+	public Set<Dog> getDogsFromQuery(List<String> propertyTypes, String query);
 
 	/**
 	 * The method inserts new dog data into the database
