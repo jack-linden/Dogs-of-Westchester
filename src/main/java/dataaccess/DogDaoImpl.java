@@ -1,6 +1,7 @@
 package dataaccess;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.google.appengine.api.datastore.DatastoreService;
@@ -20,29 +21,31 @@ public class DogDaoImpl implements DogDao {
 	/**
 	 * The method searches the database based on the user-specified query
 	 * 
-	 * @param propertyType
+	 * @param propertyTypes
 	 *            The property of the dog to search for (e.g. Name, Breed, City)
 	 * @param query
 	 *            The query user typed in the search bar
 	 * @return a set of unique dogs that match the query
 	 */
-	public Set<Dog> getDogsFromQuery(String propertyType, String query) {
+	public Set<Dog> getDogsFromQuery(List<String> propertyTypes, String query) {
 		Set<Dog> dogRecords = new HashSet<Dog>();
 		query = query.toUpperCase();
 
-		Filter dogNameFilter = new FilterPredicate(propertyType, FilterOperator.EQUAL, query);
-		Query q = new Query("Dog").setFilter(dogNameFilter);
-		PreparedQuery pq = dataStoreService.prepare(q);
-
-		for (Entity result : pq.asIterable()) {
-			Dog dog = new Dog();
-			dog.setName((String) result.getProperty("Name"));
-			dog.setCondition((String) result.getProperty("Condition"));
-			dog.setSex((String) result.getProperty("Sex"));
-			dog.setBreed((String) result.getProperty("Breed"));
-			dog.setColor((String) result.getProperty("Color"));
-			dog.setLocation((String) result.getProperty("City"));
-			dogRecords.add(dog);
+		for( String property : propertyTypes ){
+			Filter dogNameFilter = new FilterPredicate(property, FilterOperator.EQUAL, query);
+			Query q = new Query("Dog").setFilter(dogNameFilter);
+			PreparedQuery pq = dataStoreService.prepare(q);
+		
+			for (Entity result : pq.asIterable()) {
+				Dog dog = new Dog();
+				dog.setName((String) result.getProperty("Name"));
+				dog.setCondition((String) result.getProperty("Condition"));
+				dog.setSex((String) result.getProperty("Sex"));
+				dog.setBreed((String) result.getProperty("Breed"));
+				dog.setColor((String) result.getProperty("Color"));
+				dog.setLocation((String) result.getProperty("City"));
+				dogRecords.add(dog);
+			}
 		}
 
 		return dogRecords;

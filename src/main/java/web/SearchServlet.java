@@ -34,9 +34,7 @@ public class SearchServlet extends HttpServlet {
 		List<String> queryProperties = gson.fromJson(req.getParameter("search-properties"), collectionType);
 
 		Set<Dog> dogs = new HashSet<Dog>();
-		for (String property : queryProperties) {
-			dogs.addAll(recordService.queryDogRecords(property, queryText));
-		}
+		dogs.addAll(recordService.queryDogRecords(queryProperties, queryText));
 
 		String jsonDogsString = gson.toJson(dogs);
 		resp.getWriter().print("{ \"query\": \"" + dogs.size() + "\", \"dogs\": " + jsonDogsString + " }");
