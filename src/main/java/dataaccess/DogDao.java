@@ -26,4 +26,10 @@ public interface DogDao {
 	 * 
 	 */
 	public String insertDog(Dog dog);
+
+	/**
+	 *  The method returns all dog records.
+	 * @return Set containing all dog records.
+	 */
+	public Set<Dog> getAllDogs();
 }

@@ -12,6 +12,7 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
+import com.google.appengine.api.datastore.Query.SortDirection;
 
 import model.Dog;
 
@@ -31,21 +32,12 @@ public class DogDaoImpl implements DogDao {
 		Set<Dog> dogRecords = new HashSet<Dog>();
 		query = query.toUpperCase();
 
-		for( String property : propertyTypes ){
+		for (String property : propertyTypes) {
 			Filter dogNameFilter = new FilterPredicate(property, FilterOperator.EQUAL, query);
 			Query q = new Query("Dog").setFilter(dogNameFilter);
 			PreparedQuery pq = dataStoreService.prepare(q);
-		
-			for (Entity result : pq.asIterable()) {
-				Dog dog = new Dog();
-				dog.setName((String) result.getProperty("Name"));
-				dog.setCondition((String) result.getProperty("Condition"));
-				dog.setSex((String) result.getProperty("Sex"));
-				dog.setBreed((String) result.getProperty("Breed"));
-				dog.setColor((String) result.getProperty("Color"));
-				dog.setLocation((String) result.getProperty("City"));
-				dogRecords.add(dog);
-			}
+
+			dogRecords.addAll(getDogsFromPreparedQuery(pq));
 		}
 
 		return dogRecords;
@@ -81,5 +73,39 @@ public class DogDaoImpl implements DogDao {
 		dogEntity.setProperty("Breed", dog.getBreed());
 		dogEntity.setProperty("Color", dog.getColor());
 		return dogEntity;
+	}
+
+	/**
+	 * The method returns all dog records.
+	 * 
+	 * @return Set containing all dog records.
+	 */
+	public Set<Dog> getAllDogs() {
+		Query q = new Query("Dog").addSort("Name", SortDirection.ASCENDING);
+		PreparedQuery pq = dataStoreService.prepare(q);
+
+		return getDogsFromPreparedQuery(pq);
+	}
+
+	/**
+	 * Returns Set of Dogs from the returned query results.
+	 * 
+	 * @param pq
+	 *            PreparedQuery
+	 * @return Set of dogs returned from datastore query
+	 */
+	private Set<Dog> getDogsFromPreparedQuery(PreparedQuery pq) {
+		Set<Dog> dogRecords = new HashSet<Dog>();
+		for (Entity result : pq.asIterable()) {
+			Dog dog = new Dog();
+			dog.setName((String) result.getProperty("Name"));
+			dog.setCondition((String) result.getProperty("Condition"));
+			dog.setSex((String) result.getProperty("Sex"));
+			dog.setBreed((String) result.getProperty("Breed"));
+			dog.setColor((String) result.getProperty("Color"));
+			dog.setLocation((String) result.getProperty("City"));
+			dogRecords.add(dog);
+		}
+		return dogRecords;
 	}
 }
