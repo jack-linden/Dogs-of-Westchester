@@ -13,6 +13,7 @@ import dataaccess.DogDaoImpl;
 
 public class UploadService {
 	private final int ID_NUMBER_LENGTH = 16;
+	private final int EXPECTED_TOKENS_LENGTH = 6;
 	private static UploadService _instance = null;
 	private DogDao dogDao = null;
 
@@ -114,7 +115,7 @@ public class UploadService {
 	 * @return Dog object containing all the information
 	 */
 	private Dog createDogFromTokens(String[] tokens, String cityName) {
-		if (tokens == null || tokens.length != 6 || cityName == null || cityName.length() == 0) {
+		if (tokens == null || tokens.length != EXPECTED_TOKENS_LENGTH || cityName == null || cityName.length() == 0) {
 			throw new IllegalArgumentException("Expected tokens to be a non-null array of length 6 and cityName to be a non-null non empty string. ");
 		}
 		Dog dog = new Dog();
