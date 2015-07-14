@@ -11,7 +11,7 @@ public class Dog {
 	private String location;
 
 	private final int IDNUMBERLENGTH = 16;
-	private final String DEFAULTIDNUMBER = "0000000000000000";
+	private final String DEFAULTIDNUMBER = "";
 	private final String DEFAULTSEX = "UNKNOWN";
 	
 	/**
@@ -57,7 +57,7 @@ public class Dog {
 		if (idNumber.matches("[0-9]+") && idNumber.length() == IDNUMBERLENGTH)			
 			this.idNumber = idNumber;	
 		else
-			this.idNumber = DEFAULTIDNUMBER;
+			this.idNumber = "";
 	}
 
 	/**

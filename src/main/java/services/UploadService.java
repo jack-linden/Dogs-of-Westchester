@@ -15,6 +15,7 @@ public class UploadService {
 	private final int ID_NUMBER_LENGTH = 16;
 	private static UploadService _instance = null;
 	private DogDao dogDao = null;
+
 	/**
 	 * Class constructor.
 	 * 
@@ -56,39 +57,39 @@ public class UploadService {
 	 * @param fileContents
 	 *            The content of the data file to upload
 	 * @throws IOException
+	 * @return byte[] containing contents of the new excel file with appended
+	 *         dog id's on each line
 	 */
 	public byte[] uploadCSV(byte[] fileContents) throws IOException {
 
 		if (fileContents == null || fileContents.length == 0) {
 			throw new IllegalArgumentException("Did not expect a null filename argument or an empty/null byte array.");
 		}
-
+		// Create InputStream from byte[] for the BufferedReader to read
 		InputStream is = new ByteArrayInputStream(fileContents);
-
 		BufferedReader in = new BufferedReader(new InputStreamReader(is));
+
+		// First two lines contain the city name and excel headers
 		String firstLine = in.readLine();
 		String cityName = getCityName(firstLine);
 		String headersLine = in.readLine();
 
+		// Create StringBuilder and append the first two lines
 		StringBuilder sb = new StringBuilder();
 		sb.append(firstLine);
 		sb.append("\r\n");
 		sb.append(headersLine);
 		sb.append("\r\n");
 
+		// Iterate through the file line by line storing each dog record
 		for (String line = in.readLine(); line != null; line = in.readLine()) {
 			String[] tokens = prepareTokens(line.toUpperCase());
 
-			Dog dog = new Dog();
-			dog.setLocation(cityName);
-			dog.setName(tokens[0]);
-			dog.setCondition(tokens[1]);
-			dog.setSex(tokens[2]);
-			dog.setBreed(tokens[3]);
-			dog.setColor(tokens[4]);
-			String idNumber = tokens[5];
+			Dog dog = createDogFromTokens(tokens, cityName);
+			String idNumber = dog.getIdNumber();
 			String newCSVLine = line;
 
+			// If an id doesn't exist we must store this dog in the datastore
 			if (!validIdExists(idNumber)) {
 				String newIdNumber = dogDao.insertDog(dog);
 				newCSVLine = appendDogIdToCSVLine(line, newIdNumber);
@@ -96,8 +97,36 @@ public class UploadService {
 			sb.append(newCSVLine);
 			sb.append("\r\n");
 		}
-		is.close();
+
+		is.close();// Close the input stream
+
 		return sb.toString().getBytes();
+	}
+
+	/**
+	 * Creates and returns a Dog object based on the tokens received from the
+	 * row in the excel/csv file.
+	 * 
+	 * @param tokens
+	 *            Array of length 6 containing descriptive info for the dog
+	 * @param cityName
+	 *            Name of city from which the dog is from
+	 * @return Dog object containing all the information
+	 */
+	private Dog createDogFromTokens(String[] tokens, String cityName) {
+		if (tokens == null || tokens.length != 6 || cityName == null || cityName.length() == 0) {
+			throw new IllegalArgumentException("Expected tokens to be a non-null array of length 6 and cityName to be a non-null non empty string. ");
+		}
+		Dog dog = new Dog();
+		dog.setLocation(cityName);
+		dog.setName(tokens[0]);
+		dog.setCondition(tokens[1]);
+		dog.setSex(tokens[2]);
+		dog.setBreed(tokens[3]);
+		dog.setColor(tokens[4]);
+		dog.setIdNumber(tokens[5]);
+
+		return dog;
 	}
 
 	/**
