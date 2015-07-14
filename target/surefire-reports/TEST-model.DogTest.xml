@@ -6,7 +6,7 @@
     <property name="java.vm.version" value="24.45-b08"/>
     <property name="gopherProxySet" value="false"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
-    <property name="maven.multiModuleProjectDirectory" value="/Users/jiayanzhang/Desktop/1530/repo"/>
+    <property name="maven.multiModuleProjectDirectory" value="/Users/jiayanzhang/Downloads/1530/repo"/>
     <property name="java.vendor.url" value="http://java.oracle.com/"/>
     <property name="path.separator" value=":"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -16,7 +16,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="unknown"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="/Users/jiayanzhang/Desktop/1530/repo"/>
+    <property name="user.dir" value="/Users/jiayanzhang/Downloads/1530/repo"/>
     <property name="java.runtime.version" value="1.7.0_45-b18"/>
     <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/endorsed"/>
@@ -62,7 +62,7 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0.003" classname="model.DogTest" name="dogsWithDifferentIdTest"/>
+  <testcase time="0.002" classname="model.DogTest" name="dogsWithDifferentIdTest"/>
   <testcase time="0" classname="model.DogTest" name="dogsWithTheSameIdTest"/>
   <testcase time="0" classname="model.DogTest" name="dogGetID"/>
   <testcase time="0" classname="model.DogTest" name="dogSetID"/>
@@ -77,5 +77,5 @@
   <testcase time="0" classname="model.DogTest" name="dogGetColor"/>
   <testcase time="0" classname="model.DogTest" name="dogSetColor"/>
   <testcase time="0" classname="model.DogTest" name="dogGetLocation"/>
-  <testcase time="0" classname="model.DogTest" name="dogSetLocation"/>
+  <testcase time="0.001" classname="model.DogTest" name="dogSetLocation"/>
 </testsuite>

@@ -1,11 +1,7 @@
-<html>  
 <jsp:include page="header.jsp" /> 
 
-<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-<script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
-<link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
 
-  <body>	
+
 	<div class="form-group" id="search-bar">
 		<div class="row">
   			<div class="col-lg-6">
@@ -29,6 +25,7 @@
 			    </div>
   			</div>
 	</div>
+	</div>
 	<br><br>
 	<div>
 	
@@ -42,10 +39,8 @@
 	    	<div id="search-results"></div>
 	    </div>
 	    <div role="tabpanel" class="tab-pane" id="map">
-
-
 	    	<div id="mapping-results">
-	    		<iframe width='100%' height='500px' frameBorder='0' src='https://a.tiles.mapbox.com/v4/1530dogproject.415d5780/attribution,zoompan,zoomwheel,geocoder,share.html?access_token=pk.eyJ1IjoiMTUzMGRvZ3Byb2plY3QiLCJhIjoiNzFmYjZiNWNiYTg0ODcxYzYwNzM3OTZiY2JlNzc0ODQifQ._SJtkTq_1yyADMyNnQdRQA'></iframe>
+	    		<iframe width='100%' height='500px' frameBorder='0' src='https://a.tiles.mapbox.com/v4/1530dogproject.mn63dk7k/attribution,zoompan,zoomwheel,geocoder,share.html?access_token=pk.eyJ1IjoiMTUzMGRvZ3Byb2plY3QiLCJhIjoiNzFmYjZiNWNiYTg0ODcxYzYwNzM3OTZiY2JlNzc0ODQifQ._SJtkTq_1yyADMyNnQdRQA'></iframe>
 	    	</div>
 	    </div>    		    
 	    <div role="tabpanel" class="tab-pane" id="trends">...</div>
@@ -92,6 +87,7 @@
 					$(document).ready(function() {
 						$("#search-results-table").dataTable();
 					});
+					//TODO Pass data.dogs to map populating function
 		    	}
 		        
 		    });
@@ -124,6 +120,5 @@
 		
 		}
     </script>
-	
-  </body>
-</html>
+<jsp:include page="footer.jsp" /> 
+
