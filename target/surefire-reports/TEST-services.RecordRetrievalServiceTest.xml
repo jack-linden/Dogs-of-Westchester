@@ -65,7 +65,7 @@
   <testcase time="0.16" classname="services.RecordRetrievalServiceTest" name="queryDogRecordsNullParameterTest"/>
   <testcase time="0.005" classname="services.RecordRetrievalServiceTest" name="queryDogRecordsNonExistentNameTest"/>
   <testcase time="0" classname="services.RecordRetrievalServiceTest" name="queryDogRecordsNonExistentPropertyTypeTest"/>
-  <testcase time="0" classname="services.RecordRetrievalServiceTest" name="queryDogRecordsUnknownLocationTest"/>
-  <testcase time="0.001" classname="services.RecordRetrievalServiceTest" name="queryDogRecordsNameTest"/>
+  <testcase time="0.001" classname="services.RecordRetrievalServiceTest" name="queryDogRecordsUnknownLocationTest"/>
+  <testcase time="0" classname="services.RecordRetrievalServiceTest" name="queryDogRecordsNameTest"/>
   <testcase time="0" classname="services.RecordRetrievalServiceTest" name="queryDogRecordsBreedTest"/>
 </testsuite>
