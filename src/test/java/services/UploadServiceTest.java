@@ -48,15 +48,15 @@ public class UploadServiceTest {
 		method.setAccessible(true);
 		return method;
 	}
-	
-	public byte[] getBytesFromFile( String filepath ){
+
+	public byte[] getBytesFromFile(String filepath) {
 		InputStream is = null;
 		try {
 			is = new FileInputStream(filepath);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 		byte[] fileBytes = null;
 		try {
 			fileBytes = IOUtils.toByteArray(is);
@@ -97,14 +97,14 @@ public class UploadServiceTest {
 		replay(mockedDogDao);
 		try {
 			byte[] returnedBytes = uploadService.uploadCSV(bytesToPass);
-			for( int i = 0; i < expectedBytes.length; i++ ){
-				assertEquals((char)returnedBytes[i], (char)expectedBytes[i]);
+			for (int i = 0; i < expectedBytes.length; i++) {
+				assertEquals((char) returnedBytes[i], (char) expectedBytes[i]);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			fail();
 		}
-		
+
 	}
 
 	// validIdExists Tests
