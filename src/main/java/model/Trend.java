@@ -56,8 +56,9 @@ public class Trend {
 
 		List<TrendData> sortedTrendData = new ArrayList<TrendData>(trendDataMap.values());
 		Collections.sort(sortedTrendData, Collections.reverseOrder());
-
-		this.setTrendData(sortedTrendData);
+		int numberOfResults = sortedTrendData.size() < 10 ? sortedTrendData.size() : 10;
+		
+		this.setTrendData(sortedTrendData.subList(0, numberOfResults));
 	}
 
 	/**

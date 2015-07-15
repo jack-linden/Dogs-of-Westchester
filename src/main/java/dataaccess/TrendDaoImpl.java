@@ -51,7 +51,7 @@ public class TrendDaoImpl implements TrendDao {
 	private List<Trend> getTrendsFromPreparedQuery(PreparedQuery pq) {
 		List<Trend> trends = new ArrayList<Trend>();
 		for (Entity trendEntity : pq.asIterable()) {
-			Trend trend = new Trend((TrendType) trendEntity.getProperty("TrendType"));
+			Trend trend = new Trend(TrendType.valueOf((String)trendEntity.getProperty("TrendType")));
 			List<TrendData> trendData = getTrendDataListFromProperty((List<String>) trendEntity.getProperty("TrendData"));
 			trend.setTrendData(trendData);
 			trends.add(trend);

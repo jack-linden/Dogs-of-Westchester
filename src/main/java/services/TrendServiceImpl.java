@@ -19,6 +19,7 @@ public class TrendServiceImpl implements TrendService {
 
 	public TrendServiceImpl() {
 		setDogDao(new DogDaoImpl());
+		setTrendDao(new TrendDaoImpl());
 	}
 
 	public void setDogDao(DogDaoImpl dogDao) {
