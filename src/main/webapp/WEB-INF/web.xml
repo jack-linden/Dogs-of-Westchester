@@ -32,7 +32,7 @@
 		<servlet-name>search</servlet-name>
 		<url-pattern>/search</url-pattern>
 	</servlet-mapping>
-		<servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>trend</servlet-name>
 		<url-pattern>/trends</url-pattern>
 	</servlet-mapping>
