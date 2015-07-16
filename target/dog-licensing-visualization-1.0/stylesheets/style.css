@@ -1,0 +1,16 @@
+body {
+	margin-top: 100px;
+	margin-bottom: 100px;
+	margin-right: 150px;
+	margin-left: 50px;
+}
+
+div {
+	width: 900px; 
+	margin: 0 auto; 
+}
+
+#wrap {
+	width: 900px; 
+	margin: 0 auto; 
+}
