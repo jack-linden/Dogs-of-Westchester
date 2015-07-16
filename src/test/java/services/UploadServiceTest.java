@@ -28,6 +28,11 @@ public class UploadServiceTest {
 	public UploadService uploadService = null;
 	public DogDaoImpl mockedDogDao = null;
 
+	// Returned by GAE
+	public final String VALID_DOG_ID_STRING = "Dog(0123456789123456)";
+	// Extracted number from ID_STRING
+	public final String VALID_DOG_ID_NUMBER = "0123456789123456";
+
 	@Before
 	public void prepareTests() {
 		uploadService = new UploadService();
@@ -93,7 +98,7 @@ public class UploadServiceTest {
 	public void uploadCSVNormalTest() {
 		byte[] bytesToPass = getBytesFromFile("test-files/White_Plains.csv");
 		byte[] expectedBytes = getBytesFromFile("test-files/White_Plains_Expected.csv");
-		expect(mockedDogDao.insertDog(isA(Dog.class))).andReturn("0123456789123456").times(3);
+		expect(mockedDogDao.insertDog(isA(Dog.class))).andReturn(VALID_DOG_ID_STRING).times(3);
 		replay(mockedDogDao);
 		try {
 			byte[] returnedBytes = uploadService.uploadCSV(bytesToPass);
@@ -169,7 +174,7 @@ public class UploadServiceTest {
 	@Test
 	public void validIdExistsValidIdTest() {
 		Class[] parameterTypes = { java.lang.String.class };
-		Object[] parameters = { "0123456789123456" };
+		Object[] parameters = { VALID_DOG_ID_NUMBER };
 		Method validIdExists = getPrivateMethod(UploadService.class, "validIdExists", parameterTypes);
 		try {
 			boolean isValidId = (Boolean) validIdExists.invoke(uploadService, parameters);
@@ -186,7 +191,7 @@ public class UploadServiceTest {
 	@Test
 	public void appendDogIdToCSVLineNullParameterTest() {
 		Class[] parameterTypes = { java.lang.String.class, java.lang.String.class };
-		Object[] parameters = { null, "0123456789123456" };
+		Object[] parameters = { null, VALID_DOG_ID_NUMBER };
 		Method appendDogIdToCSVLine = getPrivateMethod(UploadService.class, "appendDogIdToCSVLine", parameterTypes);
 		try {
 			appendDogIdToCSVLine.invoke(uploadService, parameters);
@@ -216,7 +221,7 @@ public class UploadServiceTest {
 	@Test
 	public void appendDogIdToCSVLineEmptyStringTest() {
 		Class[] parameterTypes = { java.lang.String.class, java.lang.String.class };
-		Object[] parameters = { "", "0123456789123456" };
+		Object[] parameters = { "", VALID_DOG_ID_NUMBER };
 		Method appendDogIdToCSVLine = getPrivateMethod(UploadService.class, "appendDogIdToCSVLine", parameterTypes);
 
 		try {
@@ -247,7 +252,7 @@ public class UploadServiceTest {
 	@Test
 	public void appendDogIdToCSVLineNormalTest() {
 		Class[] parameterTypes = { java.lang.String.class, java.lang.String.class };
-		Object[] parameters = { "CSVLINE,", "0123456789123456" };
+		Object[] parameters = { "CSVLINE,", VALID_DOG_ID_NUMBER };
 		Method appendDogIdToCSVLine = getPrivateMethod(UploadService.class, "appendDogIdToCSVLine", parameterTypes);
 		String expectedResult = "CSVLINE,0123456789123456";
 		try {
@@ -396,7 +401,7 @@ public class UploadServiceTest {
 		String csvLine = "MAGGIE,,FEMALE,GOLDEN RETRIEVER,,0123456789123456";
 		Object[] parameters = { csvLine };
 		Method prepareTokens = getPrivateMethod(UploadService.class, "prepareTokens", parameterTypes);
-		String[] expectedTokens = { "MAGGIE", "UNKNOWN", "FEMALE", "GOLDEN RETRIEVER", "UNKNOWN", "0123456789123456" };
+		String[] expectedTokens = { "MAGGIE", "UNKNOWN", "FEMALE", "GOLDEN RETRIEVER", "UNKNOWN", VALID_DOG_ID_NUMBER };
 
 		try {
 			String[] resultTokens = (String[]) prepareTokens.invoke(uploadService, parameters);
@@ -419,7 +424,7 @@ public class UploadServiceTest {
 		String csvLine = "MAGGIE,NEUTERED,FEMALE,GOLDEN RETRIEVER,BROWN,0123456789123456";
 		Object[] parameters = { csvLine };
 		Method prepareTokens = getPrivateMethod(UploadService.class, "prepareTokens", parameterTypes);
-		String[] expectedTokens = { "MAGGIE", "NEUTERED", "FEMALE", "GOLDEN RETRIEVER", "BROWN", "0123456789123456" };
+		String[] expectedTokens = { "MAGGIE", "NEUTERED", "FEMALE", "GOLDEN RETRIEVER", "BROWN", VALID_DOG_ID_NUMBER };
 
 		try {
 			String[] resultTokens = (String[]) prepareTokens.invoke(uploadService, parameters);
@@ -430,6 +435,63 @@ public class UploadServiceTest {
 			fail();
 		}
 
+	}
+
+	/*
+	 * This tests that the private method extractIdNumberFromIdString will throw
+	 * an IllegalArgumentException if a null String is passed
+	 */
+	@Test
+	public void extractIdNumberFromIdStringNullParameterTest() {
+		Class[] parameterTypes = { java.lang.String.class };
+		Object[] parameters = { null };
+		Method extractIdNumberFromIdString = getPrivateMethod(UploadService.class, "extractIdNumberFromIdString", parameterTypes);
+		try {
+			extractIdNumberFromIdString.invoke(uploadService, parameters);
+			fail();
+		} catch (Exception e) {
+			if (!(e.getCause() instanceof IllegalArgumentException)) {
+				e.getCause().printStackTrace();
+				fail();
+			}
+		}
+	}
+
+	/*
+	 * This tests that the private method extractIdNumberFromIdString will fail
+	 * if an id string that isn't length 21 is passed
+	 */
+	@Test
+	public void extractIdNumberFromIdStringInvalidIdLengthTest() {
+		Class[] parameterTypes = { java.lang.String.class };
+		Object[] parameters = { "1234" };
+		Method extractIdNumberFromIdString = getPrivateMethod(UploadService.class, "extractIdNumberFromIdString", parameterTypes);
+		try {
+			extractIdNumberFromIdString.invoke(uploadService, parameters);
+			fail();
+		} catch (Exception e) {
+			if (!(e.getCause() instanceof IllegalArgumentException)) {
+				e.getCause().printStackTrace();
+				fail();
+			}
+		}
+	}
+
+	/*
+	 * This tests that the private method validIdExists will fail if an id that
+	 * isn't 16 digits is passed
+	 */
+	@Test
+	public void extractIdNumberFromIdStringNormalTest() {
+		Class[] parameterTypes = { java.lang.String.class };
+		Object[] parameters = { VALID_DOG_ID_STRING };
+		Method extractIdNumberFromIdString = getPrivateMethod(UploadService.class, "extractIdNumberFromIdString", parameterTypes);
+		try {
+			String result = (String) extractIdNumberFromIdString.invoke(uploadService, parameters);
+			assertEquals(result, VALID_DOG_ID_NUMBER);
+		} catch (Exception e) {
+			fail();
+		}
 	}
 
 }
