@@ -37,14 +37,13 @@
 		</div>
 		<div role="tabpanel" class="tab-pane" id="map">
 			<div id="mapping-results">
+				<br>
 				<iframe width='100%' height='500px' frameBorder='0'
-					src='https://a.tiles.mapbox.com/v4/1530dogproject.415d5780/attribution,zoompan,zoomwheel,geocoder,share.html?access_token=pk.eyJ1IjoiMTUzMGRvZ3Byb2plY3QiLCJhIjoiNzFmYjZiNWNiYTg0ODcxYzYwNzM3OTZiY2JlNzc0ODQifQ._SJtkTq_1yyADMyNnQdRQA'></iframe>
+					src='https://a.tiles.mapbox.com/v4/1530dogproject.mn63dk7k/attribution,zoompan,zoomwheel,geocoder,share.html?access_token=pk.eyJ1IjoiMTUzMGRvZ3Byb2plY3QiLCJhIjoiNzFmYjZiNWNiYTg0ODcxYzYwNzM3OTZiY2JlNzc0ODQifQ._SJtkTq_1yyADMyNnQdRQA'></iframe>
 			</div>
 		</div>
 		<div role="tabpanel" class="tab-pane" id="trends">
-			<div class="small-list-div">
-				<div id="trend-results"></div>
-			</div>
+			<div id="trend-results"><br></div>
 		</div>
 	</div>
 </div>
@@ -133,7 +132,8 @@
 	function buildTopTenTables(trend) {
 		var list = "";
 		var arrOfData = trend.trendData;
-
+		list += "<li class=\"side-by-side\">";
+		list += "<div class=\"small-list-div\">";
 		list += "<ul class=\"list-group small-list\">";
 		list += "<li class=\"list-group-item\"><center>" + trend.trendType + "</center></li>";
 		for (var i = 0; i < arrOfData.length; i++) {
@@ -141,6 +141,8 @@
 			list += "<li class=\"list-group-item\"><span class=\"badge\">" + trendData.count + "</span>" + trendData.value + "</li>";
 		}
 		list += "</ul>";
+		list += "</div>";
+		list += "</li>";
 		return list;
 
 	}
