@@ -1,4 +1,3 @@
-model/TrendTest.class
 model/DogTest.class
 services/UploadServiceTest.class
 services/RecordRetrievalServiceTest.class

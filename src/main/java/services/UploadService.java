@@ -92,7 +92,8 @@ public class UploadService {
 
 			// If an id doesn't exist we must store this dog in the datastore
 			if (!validIdExists(idNumber)) {
-				String newIdNumber = dogDao.insertDog(dog);
+				String newDogKeyString = dogDao.insertDog(dog);
+				String newIdNumber = extractIdNumberFromIdString(newDogKeyString);
 				newCSVLine = appendDogIdToCSVLine(line, newIdNumber);
 			}
 			sb.append(newCSVLine);
@@ -191,8 +192,25 @@ public class UploadService {
 		StringBuilder sb = new StringBuilder();
 		sb.append(line);
 		sb.append(idNumber);
-		// TODO EXTRACT IDNUMBERS FROM "DOG(xxxxxxxxxxxxxxxx)"
 		return sb.toString();
+	}
+
+	/**
+	 * Google App Engine datastore key strings are in the format
+	 * Dog(xxxxxxxxxxxxxxxx) where x is a 16 digit number. This method extracts
+	 * that number and returns it as a string
+	 * 
+	 * @param idString
+	 *            Dog(xxxxxxxxxxxxxxxx)
+	 * @return xxxxxxxxxxxxxxxx
+	 * 
+	 */
+	private String extractIdNumberFromIdString(String idString) {
+		if (idString == null || idString.length() != 21) {
+			throw new IllegalArgumentException("Expected a non null key string of length 21.");
+		}
+		// The idNumber is between these two indices
+		return idString.substring(4, 20);
 	}
 
 	/**
