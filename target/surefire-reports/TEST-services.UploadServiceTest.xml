@@ -64,20 +64,20 @@
   </properties>
   <testcase time="0" classname="services.UploadServiceTest" name="nullParameterTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="uploadCSVEmptyFileContentsTest"/>
-  <testcase time="0.006" classname="services.UploadServiceTest" name="uploadCSVNormalTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="validIdExistsNullParameterTest"/>
+  <testcase time="0.005" classname="services.UploadServiceTest" name="uploadCSVNormalTest"/>
+  <testcase time="0.001" classname="services.UploadServiceTest" name="validIdExistsNullParameterTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="validIdExistsInvalidIdLengthTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="validIdExistsInvalidCharactersTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="validIdExistsValidIdTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="appendDogIdToCSVLineNullParameterTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="appendDogIdToCSVLineEmptyStringTest"/>
+  <testcase time="0.001" classname="services.UploadServiceTest" name="appendDogIdToCSVLineEmptyStringTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="appendDogIdToCSVLineNormalTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="getCityNameNullParameterTest"/>
   <testcase time="0.001" classname="services.UploadServiceTest" name="getCityNameEmptyStringTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="getCityNameNormalTest"/>
-  <testcase time="0.001" classname="services.UploadServiceTest" name="prepareTokensNullParameterTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensNullParameterTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensEmptyStringTest"/>
-  <testcase time="0.001" classname="services.UploadServiceTest" name="prepareTokensMissingValuesTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensDogIdExistsTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensMissingValuesTest"/>
+  <testcase time="0.001" classname="services.UploadServiceTest" name="prepareTokensDogIdExistsTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensAllTokensExistTest"/>
 </testsuite>
