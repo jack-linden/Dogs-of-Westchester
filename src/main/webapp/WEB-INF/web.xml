@@ -20,7 +20,10 @@
 		<servlet-name>upload</servlet-name>
 		<servlet-class>web.UploadServlet</servlet-class>
 	</servlet>
-
+	<servlet>
+		<servlet-name>trend</servlet-name>
+		<servlet-class>web.TrendServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>main</servlet-name>
 		<url-pattern>/main</url-pattern>
@@ -28,6 +31,10 @@
 	<servlet-mapping>
 		<servlet-name>search</servlet-name>
 		<url-pattern>/search</url-pattern>
+	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>trend</servlet-name>
+		<url-pattern>/trends</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>admin</servlet-name>
