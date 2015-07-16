@@ -23,33 +23,6 @@
 <br>
 <br>
 <div>
-
-	<!-- <ul class="nav nav-tabs" role="tablist">
-		<li role="presentation" class="active"><a href="#search-table" aria-controls="home" role="tab" data-toggle="tab">Search
-				Table</a></li>
-		<li role="presentation"><a href="#map" aria-controls="profile" role="tab" data-toggle="tab">Maps</a></li>
-		<li role="presentation"><a href="#trends" aria-controls="messages" role="tab" data-toggle="tab">Trends</a></li>
-	</ul>
-	<div class="tab-content">
-		<div role="tabpanel" class="tab-pane active" id="search-table">
-			<div id="search-results"></div>
-		</div>
-		<div role="tabpanel" class="tab-pane" id="map">
-			<div id="mapping-results">
-				<iframe width='100%' height='500px' frameBorder='0'
-					src='https://a.tiles.mapbox.com/v4/1530dogproject.415d5780/attribution,zoompan,zoomwheel,geocoder,share.html?access_token=pk.eyJ1IjoiMTUzMGRvZ3Byb2plY3QiLCJhIjoiNzFmYjZiNWNiYTg0ODcxYzYwNzM3OTZiY2JlNzc0ODQifQ._SJtkTq_1yyADMyNnQdRQA'></iframe>
-			</div>
-		</div>
-		<div role="tabpanel" class="tab-pane" id="trends">
-			<div class="small-list-div">
-				<div id="trend-results"></div>
-			</div>
-		</div>
-	</div>
-
-	<br><br>
-	<div> -->
-	
 	  <ul class="nav nav-tabs" role="tablist">
 	    <li role="presentation" class="active"><a href="#search-table" aria-controls="home" role="tab" data-toggle="tab">Search Table</a></li>
 	    <li role="presentation"><a href="#map" aria-controls="profile" role="tab" data-toggle="tab">Maps</a></li>
