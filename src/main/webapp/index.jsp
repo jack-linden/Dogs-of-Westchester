@@ -49,10 +49,6 @@
 	</div>
 </div>
 <script>
-	</div>
-	</body>
-
-	<script>
 	$(document).ready(function() {
 		$.ajax({
 			url : '/trends',
