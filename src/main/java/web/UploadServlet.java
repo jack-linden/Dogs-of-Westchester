@@ -13,6 +13,8 @@ import com.google.appengine.api.blobstore.BlobInfo;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
+import services.TrendService;
+import services.TrendServiceImpl;
 import services.UploadService;
 
 public class UploadServlet extends HttpServlet {
@@ -34,7 +36,10 @@ public class UploadServlet extends HttpServlet {
 		BlobInfo blobInfo = getBlobInfo(req);
 		byte[] fileContents = blobstoreService.fetchData(blobInfo.getBlobKey(), 0, blobInfo.getSize());
 		byte[] newByteArray = uploadFileService.uploadCSV(fileContents);
-
+	
+		TrendService trendService = new TrendServiceImpl();
+		trendService.updateTrends();
+		
 		res.setContentType("text/csv");
 		res.getOutputStream().write(newByteArray);
 	}
