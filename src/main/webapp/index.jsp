@@ -24,7 +24,7 @@
 <br>
 <div>
 
-	<ul class="nav nav-tabs" role="tablist">
+	<!-- <ul class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#search-table" aria-controls="home" role="tab" data-toggle="tab">Search
 				Table</a></li>
 		<li role="presentation"><a href="#map" aria-controls="profile" role="tab" data-toggle="tab">Maps</a></li>
@@ -48,7 +48,7 @@
 	</div>
 
 	<br><br>
-	<div>
+	<div> -->
 	
 	  <ul class="nav nav-tabs" role="tablist">
 	    <li role="presentation" class="active"><a href="#search-table" aria-controls="home" role="tab" data-toggle="tab">Search Table</a></li>
