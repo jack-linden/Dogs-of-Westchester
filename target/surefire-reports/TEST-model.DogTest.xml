@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.003" errors="0" skipped="0" tests="16" name="model.DogTest">
+<testsuite failures="0" time="0.005" errors="0" skipped="0" tests="16" name="model.DogTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib"/>
@@ -68,14 +68,14 @@
   <testcase time="0" classname="model.DogTest" name="dogSetID"/>
   <testcase time="0" classname="model.DogTest" name="dogGetName"/>
   <testcase time="0" classname="model.DogTest" name="dogSetName"/>
-  <testcase time="0" classname="model.DogTest" name="dogGetCondition"/>
+  <testcase time="0.001" classname="model.DogTest" name="dogGetCondition"/>
   <testcase time="0" classname="model.DogTest" name="dogSetCondition"/>
   <testcase time="0" classname="model.DogTest" name="dogGetSex"/>
   <testcase time="0" classname="model.DogTest" name="dogSetSex"/>
   <testcase time="0" classname="model.DogTest" name="dogGetBreed"/>
-  <testcase time="0.001" classname="model.DogTest" name="dogSetBreed"/>
+  <testcase time="0" classname="model.DogTest" name="dogSetBreed"/>
   <testcase time="0" classname="model.DogTest" name="dogGetColor"/>
-  <testcase time="0" classname="model.DogTest" name="dogSetColor"/>
+  <testcase time="0.001" classname="model.DogTest" name="dogSetColor"/>
   <testcase time="0" classname="model.DogTest" name="dogGetLocation"/>
-  <testcase time="0" classname="model.DogTest" name="dogSetLocation"/>
+  <testcase time="0.001" classname="model.DogTest" name="dogSetLocation"/>
 </testsuite>

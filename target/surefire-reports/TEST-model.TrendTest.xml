@@ -62,11 +62,11 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0" classname="model.TrendTest" name="createTendDataNullParameterTest"/>
-  <testcase time="0" classname="model.TrendTest" name="createTendDataEmptyDogSetTest"/>
-  <testcase time="0" classname="model.TrendTest" name="createTendDataPopularNameNormalTest"/>
   <testcase time="0" classname="model.TrendTest" name="createTendDataPopularBreedNormalTest"/>
   <testcase time="0" classname="model.TrendTest" name="getDogValueBasedOnTrendTypeNullParameterTest"/>
   <testcase time="0" classname="model.TrendTest" name="getDogValueBasedOnTrendTypeNormalNameTest"/>
   <testcase time="0" classname="model.TrendTest" name="getDogValueBasedOnTrendTypeNormalBreedTest"/>
+  <testcase time="0" classname="model.TrendTest" name="createTendDataNullParameterTest"/>
+  <testcase time="0" classname="model.TrendTest" name="createTendDataEmptyDogSetTest"/>
+  <testcase time="0" classname="model.TrendTest" name="createTendDataPopularNameNormalTest"/>
 </testsuite>
