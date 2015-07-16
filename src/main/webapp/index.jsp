@@ -39,7 +39,7 @@
 			<div id="mapping-results">
 				<br>
 				<iframe width='100%' height='500px' frameBorder='0'
-					src='https://a.tiles.mapbox.com/v4/1530dogproject.mn63dk7k/attribution,zoompan,zoomwheel,geocoder,share.html?access_token=pk.eyJ1IjoiMTUzMGRvZ3Byb2plY3QiLCJhIjoiNzFmYjZiNWNiYTg0ODcxYzYwNzM3OTZiY2JlNzc0ODQifQ._SJtkTq_1yyADMyNnQdRQA'></iframe>
+					src='toggle.html'></iframe>
 			</div>
 		</div>
 		<div role="tabpanel" class="tab-pane" id="trends">

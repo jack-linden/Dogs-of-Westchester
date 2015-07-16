@@ -14,3 +14,15 @@ div {
 	width: 900px; 
 	margin: 0 auto; 
 }
+
+.list-group.small-list{
+	width: 300px;
+	margin: 0 auto;
+	float: left;
+	padding: 5px;
+}
+
+.side-by-side{
+	display: inline;
+}
+
