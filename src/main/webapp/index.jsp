@@ -1,7 +1,4 @@
 <jsp:include page="header.jsp" />
-
-
-
 <div class="form-group" id="search-bar">
 	<div class="row">
 		<div class="col-lg-6">
@@ -9,45 +6,42 @@
 				<span class="input-group-addon"> <input type="checkbox" aria-label="..." name="search-property" value="Name">
 					<label for="name">Name</label>
 				</span> <span class="input-group-addon"> <input type="checkbox" aria-label="..." name="search-property"
-					value="Breed"> <label for="breed">Breed</label>
-				</span> <span class="input-group-addon"> <input type="checkbox" aria-label="..." name="search-property" value="City">
-					<label for="location">Location</label>
-				</span> <input type="text" class="form-control" placeholder="Search for..." id="search-text"> <span
-					class="input-group-btn">
-					<button data-dismiss="alert" class="btn btn-default" type="button" id="submit-search">Go!</button>
-				</span>
-			</div>
-		</div>
-	</div>
+				value="Breed"> <label for="breed">Breed</label>
+			</span> <span class="input-group-addon"> <input type="checkbox" aria-label="..." name="search-property" value="City">
+			<label for="location">Location</label>
+		</span> <input type="text" class="form-control" placeholder="Search for..." id="search-text"> <span
+		class="input-group-btn">
+		<button data-dismiss="alert" class="btn btn-default" type="button" id="submit-search">Go!</button>
+	</span>
+</div>
+</div>
+</div>
 </div>
 <br>
 <br>
-
 <div>
-
 	<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#search-table" aria-controls="home" role="tab" data-toggle="tab">Search
-				Table</a></li>
-		<li role="presentation"><a href="#map" aria-controls="profile" role="tab" data-toggle="tab">Maps</a></li>
-		<li role="presentation"><a href="#trends" aria-controls="messages" role="tab" data-toggle="tab">Trends</a></li>
-	</ul>
-	<div class="tab-content">
-		<div role="tabpanel" class="tab-pane active" id="search-table">
-			<div id="search-results"></div>
-		</div>
-		<div role="tabpanel" class="tab-pane" id="map">
-			<div id="mapping-results">
-				<br>
-				<iframe width='100%' height='500px' frameBorder='0'
-					src='toggle.html'></iframe>
+			Table</a></li>
+			<li role="presentation"><a href="#map" aria-controls="profile" role="tab" data-toggle="tab">Maps</a></li>
+			<li role="presentation"><a href="#trends" aria-controls="messages" role="tab" data-toggle="tab">Trends</a></li>
+		</ul>
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="search-table">				
+				<div id="search-results"></div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="map">
+				<div id="mapping-results"><br>										
+					<iframe width='100%' height='500px' frameBorder='0'
+					src='tooltip.html'></iframe>
+				</div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="trends">
+				<div id="trend-results"><br></div>
 			</div>
 		</div>
-		<div role="tabpanel" class="tab-pane" id="trends">
-			<div id="trend-results"><br></div>
-		</div>
 	</div>
-</div>
-<script>
+	<script>
 	$(document).ready(function() {
 		$.ajax({
 			url : '/trends',
@@ -127,7 +121,6 @@
 			table += '</tr>';
 		}
 		return table;
-
 	}
 	function buildTopTenTables(trend) {
 		var list = "";
@@ -135,7 +128,7 @@
 		list += "<li class=\"side-by-side\">";
 		list += "<div class=\"small-list-div\">";
 		list += "<ul class=\"list-group small-list\">";
-		list += "<li class=\"list-group-item\"><center>" + trend.trendType + "</center></li>";
+		list += "<li class=\"list-group-item\"><center>" + trend.trendType.replace(/_/g, " ") + "</center></li>";
 		for (var i = 0; i < arrOfData.length; i++) {
 			var trendData = arrOfData[i];
 			list += "<li class=\"list-group-item\"><span class=\"badge\">" + trendData.count + "</span>" + trendData.value + "</li>";
@@ -144,7 +137,6 @@
 		list += "</div>";
 		list += "</li>";
 		return list;
-
 	}
-</script>
-<jsp:include page="footer.jsp" />
+	</script>
+	<jsp:include page="footer.jsp" />
