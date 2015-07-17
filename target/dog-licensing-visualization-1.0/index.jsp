@@ -1,4 +1,8 @@
 <jsp:include page="header.jsp" />
+
+  <script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.0/mapbox.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.0/mapbox.css' rel='stylesheet' />
+
 <div class="form-group" id="search-bar">
 	<div class="row">
 		<div class="col-lg-6">
@@ -19,9 +23,7 @@
 </div>
 <br>
 <br>
-
 <div>
-
 	<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#search-table" aria-controls="home" role="tab" data-toggle="tab">Search
 			Table</a></li>
@@ -35,7 +37,7 @@
 			<div role="tabpanel" class="tab-pane" id="map">
 				<div id="mapping-results"><br>										
 					<iframe width='100%' height='500px' frameBorder='0'
-					src='tooltip.html'></iframe>
+					src='tooltip.html'></iframe>							
 				</div>
 			</div>
 			<div role="tabpanel" class="tab-pane" id="trends">
@@ -94,10 +96,48 @@
 					$("#search-results-table").dataTable();
 				});
 				//TODO Pass data.dogs to map populating function
+				populateMap(data.dogs);
 			}
 
 		});
 	});
+
+
+function populateMap(dogsArray) {
+ 
+  var query = "XXX";
+  var arrayOfCounts = parseDogs(dogsArray);
+  arrayOfCounts["Rye"]
+
+  var geojson = [];
+
+  $.getJSON("javascript/geolocations.json", function(jsonresponse) {
+    geojson = jsonresponse;
+  });
+  var filteredGeoJson = [];
+  for( var i = 0; i < geojson.length; i++ ){
+  		var location = geojson[i].properties.title;
+  		if( arrayOfCounts[location] != undefined || arrayOfCounts[location] != 0 ){
+  			geojson[i].properties.description = "Found " + arrayOfCounts[location] + " dogs matching the query \"" + query + "\"."; 
+  			filteredGeoJson.push(geojson[i]);
+  		}
+  }
+  L.mapbox.featureLayer().addTo(mapTooltips).setGeoJSON(filteredGeoJson);
+}
+
+function parseDogs(dogsArray) {
+	var locationCounts = [];
+
+	for(var i = 0; i<dogsArray.length; i++) {
+		var location = dogsArray[i].location;
+		if( locationCounts[location] == undefined ){
+			locationCounts[location] = 0;
+		}
+		locationCounts[location]++;
+	}
+
+	return locationCounts;
+}
 
 	function buildSearchResultsTableString(arrayOfDogs) {
 		var table = '';
@@ -123,7 +163,6 @@
 			table += '</tr>';
 		}
 		return table;
-
 	}
 	function buildTopTenTables(trend) {
 		var list = "";
@@ -140,7 +179,6 @@
 		list += "</div>";
 		list += "</li>";
 		return list;
-
 	}
 	</script>
 	<jsp:include page="footer.jsp" />

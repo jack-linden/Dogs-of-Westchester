@@ -1,5 +1,20 @@
 <!DOCTYPE html>
-<html>
+<jsp:include page="header.jsp" />
+
+<head>
+  <meta charset=utf-8 />
+  <title></title>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+  <script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.0/mapbox.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.0/mapbox.css' rel='stylesheet' />
+
+  <style>
+  body { margin:0; padding:0; }
+  .map { position:absolute; top:0; bottom:0; width:100%; }
+  </style>
+</head>
+<!-- <html>
 <head>
   <meta charset=utf-8 />
   <title></title>
@@ -13,63 +28,77 @@
 <body>
   <div id='map-tooltips' class='map'> </div>
   <script>
-  L.mapbox.accessToken = 'pk.eyJ1IjoiMTUzMGRvZ3Byb2plY3QiLCJhIjoiNzFmYjZiNWNiYTg0ODcxYzYwNzM3OTZiY2JlNzc0ODQifQ._SJtkTq_1yyADMyNnQdRQA';
-  var mapTooltips = L.mapbox.map('map-tooltips', 'mapbox.comic')
-  .setView([41.079, -73.864], 10); 
-  var myLayer = L.mapbox.featureLayer().addTo(mapTooltips);
+  // L.mapbox.accessToken = 'pk.eyJ1IjoiMTUzMGRvZ3Byb2plY3QiLCJhIjoiNzFmYjZiNWNiYTg0ODcxYzYwNzM3OTZiY2JlNzc0ODQifQ._SJtkTq_1yyADMyNnQdRQA';
+  // var mapTooltips = L.mapbox.map('map-tooltips', 'mapbox.comic')
+  // .setView([41.079, -73.864], 10); 
+  // var myLayer = L.mapbox.featureLayer().addTo(mapTooltips);
 
-  var query = "XXX";
-  var numOfMatchedDogs_WP = 0;
-  var numOfMatchedDogs_RYE = 0;
-  var numOfMatchedDogs_BF = 0;
+  // var query = "XXX";
+  // var numOfMatchedDogs_WP = 0;
+  // var numOfMatchedDogs_RYE = 0;
+  // var numOfMatchedDogs_BF = 0;
 
-  var geojson = [
-  {
-    "type": "Feature",
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-73.7636,41.0342]
-    },
-    "properties": {
-      "title": "White Plains",
-      "description": "Found "+ numOfMatchedDogs_WP + " Dogs Matched " + "\"" + query + "\"",
-      "marker-color": "#3ca0d3",
-      "marker-size": "large",
-      "marker-symbol": "dog-park"
-    }
-  },
-  {
-    "type": "Feature",
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-73.6837,40.9807]
-    },
-    "properties": {
-      "title": "Rye",
-      "description": "Found "+ numOfMatchedDogs_RYE + " Dogs Matched " + "\"" + query + "\"",
-      "marker-color": "#63b6e5",
-      "marker-size": "large",
-      "marker-symbol": "dog-park"
-    }
-  },
-  {
-    "type": "Feature",
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-73.6437,41.2046]
-    },
-    "properties": {
-      "title": "Bedford",
-      "description": "Found "+ numOfMatchedDogs_BF + " Dogs Matched " + "\"" + query + "\"",
-      "marker-color": "#63b6e5",
-      "marker-size": "large",
-      "marker-symbol": "dog-park"
-    }
-  }
-  ];
-  myLayer.setGeoJSON(geojson);
-  mapTooltips.scrollWheelZoom.enable();
+  // var geojson = [
+  // {
+  //   "type": "Feature",
+  //   "geometry": {
+  //     "type": "Point",
+  //     "coordinates": [-73.7636,41.0342]
+  //   },
+  //   "properties": {
+  //     "title": "White Plains",
+  //     "description": "Found "+ numOfMatchedDogs_WP + " Dogs Matched " + "\"" + query + "\"",
+  //     "marker-color": "#3ca0d3",
+  //     "marker-size": "large",
+  //     "marker-symbol": "dog-park"
+  //   }
+  // },
+  // {
+  //   "type": "Feature",
+  //   "geometry": {
+  //     "type": "Point",
+  //     "coordinates": [-73.6837,40.9807]
+  //   },
+  //   "properties": {
+  //     "title": "Rye",
+  //     "description": "Found "+ numOfMatchedDogs_RYE + " Dogs Matched " + "\"" + query + "\"",
+  //     "marker-color": "#63b6e5",
+  //     "marker-size": "large",
+  //     "marker-symbol": "dog-park"
+  //   }
+  // },
+  // {
+  //   "type": "Feature",
+  //   "geometry": {
+  //     "type": "Point",
+  //     "coordinates": [-73.6437,41.2046]
+  //   },
+  //   "properties": {
+  //     "title": "Bedford",
+  //     "description": "Found "+ numOfMatchedDogs_BF + " Dogs Matched " + "\"" + query + "\"",
+  //     "marker-color": "#63b6e5",
+  //     "marker-size": "large",
+  //     "marker-symbol": "dog-park"
+  //   }
+  // }
+  // ];
+  // myLayer.setGeoJSON(geojson);
+  // mapTooltips.scrollWheelZoom.enable();
+  
   </script>
 </body>
 </html>
+ -->
+<script>
+$(document).ready(function() {
+  var accesstoken = 'pk.eyJ1IjoiMTUzMGRvZ3Byb2plY3QiLCJhIjoiNzFmYjZiNWNiYTg0ODcxYzYwNzM3OTZiY2JlNzc0ODQifQ._SJtkTq_1yyADMyNnQdRQA';
+  L.mapbox.accessToken = accesstoken;
+    var mapTooltips = L.mapbox.map('map-tooltips', 'mapbox.comic')
+  .setView([41.079, -73.864], 10); 
+  console.log(mapTooltips);
+  var myLayer = L.mapbox.featureLayer().addTo(mapTooltips);
 
+});
+</script>
+
+ <div id='map-tooltips' class='map'> </div>

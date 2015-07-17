@@ -5,6 +5,7 @@
 <html>
 <head>
 	<title>Dogs of Westchester</title>
+	<script src="javascript/geomap.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
@@ -18,6 +19,10 @@
 	<link rel="stylesheet" href="/stylesheets/style.css">
 	<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"/>
 	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />	
+
+	<meta charset=utf-8 />  
+  	<script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.0/mapbox.js'></script>
+  	<link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.0/mapbox.css' rel='stylesheet' />
 </head>
 
 <body>	
