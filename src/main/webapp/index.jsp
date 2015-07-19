@@ -1,7 +1,8 @@
 <jsp:include page="header.jsp" />
-
-  <script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.0/mapbox.js'></script>
-  <link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.0/mapbox.css' rel='stylesheet' />
+<head>
+<link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
+<script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+</head>
 
 <div class="form-group" id="search-bar">
 	<div class="row">
@@ -10,42 +11,42 @@
 				<span class="input-group-addon"> <input type="checkbox" aria-label="..." name="search-property" value="Name">
 					<label for="name">Name</label>
 				</span> <span class="input-group-addon"> <input type="checkbox" aria-label="..." name="search-property"
-				value="Breed"> <label for="breed">Breed</label>
-			</span> <span class="input-group-addon"> <input type="checkbox" aria-label="..." name="search-property" value="City">
-			<label for="location">Location</label>
-		</span> <input type="text" class="form-control" placeholder="Search for..." id="search-text"> <span
-		class="input-group-btn">
-		<button data-dismiss="alert" class="btn btn-default" type="button" id="submit-search">Go!</button>
-	</span>
-</div>
-</div>
-</div>
+					value="Breed"> <label for="breed">Breed</label>
+				</span> <span class="input-group-addon"> <input type="checkbox" aria-label="..." name="search-property" value="City">
+					<label for="location">Location</label>
+				</span> <input type="text" class="form-control" placeholder="Search for..." id="search-text"> <span
+					class="input-group-btn">
+					<button data-dismiss="alert" class="btn btn-default" type="button" id="submit-search">Go!</button>
+				</span>
+			</div>
+		</div>
+	</div>
 </div>
 <br>
 <br>
 <div>
 	<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#search-table" aria-controls="home" role="tab" data-toggle="tab">Search
-			Table</a></li>
-			<li role="presentation"><a href="#map" aria-controls="profile" role="tab" data-toggle="tab">Maps</a></li>
-			<li role="presentation"><a href="#trends" aria-controls="messages" role="tab" data-toggle="tab">Trends</a></li>
-		</ul>
-		<div class="tab-content">
-			<div role="tabpanel" class="tab-pane active" id="search-table">				
-				<div id="search-results"></div>
-			</div>
-			<div role="tabpanel" class="tab-pane" id="map">
-				<div id="mapping-results"><br>										
-					<iframe width='100%' height='500px' frameBorder='0'
-					src='tooltip.html'></iframe>							
-				</div>
-			</div>
-			<div role="tabpanel" class="tab-pane" id="trends">
-				<div id="trend-results"><br></div>
+				Table</a></li>
+		<li role="presentation"><a href="#map-div" aria-controls="profile" role="tab" data-toggle="tab">Maps</a></li>
+		<li role="presentation"><a href="#trends-div" aria-controls="messages" role="tab" data-toggle="tab">Trends</a></li>
+	</ul>
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane active" id="search-table">
+			<div id="search-results"></div>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="map-div">
+		<iframe width='100%' height='500px' frameBorder='0'	src='tooltip.html'></iframe>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="trends-div">
+			<div id="trend-results">
+				<br>
 			</div>
 		</div>
 	</div>
-	<script>
+</div>
+<script>
+
 	$(document).ready(function() {
 		$.ajax({
 			url : '/trends',
@@ -63,6 +64,8 @@
 	$('#myTabs a').click(function(e) {
 		e.preventDefault()
 		$(this).tab('show')
+		map.invalidateSize();
+		map.updateSize();
 	});
 	$("#submit-search").click(function() {
 		var arr = [];
@@ -102,43 +105,7 @@
 		});
 	});
 
-
-function populateMap(dogsArray) {
- 
-  var query = "XXX";
-  var arrayOfCounts = parseDogs(dogsArray);
-  arrayOfCounts["Rye"]
-
-  var geojson = [];
-
-  $.getJSON("javascript/geolocations.json", function(jsonresponse) {
-    geojson = jsonresponse;
-  });
-  var filteredGeoJson = [];
-  for( var i = 0; i < geojson.length; i++ ){
-  		var location = geojson[i].properties.title;
-  		if( arrayOfCounts[location] != undefined || arrayOfCounts[location] != 0 ){
-  			geojson[i].properties.description = "Found " + arrayOfCounts[location] + " dogs matching the query \"" + query + "\"."; 
-  			filteredGeoJson.push(geojson[i]);
-  		}
-  }
-  L.mapbox.featureLayer().addTo(mapTooltips).setGeoJSON(filteredGeoJson);
-}
-
-function parseDogs(dogsArray) {
-	var locationCounts = [];
-
-	for(var i = 0; i<dogsArray.length; i++) {
-		var location = dogsArray[i].location;
-		if( locationCounts[location] == undefined ){
-			locationCounts[location] = 0;
-		}
-		locationCounts[location]++;
-	}
-
-	return locationCounts;
-}
-
+	
 	function buildSearchResultsTableString(arrayOfDogs) {
 		var table = '';
 		table += '<table id=\"search-results-table\" data-toggle=\"table\" class=\"table table-bordered\">';
@@ -180,5 +147,5 @@ function parseDogs(dogsArray) {
 		list += "</li>";
 		return list;
 	}
-	</script>
-	<jsp:include page="footer.jsp" />
+</script>
+<jsp:include page="footer.jsp" />

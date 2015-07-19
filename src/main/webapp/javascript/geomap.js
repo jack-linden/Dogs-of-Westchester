@@ -1,13 +1,19 @@
-function populateMap(dogsArray) {
 
-L.mapbox.accessToken = 'pk.eyJ1IjoiMTUzMGRvZ3Byb2plY3QiLCJhIjoiNzFmYjZiNWNiYTg0ODcxYzYwNzM3OTZiY2JlNzc0ODQifQ._SJtkTq_1yyADMyNnQdRQA';
-  var mapTooltips = L.mapbox.map('map-tooltips', 'mapbox.comic')
-  .setView([41.079, -73.864], 10); 
-  var myLayer = L.mapbox.featureLayer().addTo(mapTooltips);
-  
+function prepareMap( ){
+	
+	$(document).ready(function() {
+		var accesstoken = 'pk.eyJ1IjoiMTUzMGRvZ3Byb2plY3QiLCJhIjoiNzFmYjZiNWNiYTg0ODcxYzYwNzM3OTZiY2JlNzc0ODQifQ._SJtkTq_1yyADMyNnQdRQA';
+		L.mapbox.accessToken = accesstoken;
+		var map = L.mapbox.map('map', 'mapbox.comic').setView([ 41.079, -73.864 ], 10);
+		var myLayer = L.mapbox.featureLayer().addTo(map);
+		map.scrollWheelZoom.enable();
+		return map;
+	});
+}
+function populateMap(dogsArray) {
+  var map = prepareMap( );
   var query = "XXX";
   var arrayOfCounts = parseDogs(dogsArray);
-  arrayOfCounts["Rye"]
 
   var geojson = [];
 
@@ -23,8 +29,7 @@ L.mapbox.accessToken = 'pk.eyJ1IjoiMTUzMGRvZ3Byb2plY3QiLCJhIjoiNzFmYjZiNWNiYTg0O
   		}
   }
   
-  myLayer.setGeoJSON(filteredGeoJson);
-  mapTooltips.scrollWheelZoom.enable();
+  L.mapbox.featureLayer().addTo(map)c.setGeoJSON(filteredGeoJson);
 }
 
 function parseDogs(dogsArray) {

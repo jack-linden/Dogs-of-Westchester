@@ -1,35 +1,32 @@
 body {
-	margin-top: 100px;
-	margin-bottom: 100px;
-	margin-right: 150px;
-	margin-left: 50px;
+	margin: 0;
+	padding: 0;
 }
 
 div {
-	width: 900px; 
-	margin: 0 auto; 
+	width: 900px;
+	margin: 0 auto;
 }
 
 #wrap {
-	width: 900px; 
-	margin: 0 auto; 
+	width: 900px;
+	margin: 0 auto;
 }
 
-.list-group.small-list{
+.list-group.small-list {
 	width: 300px;
 	margin: 0 auto;
 	float: left;
 	padding: 5px;
 }
 
-.side-by-side{
+.side-by-side {
 	display: inline;
 }
 
-.map { 
-	position:absolute; 
-	top:0; 
-	bottom:0; 
-	width:100%; 
+#map {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 100%;
 }
-
