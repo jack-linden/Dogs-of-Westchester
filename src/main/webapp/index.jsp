@@ -36,7 +36,7 @@
 			<div id="search-results"></div>
 		</div>
 		<div role="tabpanel" class="tab-pane" id="map-div">
-		<iframe width='100%' height='500px' frameBorder='0'	src='tooltip.html'></iframe>
+			<iframe id="map-frame" width='100%' height='500px' frameBorder='0' src='tooltip.html'></iframe>
 		</div>
 		<div role="tabpanel" class="tab-pane" id="trends-div">
 			<div id="trend-results">
@@ -46,7 +46,11 @@
 	</div>
 </div>
 <script>
-
+	var iframe = document.getElementById("map-frame");
+	var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+	$(innerDoc).ready(function() {
+		prepareMap();
+	});
 	$(document).ready(function() {
 		$.ajax({
 			url : '/trends',
@@ -64,8 +68,6 @@
 	$('#myTabs a').click(function(e) {
 		e.preventDefault()
 		$(this).tab('show')
-		map.invalidateSize();
-		map.updateSize();
 	});
 	$("#submit-search").click(function() {
 		var arr = [];
@@ -105,7 +107,6 @@
 		});
 	});
 
-	
 	function buildSearchResultsTableString(arrayOfDogs) {
 		var table = '';
 		table += '<table id=\"search-results-table\" data-toggle=\"table\" class=\"table table-bordered\">';

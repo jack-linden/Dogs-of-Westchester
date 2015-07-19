@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
 <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="/stylesheets/style.css">
+<link rel="import" href="tooltip.html">
 <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
 
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
