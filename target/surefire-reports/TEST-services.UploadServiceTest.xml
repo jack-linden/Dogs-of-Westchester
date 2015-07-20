@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.017" errors="0" skipped="0" tests="21" name="services.UploadServiceTest">
+<testsuite failures="0" time="0.008" errors="0" skipped="0" tests="21" name="services.UploadServiceTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.7.0_67\jre\bin"/>
@@ -29,7 +29,7 @@
     <property name="os.name" value="Windows 8.1"/>
     <property name="classworlds.conf" value="C:\Apache\apache-maven-3.3.3\bin\m2.conf"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.library.path" value="C:\Program Files\Java\jdk1.7.0_67\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Users\Jack\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\cmd;C:\Users\Jack\AppData\Local\GitHub\PortableGit_c2ba306e536fdf878271f7fe636a147ff37326ad\bin;C:\Users\Jack\AppData\Local\Apps\2.0\MXGBAM5C.C3N\8EVRRW34.V1Z\gith..tion_317444273a93ac29_0002.000e_114545a4195e25d4;C:\Users\Jack\AppData\Local\GitHub\lfs-amd64_0.5.1;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Users\Jack\AppData\Local\Apps\2.0\MXGBAM5C.C3N\8EVRRW34.V1Z\gith..tion_317444273a93ac29_0002.000e_114545a4195e25d4\NativeBinaries/x86;C:\Program Files\Java\jdk1.7.0_67\bin; c:\Program Files (x86)\Intel\iCLS Client\;c:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\Windows Live\Shared;C\Program Files (x86)\PharosSystems\Core;C:\Program Files\Google\Cloud SDK\google-cloud-sdk\bin;C:\Program Files\Python27;C:\Program Files\nodejs;C:\Apache\apache-maven-3.3.3\bin;C:\Apache\apache-maven-3.3.3\bin;C:\Ruby193\bin;C:\Program Files (x86)\Google\google_appengine\;C:\Program Files\nodejs; C:\Users\Jack\AppData\Roaming\npm;."/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk1.7.0_67\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files\Java\jdk1.7.0_67\bin; c:\Program Files (x86)\Intel\iCLS Client\;c:\Program Files\Intel\iCLS Client\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\Windows Live\Shared;C\Program Files (x86)\PharosSystems\Core;C:\Program Files\Google\Cloud SDK\google-cloud-sdk\bin;C:\Program Files\Python27;C:\Program Files\nodejs;C:\Apache\apache-maven-3.3.3\bin;C:\Apache\apache-maven-3.3.3\bin;C:\Ruby193\bin;C:\Program Files (x86)\Google\google_appengine\;C:\Program Files\nodejs; C:\Users\Jack\AppData\Roaming\npm;."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="51.0"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
@@ -61,25 +61,25 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase time="0" classname="services.UploadServiceTest" name="uploadCSVEmptyFileContentsTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="appendDogIdToCSVLineNormalTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="appendDogIdToCSVLineEmptyStringTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="validIdExistsInvalidCharactersTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="validIdExistsNullParameterTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="appendDogIdToCSVLineNullParameterTest"/>
-  <testcase time="0.001" classname="services.UploadServiceTest" name="validIdExistsInvalidIdLengthTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensNullParameterTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensMissingValuesTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensAllTokensExistTest"/>
-  <testcase time="0.001" classname="services.UploadServiceTest" name="extractIdNumberFromIdStringNullParameterTest"/>
-  <testcase time="0.001" classname="services.UploadServiceTest" name="extractIdNumberFromIdStringNormalTest"/>
-  <testcase time="0.001" classname="services.UploadServiceTest" name="getCityNameEmptyStringTest"/>
-  <testcase time="0.001" classname="services.UploadServiceTest" name="getCityNameNormalTest"/>
-  <testcase time="0.001" classname="services.UploadServiceTest" name="nullParameterTest"/>
-  <testcase time="0.001" classname="services.UploadServiceTest" name="prepareTokensEmptyStringTest"/>
-  <testcase time="0.009" classname="services.UploadServiceTest" name="uploadCSVNormalTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="extractIdNumberFromIdStringInvalidIdLengthTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="getCityNameNormalTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensDogIdExistsTest"/>
+  <testcase time="0.004" classname="services.UploadServiceTest" name="uploadCSVNormalTest"/>
   <testcase time="0.001" classname="services.UploadServiceTest" name="validIdExistsValidIdTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="getCityNameNullParameterTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensDogIdExistsTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="extractIdNumberFromIdStringInvalidIdLengthTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="getCityNameEmptyStringTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensEmptyStringTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="nullParameterTest"/>
+  <testcase time="0.001" classname="services.UploadServiceTest" name="validIdExistsInvalidIdLengthTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="validIdExistsInvalidCharactersTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="appendDogIdToCSVLineNullParameterTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="appendDogIdToCSVLineEmptyStringTest"/>
+  <testcase time="0.001" classname="services.UploadServiceTest" name="appendDogIdToCSVLineNormalTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensNullParameterTest"/>
+  <testcase time="0.001" classname="services.UploadServiceTest" name="prepareTokensMissingValuesTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensAllTokensExistTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="extractIdNumberFromIdStringNullParameterTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="extractIdNumberFromIdStringNormalTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="uploadCSVEmptyFileContentsTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="validIdExistsNullParameterTest"/>
 </testsuite>

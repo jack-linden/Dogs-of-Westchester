@@ -25,7 +25,7 @@
 
 <body>
 
-	<div class="page-header" id="wrap">
+	<div class="page-header wrap">
 		<h1>
 			Dogs of Westchester<small> Searchable database and mapping tool</small>
 		</h1>
