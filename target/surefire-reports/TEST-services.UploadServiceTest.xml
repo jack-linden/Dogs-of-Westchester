@@ -62,10 +62,10 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0" classname="services.UploadServiceTest" name="nullParameterTest"/>
-  <testcase time="0.001" classname="services.UploadServiceTest" name="uploadCSVEmptyFileContentsTest"/>
-  <testcase time="0.008" classname="services.UploadServiceTest" name="uploadCSVNormalTest"/>
-  <testcase time="0.001" classname="services.UploadServiceTest" name="validIdExistsNullParameterTest"/>
+  <testcase time="0.001" classname="services.UploadServiceTest" name="nullParameterTest"/>
+  <testcase time="0.007" classname="services.UploadServiceTest" name="uploadCSVNormalTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="uploadCSVEmptyFileContentsTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="validIdExistsNullParameterTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="validIdExistsInvalidIdLengthTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="validIdExistsInvalidCharactersTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="validIdExistsValidIdTest"/>
@@ -74,13 +74,13 @@
   <testcase time="0" classname="services.UploadServiceTest" name="appendDogIdToCSVLineNormalTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="getCityNameNullParameterTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="getCityNameEmptyStringTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="getCityNameNormalTest"/>
+  <testcase time="0.001" classname="services.UploadServiceTest" name="getCityNameNormalTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensNullParameterTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensEmptyStringTest"/>
+  <testcase time="0.001" classname="services.UploadServiceTest" name="prepareTokensEmptyStringTest"/>
   <testcase time="0.001" classname="services.UploadServiceTest" name="prepareTokensMissingValuesTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensDogIdExistsTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensAllTokensExistTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="extractIdNumberFromIdStringNullParameterTest"/>
-  <testcase time="0.001" classname="services.UploadServiceTest" name="extractIdNumberFromIdStringInvalidIdLengthTest"/>
+  <testcase time="0.001" classname="services.UploadServiceTest" name="extractIdNumberFromIdStringNullParameterTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="extractIdNumberFromIdStringInvalidIdLengthTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="extractIdNumberFromIdStringNormalTest"/>
 </testsuite>

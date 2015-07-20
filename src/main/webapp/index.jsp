@@ -49,7 +49,7 @@
 	var iframe = document.getElementById("map-frame");
 	var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
 	$(innerDoc).ready(function() {
-		prepareMap();
+		//prepareMap();
 	});
 	$(document).ready(function() {
 		$.ajax({
