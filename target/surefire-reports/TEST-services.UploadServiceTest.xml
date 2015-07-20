@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.017" errors="0" skipped="0" tests="21" name="services.UploadServiceTest">
+<testsuite failures="0" time="0.016" errors="0" skipped="0" tests="21" name="services.UploadServiceTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib"/>
     <property name="java.vm.version" value="24.45-b08"/>
     <property name="gopherProxySet" value="false"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
-    <property name="maven.multiModuleProjectDirectory" value="/Users/jiayanzhang/Downloads/1530/repo"/>
+    <property name="maven.multiModuleProjectDirectory" value="/Users/jiayanzhang/Downloads/1530/1530_repo"/>
     <property name="java.vendor.url" value="http://java.oracle.com/"/>
     <property name="path.separator" value=":"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -16,7 +16,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="unknown"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="/Users/jiayanzhang/Downloads/1530/repo"/>
+    <property name="user.dir" value="/Users/jiayanzhang/Downloads/1530/1530_repo"/>
     <property name="java.runtime.version" value="1.7.0_45-b18"/>
     <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/endorsed"/>
@@ -63,22 +63,22 @@
     <property name="sun.cpu.isalist" value=""/>
   </properties>
   <testcase time="0" classname="services.UploadServiceTest" name="nullParameterTest"/>
-  <testcase time="0.001" classname="services.UploadServiceTest" name="uploadCSVEmptyFileContentsTest"/>
-  <testcase time="0.008" classname="services.UploadServiceTest" name="uploadCSVNormalTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="validIdExistsNullParameterTest"/>
+  <testcase time="0.002" classname="services.UploadServiceTest" name="uploadCSVEmptyFileContentsTest"/>
+  <testcase time="0.007" classname="services.UploadServiceTest" name="uploadCSVNormalTest"/>
+  <testcase time="0.001" classname="services.UploadServiceTest" name="validIdExistsNullParameterTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="validIdExistsInvalidIdLengthTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="validIdExistsInvalidCharactersTest"/>
-  <testcase time="0.001" classname="services.UploadServiceTest" name="validIdExistsValidIdTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="appendDogIdToCSVLineNullParameterTest"/>
-  <testcase time="0.001" classname="services.UploadServiceTest" name="appendDogIdToCSVLineEmptyStringTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="appendDogIdToCSVLineNormalTest"/>
-  <testcase time="0.001" classname="services.UploadServiceTest" name="getCityNameNullParameterTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="getCityNameEmptyStringTest"/>
-  <testcase time="0.001" classname="services.UploadServiceTest" name="getCityNameNormalTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensNullParameterTest"/>
-  <testcase time="0.001" classname="services.UploadServiceTest" name="prepareTokensEmptyStringTest"/>
-  <testcase time="0.001" classname="services.UploadServiceTest" name="prepareTokensMissingValuesTest"/>
-  <testcase time="0.001" classname="services.UploadServiceTest" name="prepareTokensDogIdExistsTest"/>
+  <testcase time="0.001" classname="services.UploadServiceTest" name="validIdExistsInvalidCharactersTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="validIdExistsValidIdTest"/>
+  <testcase time="0.001" classname="services.UploadServiceTest" name="appendDogIdToCSVLineNullParameterTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="appendDogIdToCSVLineEmptyStringTest"/>
+  <testcase time="0.001" classname="services.UploadServiceTest" name="appendDogIdToCSVLineNormalTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="getCityNameNullParameterTest"/>
+  <testcase time="0.001" classname="services.UploadServiceTest" name="getCityNameEmptyStringTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="getCityNameNormalTest"/>
+  <testcase time="0.001" classname="services.UploadServiceTest" name="prepareTokensNullParameterTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensEmptyStringTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensMissingValuesTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensDogIdExistsTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensAllTokensExistTest"/>
   <testcase time="0.001" classname="services.UploadServiceTest" name="extractIdNumberFromIdStringNullParameterTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="extractIdNumberFromIdStringInvalidIdLengthTest"/>

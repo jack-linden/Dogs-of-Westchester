@@ -46,6 +46,7 @@
 		<div role="tabpanel" class="tab-pane" id="map-div">
 			<!-- <iframe name="map-frame" id="map-frame" width='100%' height='500px' frameBorder='0'></iframe> -->
 			<div id="map_simple" class="map"></div>
+			<p>If you are using Firefox, you may have trouble seeing the map.</p>
 		</div>
 		<div role="tabpanel" class="tab-pane" id="trends-div">
 			<div id="trend-results">
