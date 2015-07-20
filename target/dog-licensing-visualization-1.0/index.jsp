@@ -100,7 +100,7 @@
 				$(document).ready(function() {
 					$("#search-results-table").dataTable();
 				});
-				//TODO Pass data.dogs to map populating function
+				//Pass data.dogs to map populating function
 				populateMap(data.dogs);
 			}
 
