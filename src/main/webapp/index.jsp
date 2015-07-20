@@ -107,7 +107,7 @@
 					$("#search-results-table").dataTable();
 				});
 				//Pass data.dogs to map populating function
-				populateMap(data.dogs);
+				populateMap(data.dogs, queryText);
 			}
 
 		});
@@ -154,72 +154,27 @@
 		list += "</li>";
 		return list;
 	}
+	var map = null;
+	function populateMap(dogsArray, query) {
 
-	function populateMap(dogsArray) {
-
-		var query = "XXX";
 		var arrayOfCounts = parseDogs(dogsArray);
-
-		var geojson = [ {
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ -73.7636, 41.0342 ]
-			},
-			"properties" : {
-				"title" : "White Plains",
-				"description" : "",
-				"marker-color" : "#3ca0d3",
-				"marker-size" : "large",
-				"marker-symbol" : "dog-park"
-			}
-		},
-
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ -73.6837, 40.9807 ]
-			},
-			"properties" : {
-				"title" : "Rye",
-				"description" : "",
-				"marker-color" : "#63b6e5",
-				"marker-size" : "large",
-				"marker-symbol" : "dog-park"
-			}
-		},
-
-		{
-			"type" : "Feature",
-			"geometry" : {
-				"type" : "Point",
-				"coordinates" : [ -73.6437, 41.2046 ]
-			},
-			"properties" : {
-				"title" : "Bedford",
-				"description" : "",
-				"marker-color" : "#63b6e5",
-				"marker-size" : "large",
-				"marker-symbol" : "dog-park"
-			}
-		} ];
-
+		var geojson = getGeoLocations();
 		var filteredGeoJson = [];
+		
 		for (var i = 0; i < geojson.length; i++) {
 			var location = geojson[i].properties.title.toUpperCase();
 			if (arrayOfCounts[location] != undefined && arrayOfCounts[location] != 0) {
 				geojson[i].properties.description = "Found " + arrayOfCounts[location] + " dogs matching the query \"" + query + "\".";
 				filteredGeoJson.push(geojson[i]);
-				console.log(geojson[i]);
-				console.log(arrayOfCounts[location]);
 			}
 		}
 
 		L.mapbox.accessToken = 'pk.eyJ1IjoiMTUzMGRvZ3Byb2plY3QiLCJhIjoiNzFmYjZiNWNiYTg0ODcxYzYwNzM3OTZiY2JlNzc0ODQifQ._SJtkTq_1yyADMyNnQdRQA';
-		var mapSimple = L.mapbox.map('map_simple', 'mapbox.comic').setView([ 41.079, -73.864 ], 10);
-		var myLayer = L.mapbox.featureLayer().setGeoJSON(filteredGeoJson).addTo(mapSimple);
-		mapSimple.scrollWheelZoom.enable();
+		if( map == null || map == undefined ){
+			map = L.mapbox.map('map_simple', 'mapbox.comic').setView([ 41.079, -73.864 ], 10);
+		}
+		var myLayer = L.mapbox.featureLayer().setGeoJSON(filteredGeoJson).addTo(map);
+		map.scrollWheelZoom.enable();
 	}
 
 	function parseDogs(dogsArray) {
@@ -227,7 +182,7 @@
 
 		for (var i = 0; i < dogsArray.length; i++) {
 			var location = dogsArray[i].location;
-			if (locationCounts[location] == 'undefined' || locationCounts[location] == null) {
+			if (locationCounts[location] == undefined || locationCounts[location] == null) {
 				locationCounts[location] = 0;
 			}
 			locationCounts[location]++;
