@@ -2,6 +2,15 @@
 <head>
 <link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
 <script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+
+<style>
+#map_simple{
+  width: 500px;
+  height: 500px;  
+  position: relative;
+  border: 3px solid #8AC007;
+}
+</style>
 </head>
 
 <div class="form-group" id="search-bar">
@@ -36,9 +45,8 @@
 			<div id="search-results"></div>
 		</div>
 		<div role="tabpanel" class="tab-pane" id="map-div">
-			<!-- <iframe id="map-frame" width='100%' height='500px' frameBorder='0'></iframe> -->
-				<div id="map_simple" class="map"></div>
-			
+			<!-- <iframe name="map-frame" id="map-frame" width='100%' height='500px' frameBorder='0'></iframe> -->
+				<div id="map_simple" class="map"></div>						
 		</div>
 		<div role="tabpanel" class="tab-pane" id="trends-div">
 			<div id="trend-results">
@@ -53,7 +61,7 @@
 	// $(innerDoc).ready(function() {
 	// 	prepareMap();
 	// });
-	
+
 	$(document).ready(function() {
 		$.ajax({
 			url : '/trends',
@@ -174,7 +182,7 @@
 
 			L.mapbox.accessToken = 'pk.eyJ1IjoiMTUzMGRvZ3Byb2plY3QiLCJhIjoiNzFmYjZiNWNiYTg0ODcxYzYwNzM3OTZiY2JlNzc0ODQifQ._SJtkTq_1yyADMyNnQdRQA';
 			var mapSimple = L.mapbox.map('map_simple','mapbox.comic').setView([ 41.079, -73.864 ], 10);						
-			//var myLayer = L.mapbox.featureLayer().setGeoJSON(geojson).addTo(mapSimple);  
+			//var myLayer = L.mapbox.featureLayer().setGeoJSON(geojson).addTo(mapSimple);			  
 			var myLayer = L.mapbox.featureLayer().setGeoJSON(filteredGeoJson).addTo(mapSimple);
 			mapSimple.scrollWheelZoom.enable();			
 		}
