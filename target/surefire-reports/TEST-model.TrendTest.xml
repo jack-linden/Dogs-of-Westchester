@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.001" errors="0" skipped="0" tests="7" name="model.TrendTest">
+<testsuite failures="0" time="0" errors="0" skipped="0" tests="7" name="model.TrendTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib"/>
@@ -67,6 +67,6 @@
   <testcase time="0" classname="model.TrendTest" name="createTendDataPopularNameNormalTest"/>
   <testcase time="0" classname="model.TrendTest" name="createTendDataPopularBreedNormalTest"/>
   <testcase time="0" classname="model.TrendTest" name="getDogValueBasedOnTrendTypeNullParameterTest"/>
-  <testcase time="0.001" classname="model.TrendTest" name="getDogValueBasedOnTrendTypeNormalNameTest"/>
+  <testcase time="0" classname="model.TrendTest" name="getDogValueBasedOnTrendTypeNormalNameTest"/>
   <testcase time="0" classname="model.TrendTest" name="getDogValueBasedOnTrendTypeNormalBreedTest"/>
 </testsuite>
