@@ -1,25 +1,25 @@
 <html>
 <head>
-<title>Dogs of Westchester</title>
+	<title>Dogs of Westchester</title>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="stylesheets/style.css">
-<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
-<link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet'/>
-<script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
-<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no'/>
-<meta charset=utf-8 />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="stylesheets/style.css">
+	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
+	<link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet'/>
+	<script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no'/>
+	<meta charset=utf-8 />
 </head>
 <body>
-	<div id="map_simple" class="map" style="display: none;">Happy</div>
+	<!-- <div id="map_simple" class="map"></div> -->
 	<script>		
 		// function prepareMap() {
 		// 	$(document).ready(function() {
@@ -30,48 +30,45 @@
 
 		// 	});
 		// }
-		function populateMap(dogsArray) {
+		// function populateMap(dogsArray) {
 
-			var query = "XXX";
-			var arrayOfCounts = parseDogs(dogsArray);
+		// 	var query = "XXX";
+		// 	var arrayOfCounts = parseDogs(dogsArray);
 
-			var geojson = [];
+		// 	var geojson = [];
 
-			$.getJSON("javascript/geolocations.json", function(jsonresponse) {
-				geojson = jsonresponse;
-			});
-			var filteredGeoJson = [];
-			for (var i = 0; i < geojson.length; i++) {
-				var location = geojson[i].properties.title;
-				if (arrayOfCounts[location] != undefined || arrayOfCounts[location] != 0) {
-					geojson[i].properties.description = "Found " + arrayOfCounts[location] + " dogs matching the query \"" + query + "\".";
-					filteredGeoJson.push(geojson[i]);
-				}
-			}
+		// 	$.getJSON("javascript/geolocations.json", function(jsonresponse) {
+		// 		geojson = jsonresponse;
+		// 	});
+		// 	var filteredGeoJson = [];
+		// 	for (var i = 0; i < geojson.length; i++) {
+		// 		var location = geojson[i].properties.title;
+		// 		if (arrayOfCounts[location] != undefined || arrayOfCounts[location] != 0) {
+		// 			geojson[i].properties.description = "Found " + arrayOfCounts[location] + " dogs matching the query \"" + query + "\".";
+		// 			filteredGeoJson.push(geojson[i]);
+		// 		}
+		// 	}
 
+		// 	L.mapbox.accessToken = 'pk.eyJ1IjoiMTUzMGRvZ3Byb2plY3QiLCJhIjoiNzFmYjZiNWNiYTg0ODcxYzYwNzM3OTZiY2JlNzc0ODQifQ._SJtkTq_1yyADMyNnQdRQA';
+		// 	var mapSimple = L.mapbox.map('map_simple','mapbox.comic').setView([ 41.079, -73.864 ], 10);						
+		// 	//var myLayer = L.mapbox.featureLayer().setGeoJSON(geojson).addTo(mapSimple);  
+		// 	var myLayer = L.mapbox.featureLayer().setGeoJSON(filteredGeoJson).addTo(mapSimple);
+		// 	mapSimple.scrollWheelZoom.enable();			
+		// }
 
-				L.mapbox.accessToken = 'pk.eyJ1IjoiMTUzMGRvZ3Byb2plY3QiLCJhIjoiNzFmYjZiNWNiYTg0ODcxYzYwNzM3OTZiY2JlNzc0ODQifQ._SJtkTq_1yyADMyNnQdRQA';
-				var mapSimple = L.mapbox.map('map_simple','mapbox.comic').setView([ 41.079, -73.864 ], 10);				
-				
+		// function parseDogs(dogsArray) {
+		// 	var locationCounts = [];
 
-			//var myLayer = L.mapbox.featureLayer().setGeoJSON(geojson).addTo(mapSimple);  
-			var myLayer = L.mapbox.featureLayer().setGeoJSON(filteredGeoJson).addTo(mapSimple);
-			mapSimple.scrollWheelZoom.enable();			
-		}
+		// 	for (var i = 0; i < dogsArray.length; i++) {
+		// 		var location = dogsArray[i].location;
+		// 		if (locationCounts[location] == undefined) {
+		// 			locationCounts[location] = 0;
+		// 		}
+		// 		locationCounts[location]++;
+		// 	}
 
-		function parseDogs(dogsArray) {
-			var locationCounts = [];
-
-			for (var i = 0; i < dogsArray.length; i++) {
-				var location = dogsArray[i].location;
-				if (locationCounts[location] == undefined) {
-					locationCounts[location] = 0;
-				}
-				locationCounts[location]++;
-			}
-
-			return locationCounts;
-		}
-	</script>
-</body>
-</html>
+		// 	return locationCounts;
+		// }
+		</script>
+	</body>
+	</html>

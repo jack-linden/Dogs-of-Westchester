@@ -36,7 +36,9 @@
 			<div id="search-results"></div>
 		</div>
 		<div role="tabpanel" class="tab-pane" id="map-div">
-			<iframe id="map-frame" width='100%' height='500px' frameBorder='0' src='tooltip.html'></iframe>
+			<!-- <iframe id="map-frame" width='100%' height='500px' frameBorder='0'></iframe> -->
+				<div id="map_simple" class="map"></div>
+			
 		</div>
 		<div role="tabpanel" class="tab-pane" id="trends-div">
 			<div id="trend-results">
@@ -46,11 +48,12 @@
 	</div>
 </div>
 <script>
-	var iframe = document.getElementById("map-frame");
-	var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
-	$(innerDoc).ready(function() {
-		//prepareMap();
-	});
+	// var iframe = document.getElementById("map-frame");
+	// var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+	// $(innerDoc).ready(function() {
+	// 	prepareMap();
+	// });
+	
 	$(document).ready(function() {
 		$.ajax({
 			url : '/trends',
@@ -148,5 +151,46 @@
 		list += "</li>";
 		return list;
 	}
+
+
+	function populateMap(dogsArray) {
+
+			var query = "XXX";
+			var arrayOfCounts = parseDogs(dogsArray);
+
+			var geojson = [];
+
+			$.getJSON("javascript/geolocations.json", function(jsonresponse) {
+				geojson = jsonresponse;
+			});
+			var filteredGeoJson = [];
+			for (var i = 0; i < geojson.length; i++) {
+				var location = geojson[i].properties.title;
+				if (arrayOfCounts[location] != undefined || arrayOfCounts[location] != 0) {
+					geojson[i].properties.description = "Found " + arrayOfCounts[location] + " dogs matching the query \"" + query + "\".";
+					filteredGeoJson.push(geojson[i]);
+				}
+			}
+
+			L.mapbox.accessToken = 'pk.eyJ1IjoiMTUzMGRvZ3Byb2plY3QiLCJhIjoiNzFmYjZiNWNiYTg0ODcxYzYwNzM3OTZiY2JlNzc0ODQifQ._SJtkTq_1yyADMyNnQdRQA';
+			var mapSimple = L.mapbox.map('map_simple','mapbox.comic').setView([ 41.079, -73.864 ], 10);						
+			//var myLayer = L.mapbox.featureLayer().setGeoJSON(geojson).addTo(mapSimple);  
+			var myLayer = L.mapbox.featureLayer().setGeoJSON(filteredGeoJson).addTo(mapSimple);
+			mapSimple.scrollWheelZoom.enable();			
+		}
+
+		function parseDogs(dogsArray) {
+			var locationCounts = [];
+
+			for (var i = 0; i < dogsArray.length; i++) {
+				var location = dogsArray[i].location;
+				if (locationCounts[location] == undefined) {
+					locationCounts[location] = 0;
+				}
+				locationCounts[location]++;
+			}
+
+			return locationCounts;
+		}
 </script>
 <jsp:include page="footer.jsp" />

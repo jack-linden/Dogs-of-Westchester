@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.017" errors="0" skipped="0" tests="21" name="services.UploadServiceTest">
+<testsuite failures="0" time="0.011" errors="0" skipped="0" tests="21" name="services.UploadServiceTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib"/>
@@ -65,22 +65,22 @@
   <testcase time="0.001" classname="services.UploadServiceTest" name="nullParameterTest"/>
   <testcase time="0.001" classname="services.UploadServiceTest" name="uploadCSVEmptyFileContentsTest"/>
   <testcase time="0.006" classname="services.UploadServiceTest" name="uploadCSVNormalTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="validIdExistsNullParameterTest"/>
+  <testcase time="0.001" classname="services.UploadServiceTest" name="validIdExistsNullParameterTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="validIdExistsInvalidIdLengthTest"/>
-  <testcase time="0" classname="services.UploadServiceTest" name="validIdExistsInvalidCharactersTest"/>
+  <testcase time="0.001" classname="services.UploadServiceTest" name="validIdExistsInvalidCharactersTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="validIdExistsValidIdTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="appendDogIdToCSVLineNullParameterTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="appendDogIdToCSVLineEmptyStringTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="appendDogIdToCSVLineNormalTest"/>
-  <testcase time="0.001" classname="services.UploadServiceTest" name="getCityNameNullParameterTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="getCityNameNullParameterTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="getCityNameEmptyStringTest"/>
   <testcase time="0.001" classname="services.UploadServiceTest" name="getCityNameNormalTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensNullParameterTest"/>
-  <testcase time="0.005" classname="services.UploadServiceTest" name="prepareTokensEmptyStringTest"/>
-  <testcase time="0.001" classname="services.UploadServiceTest" name="prepareTokensMissingValuesTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensEmptyStringTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensMissingValuesTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensDogIdExistsTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="prepareTokensAllTokensExistTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="extractIdNumberFromIdStringNullParameterTest"/>
-  <testcase time="0.001" classname="services.UploadServiceTest" name="extractIdNumberFromIdStringInvalidIdLengthTest"/>
+  <testcase time="0" classname="services.UploadServiceTest" name="extractIdNumberFromIdStringInvalidIdLengthTest"/>
   <testcase time="0" classname="services.UploadServiceTest" name="extractIdNumberFromIdStringNormalTest"/>
 </testsuite>
