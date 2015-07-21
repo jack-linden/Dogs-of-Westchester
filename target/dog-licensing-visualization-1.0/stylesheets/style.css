@@ -2,16 +2,12 @@ body {
 	margin: 0;
 	padding: 0;
 }
-
-div {
+  
+.wrap {
 	width: 900px;
 	margin: 0 auto;
 }
 
-#wrap {
-	width: 900px;
-	margin: 0 auto;
-}
 
 .list-group.small-list {
 	width: 300px;

@@ -7,12 +7,12 @@
 	<%
 		BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 	%>
-	<div>
+	<div class="wrap">
 		<form action="<%=blobstoreService.createUploadUrl("/admin/upload")%>" method="post" enctype="multipart/form-data">
 			<input type="file" name="myFile"> 
 			<input type="submit" value="Submit">
 		</form>
 	</div>
 
-<jsp:include page="footer.jsp" /> 
+<jsp:include page="../footer.jsp" /> 
 	
