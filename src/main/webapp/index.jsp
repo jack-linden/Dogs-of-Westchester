@@ -116,9 +116,7 @@
 				tableDiv.empty();
 
 				var arrayOfDogs = data.dogs;
-				if (arrayOfDogs.length == 0) {
-					return;
-				}
+
 				var tableString = buildSearchResultsTableString(arrayOfDogs);
 				tableDiv.append(tableString);
 				$(document).ready(function() {
@@ -173,10 +171,12 @@
 		return list;
 	}
 	var map = null;
+	var myLayer = null;
 	$(document).ready(function(){
 		L.mapbox.accessToken = 'pk.eyJ1IjoiMTUzMGRvZ3Byb2plY3QiLCJhIjoiNzFmYjZiNWNiYTg0ODcxYzYwNzM3OTZiY2JlNzc0ODQifQ._SJtkTq_1yyADMyNnQdRQA';
 		map = L.mapbox.map('map_simple', 'mapbox.comic', {zoomControl: false}).setView([ 41.079, -73.864 ], 10);
 		map.scrollWheelZoom.enable();
+		myLayer = L.mapbox.featureLayer().addTo(map);
 	});
 	
 	function populateMap(dogsArray, query) {
@@ -193,8 +193,8 @@
 			}
 		}
 
-		var myLayer = L.mapbox.featureLayer().addTo(map);
-		
+		map.removeLayer(myLayer);
+		myLayer = L.mapbox.featureLayer().addTo(map);
 		myLayer.on('ready', function() {
 		    // featureLayer.getBounds() returns the corners of the furthest-out markers,
 		    // and map.fitBounds() makes sure that the map contains these.
