@@ -63,6 +63,7 @@
     <property name="sun.cpu.isalist" value=""/>
   </properties>
   <testcase time="0.002" classname="model.DogTest" name="dogsWithTheSameIdTest"/>
+  <testcase time="0" classname="model.DogTest" name="dogsWithDifferentIdTest"/>
   <testcase time="0" classname="model.DogTest" name="dogGetID"/>
   <testcase time="0" classname="model.DogTest" name="dogSetID"/>
   <testcase time="0" classname="model.DogTest" name="dogGetName"/>
@@ -73,7 +74,6 @@
   <testcase time="0" classname="model.DogTest" name="dogSetSex"/>
   <testcase time="0" classname="model.DogTest" name="dogGetBreed"/>
   <testcase time="0" classname="model.DogTest" name="dogSetBreed"/>
-  <testcase time="0" classname="model.DogTest" name="dogsWithDifferentIdTest"/>
   <testcase time="0.001" classname="model.DogTest" name="dogGetColor"/>
   <testcase time="0" classname="model.DogTest" name="dogSetColor"/>
   <testcase time="0" classname="model.DogTest" name="dogGetLocation"/>
