@@ -77,6 +77,8 @@ public class Trend {
 			dogValue = dog.getName();
 		} else if (trendType == TrendType.MOST_POPULAR_BREED) {
 			dogValue = dog.getBreed();
+		} else if( trendType == TrendType.MOST_POPULATED_CITY ){
+			dogValue = dog.getLocation();
 		}
 
 		return dogValue;

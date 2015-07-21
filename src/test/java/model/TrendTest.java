@@ -165,7 +165,8 @@ public class TrendTest {
 
 	/*
 	 * This tests that the getDogValueBasedOnTrendType private method return the
-	 * correct dog field (dogName) based on the type of trend that is being calculated
+	 * correct dog field (dogName) based on the type of trend that is being
+	 * calculated
 	 */
 	@Test
 	public void getDogValueBasedOnTrendTypeNormalNameTest() {
@@ -182,9 +183,11 @@ public class TrendTest {
 			fail();
 		}
 	}
+
 	/*
 	 * This tests that the getDogValueBasedOnTrendType private method return the
-	 * correct dog field (dogBreed) based on the type of trend that is being calculated
+	 * correct dog field (dogBreed) based on the type of trend that is being
+	 * calculated
 	 */
 	@Test
 	public void getDogValueBasedOnTrendTypeNormalBreedTest() {
@@ -201,5 +204,27 @@ public class TrendTest {
 			fail();
 		}
 	}
+	
+	/*
+	 * This tests that the getDogValueBasedOnLocationType private method return the
+	 * correct dog field (dogLocation) based on the type of trend that is being
+	 * calculated
+	 */
+	@Test
+	public void getDogValueBasedOnTrendTypeNormalLocationTest() {
+		trend = new Trend(TrendType.MOST_POPULATED_CITY);
+		Dog dog = new Dog("1", "Maggie", "Neutered", "Female", "Golden Retriever", "Brown", "NYC");
+		Class[] parameterTypes = { Dog.class };
+		Object[] parameters = { dog };
+		Method getDogValueBasedOnTrendType = getPrivateMethod(Trend.class, "getDogValueBasedOnTrendType", parameterTypes);
+
+		try {
+			String value = (String) getDogValueBasedOnTrendType.invoke(trend, parameters);
+			assertEquals(value, dog.getLocation());
+		} catch (Exception e) {
+			fail();
+		}
+	}
+
 
 }

@@ -48,12 +48,14 @@
 <br>
 <br>
 <div class="wrap">
+	<div id="tabs">
 	<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation" ><a href="#search-table" aria-controls="home" role="tab" data-toggle="tab">Search
 				Table</a></li>
 		<li role="presentation" class="active"><a href="#map-div" aria-controls="profile" role="tab" data-toggle="tab">Maps</a></li>
 		<li role="presentation"><a href="#trends-div" aria-controls="messages" role="tab" data-toggle="tab">Trends</a></li>
 	</ul>
+	</div>
 	<div class="tab-content">
 		<div role="tabpanel" class="tab-pane" id="search-table">
 			<div id="search-results"></div>
