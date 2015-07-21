@@ -1,4 +1,4 @@
-services\UploadServiceTest.class
-services\RecordRetrievalServiceTest.class
-model\TrendTest.class
-model\DogTest.class
+model/TrendTest.class
+model/DogTest.class
+services/UploadServiceTest.class
+services/RecordRetrievalServiceTest.class

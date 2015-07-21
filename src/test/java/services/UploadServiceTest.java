@@ -28,9 +28,9 @@ public class UploadServiceTest {
 	public UploadService uploadService = null;
 	public DogDaoImpl mockedDogDao = null;
 
-	// Returned by GAE
+	// This is the ID String returned by Google App Engine
 	public final String VALID_DOG_ID_STRING = "Dog(0123456789123456)";
-	// Extracted number from ID_STRING
+	// The 16-digit number extracted from ID_STRING
 	public final String VALID_DOG_ID_NUMBER = "0123456789123456";
 
 	@Before
@@ -40,6 +40,10 @@ public class UploadServiceTest {
 		uploadService.setDogDao(mockedDogDao);
 	}
 
+	/*
+	 * This is a helper method that sets up tests on private methods with
+	 * reflection
+	 */
 	public Method getPrivateMethod(Class<UploadService> targetClass, String methodName, Class[] parameterTypes) {
 
 		Method method = null;
@@ -54,6 +58,9 @@ public class UploadServiceTest {
 		return method;
 	}
 
+	/*
+	 * This is a helper method that reads in data from a given file path
+	 */
 	public byte[] getBytesFromFile(String filepath) {
 		InputStream is = null;
 		try {
@@ -71,10 +78,9 @@ public class UploadServiceTest {
 		return fileBytes;
 	}
 
-	// uploadCSV Tests
 	/*
-	 * This tests the uploadCSV method will throw an illegal argument exception
-	 * if a null byte array is passed
+	 * This tests the uploadCSV() method will throw an illegal argument
+	 * exception if a null byte array is passed
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void nullParameterTest() throws IOException {
@@ -82,7 +88,7 @@ public class UploadServiceTest {
 	}
 
 	/*
-	 * This tests that the uploadCSV method will throw an illegal argument
+	 * This tests that the uploadCSV() method will throw an illegal argument
 	 * exception if the file contents are empty.
 	 */
 	@Test(expected = IllegalArgumentException.class)
@@ -91,7 +97,7 @@ public class UploadServiceTest {
 	}
 
 	/*
-	 * This tests that the uploadCSV method's byte[] output matches the byte[]
+	 * This tests that the uploadCSV() method's byte[] output matches the byte[]
 	 * contents of the test-file White_Plains_Expected.csv
 	 */
 	@Test
@@ -109,12 +115,10 @@ public class UploadServiceTest {
 			e.printStackTrace();
 			fail();
 		}
-
 	}
 
-	// validIdExists Tests
 	/*
-	 * This tests that the private method validIdExists will throw an
+	 * This tests that the private method validIdExists() will throw an
 	 * IllegalArgumentException if a null String is passed
 	 */
 	@Test
@@ -134,8 +138,8 @@ public class UploadServiceTest {
 	}
 
 	/*
-	 * This tests that the private method validIdExists will fail if an id that
-	 * isn't 16 digits is passed
+	 * This tests that the private method validIdExists() will fail if an id
+	 * that isn't 16 digits is passed
 	 */
 	@Test
 	public void validIdExistsInvalidIdLengthTest() {
@@ -151,7 +155,7 @@ public class UploadServiceTest {
 	}
 
 	/*
-	 * This tests that the private method validIdExists will fail if an id
+	 * This tests that the private method validIdExists() will fail if an id
 	 * contains non-numerical characters
 	 */
 	@Test
@@ -168,7 +172,7 @@ public class UploadServiceTest {
 	}
 
 	/*
-	 * This tests that the private method validIdExists will pass because a
+	 * This tests that the private method validIdExists() will pass because a
 	 * valid 16-digit numerical id is passed
 	 */
 	@Test
@@ -185,7 +189,7 @@ public class UploadServiceTest {
 	}
 
 	/*
-	 * This tests that the private method appendDogIdToCSVLine will throw an
+	 * This tests that the private method appendDogIdToCSVLine() will throw an
 	 * IllegalArgumentException if a null String is passed
 	 */
 	@Test
@@ -215,7 +219,7 @@ public class UploadServiceTest {
 	}
 
 	/*
-	 * This tests that the private method appendDogIdToCSVLine throws an
+	 * This tests that the private method appendDogIdToCSVLine() throws an
 	 * IllegalArgumentException if an empty string is passed
 	 */
 	@Test
@@ -246,8 +250,8 @@ public class UploadServiceTest {
 	}
 
 	/*
-	 * This tests that the private method appendDogIdToCSVLine correctly appends
-	 * the two arguments together and returns the resulting string
+	 * This tests that the private method appendDogIdToCSVLine() correctly
+	 * appends the two arguments together and returns the resulting string
 	 */
 	@Test
 	public void appendDogIdToCSVLineNormalTest() {
@@ -261,11 +265,10 @@ public class UploadServiceTest {
 		} catch (Exception e) {
 			fail();
 		}
-
 	}
 
 	/*
-	 * This tests that the private method getCityName will throw an
+	 * This tests that the private method getCityName() will throw an
 	 * IllegalArgumentException if a null string is passed
 	 */
 	@Test
@@ -285,7 +288,7 @@ public class UploadServiceTest {
 	}
 
 	/*
-	 * This tests that the private method getCityName will thrown an
+	 * This tests that the private method getCityName() will thrown an
 	 * IllegalArgumentException if an empty string is passed.
 	 */
 	@Test
@@ -302,11 +305,10 @@ public class UploadServiceTest {
 				fail();
 			}
 		}
-
 	}
 
 	/*
-	 * This tests that the private method getCityName correctly parse the line
+	 * This tests that the private method getCityName() correctly parse the line
 	 * and return the city name
 	 */
 	@Test
@@ -322,11 +324,10 @@ public class UploadServiceTest {
 			e.printStackTrace();
 			fail();
 		}
-
 	}
 
 	/*
-	 * This tests that the private method prepareTokens will throw an
+	 * This tests that the private method prepareTokens() will throw an
 	 * IllegalArgumentException if a null string is passed
 	 */
 	@Test
@@ -346,7 +347,7 @@ public class UploadServiceTest {
 	}
 
 	/*
-	 * This tests that the private method prepareTokens will thrown an
+	 * This tests that the private method prepareTokens() will thrown an
 	 * IllegalArgumentException if an empty string is passed.
 	 */
 	@Test
@@ -363,11 +364,10 @@ public class UploadServiceTest {
 				fail();
 			}
 		}
-
 	}
 
 	/*
-	 * This tests that the private method prepareTokens fills in "UNKNOWN" for
+	 * This tests that the private method prepareTokens() fills in "UNKNOWN" for
 	 * the first 5 CSV line columns that are empty and the empty string for the
 	 * 6th column (the dog ID).
 	 */
@@ -387,11 +387,10 @@ public class UploadServiceTest {
 		} catch (Exception e) {
 			fail();
 		}
-
 	}
 
 	/*
-	 * This tests that the private method prepareTokens fills in "UNKNOWN" for
+	 * This tests that the private method prepareTokens() fills in "UNKNOWN" for
 	 * the first 5 CSV line columns if they are empty and the present dog ID in
 	 * the 6th.
 	 */
@@ -411,12 +410,11 @@ public class UploadServiceTest {
 		} catch (Exception e) {
 			fail();
 		}
-
 	}
 
 	/*
-	 * This tests that the private method prepareTokens fills in all the correct
-	 * tokens for a CSV line that contains all requested values/columns.
+	 * This tests that the private method prepareTokens() fills in all the
+	 * correct tokens for a CSV line that contains all requested values/columns.
 	 */
 	@Test
 	public void prepareTokensAllTokensExistTest() {
@@ -434,12 +432,11 @@ public class UploadServiceTest {
 		} catch (Exception e) {
 			fail();
 		}
-
 	}
 
 	/*
-	 * This tests that the private method extractIdNumberFromIdString will throw
-	 * an IllegalArgumentException if a null String is passed
+	 * This tests that the private method extractIdNumberFromIdString() will
+	 * throw an IllegalArgumentException if a null String is passed
 	 */
 	@Test
 	public void extractIdNumberFromIdStringNullParameterTest() {
@@ -458,8 +455,8 @@ public class UploadServiceTest {
 	}
 
 	/*
-	 * This tests that the private method extractIdNumberFromIdString will fail
-	 * if an id string that isn't length 21 is passed
+	 * This tests that the private method extractIdNumberFromIdString() will
+	 * fail if an id string that isn't length 21 is passed
 	 */
 	@Test
 	public void extractIdNumberFromIdStringInvalidIdLengthTest() {
@@ -478,8 +475,8 @@ public class UploadServiceTest {
 	}
 
 	/*
-	 * This tests that the private method validIdExists will fail if an id that
-	 * isn't 16 digits is passed
+	 * This tests that the private method validIdExists() will fail if an id
+	 * that isn't 16 digits is passed
 	 */
 	@Test
 	public void extractIdNumberFromIdStringNormalTest() {
@@ -493,5 +490,4 @@ public class UploadServiceTest {
 			fail();
 		}
 	}
-
 }

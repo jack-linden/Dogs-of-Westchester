@@ -15,7 +15,9 @@ import org.junit.Test;
 public class TrendTest {
 	public Trend trend;
 
-	// Helper method that creates and returns a dog
+	/*
+	 * This is a helper method that creates and returns a dog
+	 */
 	private Dog createDog(String value, TrendType type) {
 
 		Dog dog = new Dog();
@@ -27,10 +29,12 @@ public class TrendTest {
 		}
 
 		return dog;
-
 	}
 
-	// Helper method to set up tests on private methods with reflection
+	/*
+	 * This is a helper method that sets up tests on private methods with
+	 * reflection
+	 */
 	public Method getPrivateMethod(Class<Trend> targetClass, String methodName, Class[] parameterTypes) {
 
 		Method method = null;
@@ -100,7 +104,6 @@ public class TrendTest {
 			assertEquals(expected.getValue(), observed.getValue());
 			assertEquals(expected.getCount(), observed.getCount());
 		}
-
 	}
 
 	/*
@@ -138,7 +141,6 @@ public class TrendTest {
 			assertEquals(expected.getValue(), observed.getValue());
 			assertEquals(expected.getCount(), observed.getCount());
 		}
-
 	}
 
 	/*
@@ -204,11 +206,11 @@ public class TrendTest {
 			fail();
 		}
 	}
-	
+
 	/*
-	 * This tests that the getDogValueBasedOnLocationType private method return the
-	 * correct dog field (dogLocation) based on the type of trend that is being
-	 * calculated
+	 * This tests that the getDogValueBasedOnLocationType private method return
+	 * the correct dog field (dogLocation) based on the type of trend that is
+	 * being calculated
 	 */
 	@Test
 	public void getDogValueBasedOnTrendTypeNormalLocationTest() {
@@ -225,6 +227,4 @@ public class TrendTest {
 			fail();
 		}
 	}
-
-
 }

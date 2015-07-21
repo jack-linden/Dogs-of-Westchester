@@ -17,7 +17,6 @@ import dataaccess.DogDaoImpl;
 import model.Dog;
 import static org.easymock.EasyMock.*;
 
-
 public class RecordRetrievalServiceTest {
 
 	public final String NON_EXISTENT_DOG_NAME = "LD@()";
@@ -26,19 +25,18 @@ public class RecordRetrievalServiceTest {
 
 	public RecordRetrievalService recordService;
 	public DogDaoImpl dogDao;
-	
+
 	@Before
 	public void prepareTests() {
-		recordService = new RecordRetrievalService();		
+		recordService = new RecordRetrievalService();
 		dogDao = createMock(DogDaoImpl.class);
 		recordService.setDogDao(dogDao);
-
 	}
 
 	/*
-	 * This tests the queryDogRecords() method. 
-	 * It queries the database with a null argument for property type Breed 
-	 * and expects an IllegalArgumentException to be thrown.
+	 * This tests the queryDogRecords() method. It queries the database with a
+	 * null argument for property type Breed and expects an
+	 * IllegalArgumentException to be thrown.
 	 */
 	@Test
 	public void queryDogRecordsNullParameterTest() {
@@ -59,10 +57,10 @@ public class RecordRetrievalServiceTest {
 		}
 	}
 
-	/*	 
-	 * This tests the queryDogRecords() method. 
-	 * It queries the database with a non-existent argument for property type Name
-	 * and expects to receive an empty list of dog records.
+	/*
+	 * This tests the queryDogRecords() method. It queries the database with a
+	 * non-existent argument for property type Name and expects to receive an
+	 * empty list of dog records.
 	 */
 	@Test
 	public void queryDogRecordsNonExistentNameTest() {
@@ -75,9 +73,9 @@ public class RecordRetrievalServiceTest {
 	}
 
 	/*
-	 * This tests the queryDogRecords() method. 
-	 * It queries the database with a non-existent property type 
-	 * and expects an IllegalArgumentException to be thrown.
+	 * This tests the queryDogRecords() method. It queries the database with a
+	 * non-existent property type and expects an IllegalArgumentException to be
+	 * thrown.
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void queryDogRecordsNonExistentPropertyTypeTest() {
@@ -85,18 +83,16 @@ public class RecordRetrievalServiceTest {
 		invalidPropertyTypes.add("Fish");
 		recordService.queryDogRecords(invalidPropertyTypes, "LOL");
 	}
-	
+
 	// TODO ADD TEST: SELECT MULTIPLE PROPERTIES
-	
-	
-	
+
 	/*
-	 * This tests the queryDogRecords() method. 
-	 * It queries the database with a valid unknown location value
-	 * and expects to get a set of dogs that contains the query
+	 * This tests the queryDogRecords() method. It queries the database with a
+	 * valid unknown location value and expects to get a set of dogs that
+	 * contains the query
 	 */
 	@Test
-	public void queryDogRecordsUnknownLocationTest() {	
+	public void queryDogRecordsUnknownLocationTest() {
 		List<String> propertyTypes = new ArrayList<String>();
 		propertyTypes.add("City");
 		Set<Dog> mockedDogs = new HashSet<Dog>();
@@ -107,15 +103,15 @@ public class RecordRetrievalServiceTest {
 		Set<Dog> returnedDogs = recordService.queryDogRecords(propertyTypes, "UNKNOWN");
 		assertTrue(returnedDogs.size() == 1);
 		assertTrue(returnedDogs.contains(dog));
-		
+
 	}
+
 	/*
-	 * This tests the queryDogRecords() method. 
-	 * It queries the database with a valid name value
-	 * and expects to get a set of dogs that contains the query
+	 * This tests the queryDogRecords() method. It queries the database with a
+	 * valid name value and expects to get a set of dogs that contains the query
 	 */
 	@Test
-	public void queryDogRecordsNameTest() {		
+	public void queryDogRecordsNameTest() {
 		List<String> propertyTypes = new ArrayList<String>();
 		propertyTypes.add("Name");
 		Set<Dog> mockedDogs = new HashSet<Dog>();
@@ -126,15 +122,15 @@ public class RecordRetrievalServiceTest {
 		Set<Dog> returnedDogs = recordService.queryDogRecords(propertyTypes, "lucky");
 		assertTrue(returnedDogs.size() == 1);
 		assertTrue(returnedDogs.contains(dog));
-		
 	}
+
 	/*
-	 * This tests the queryDogRecords() method. 
-	 * It queries the database with a valid breed value
-	 * and expects to get a set of dogs that contains the query
+	 * This tests the queryDogRecords() method. It queries the database with a
+	 * valid breed value and expects to get a set of dogs that contains the
+	 * query
 	 */
 	@Test
-	public void queryDogRecordsBreedTest() {	
+	public void queryDogRecordsBreedTest() {
 		List<String> propertyTypes = new ArrayList<String>();
 		propertyTypes.add("Breed");
 		Set<Dog> mockedDogs = new HashSet<Dog>();
@@ -145,7 +141,5 @@ public class RecordRetrievalServiceTest {
 		Set<Dog> returnedDogs = recordService.queryDogRecords(propertyTypes, "boston terrier");
 		assertTrue(returnedDogs.size() == 1);
 		assertTrue(returnedDogs.contains(dog));
-		
 	}
-	
 }
