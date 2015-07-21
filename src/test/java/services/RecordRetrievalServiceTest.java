@@ -84,19 +84,17 @@ public class RecordRetrievalServiceTest {
 		recordService.queryDogRecords(invalidPropertyTypes, "LOL");
 	}
 
-	// TODO ADD TEST: SELECT MULTIPLE PROPERTIES
-
 	/*
 	 * This tests the queryDogRecords() method. It queries the database with a
 	 * valid unknown location value and expects to get a set of dogs that
-	 * contains the query
+	 * contains the query.
 	 */
 	@Test
 	public void queryDogRecordsUnknownLocationTest() {
 		List<String> propertyTypes = new ArrayList<String>();
 		propertyTypes.add("City");
 		Set<Dog> mockedDogs = new HashSet<Dog>();
-		Dog dog = new Dog("0000000000000001", "lucky", "altered", "female", "boston terrier", "red and white", "UNKNOWN");
+		Dog dog = new Dog("0000000000000001", "lucky", "altered", "female", "labrador", "white", "UNKNOWN");
 		mockedDogs.add(dog);
 		expect(dogDao.getDogsFromQuery(propertyTypes, "UNKNOWN")).andReturn(mockedDogs);
 		replay(dogDao);
@@ -108,7 +106,8 @@ public class RecordRetrievalServiceTest {
 
 	/*
 	 * This tests the queryDogRecords() method. It queries the database with a
-	 * valid name value and expects to get a set of dogs that contains the query
+	 * valid name value and expects to get a set of dogs that contains the
+	 * query.
 	 */
 	@Test
 	public void queryDogRecordsNameTest() {
@@ -127,18 +126,99 @@ public class RecordRetrievalServiceTest {
 	/*
 	 * This tests the queryDogRecords() method. It queries the database with a
 	 * valid breed value and expects to get a set of dogs that contains the
-	 * query
+	 * query.
 	 */
 	@Test
 	public void queryDogRecordsBreedTest() {
 		List<String> propertyTypes = new ArrayList<String>();
 		propertyTypes.add("Breed");
 		Set<Dog> mockedDogs = new HashSet<Dog>();
-		Dog dog = new Dog("0000000000000001", "lucky", "altered", "female", "BOSTON TERRIER", "red and white", "UNKNOWN");
+		Dog dog = new Dog("0000000000000001", "lucky", "altered", "female", "DACHSHUND", "red", "Rye");
+		mockedDogs.add(dog);
+		expect(dogDao.getDogsFromQuery(propertyTypes, "DACHSHUND")).andReturn(mockedDogs);
+		replay(dogDao);
+		Set<Dog> returnedDogs = recordService.queryDogRecords(propertyTypes, "dachshund");
+		assertTrue(returnedDogs.size() == 1);
+		assertTrue(returnedDogs.contains(dog));
+	}
+
+	/*
+	 * This tests the queryDogRecords() method. It queries the database with
+	 * multiple properties (both Breed and Name) selected and expects to get a
+	 * set of dogs that contains the query.
+	 */
+	@Test
+	public void queryDogRecordsBreedAndNameTest() {
+		List<String> propertyTypes = new ArrayList<String>();
+		propertyTypes.add("Breed");
+		propertyTypes.add("Name");
+		Set<Dog> mockedDogs = new HashSet<Dog>();
+		Dog dog = new Dog("0000000000000002", "jack", "altered", "male", "BOSTON TERRIER", "black", "UNKNOWN");
 		mockedDogs.add(dog);
 		expect(dogDao.getDogsFromQuery(propertyTypes, "BOSTON TERRIER")).andReturn(mockedDogs);
 		replay(dogDao);
 		Set<Dog> returnedDogs = recordService.queryDogRecords(propertyTypes, "boston terrier");
+		assertTrue(returnedDogs.size() == 1);
+		assertTrue(returnedDogs.contains(dog));
+	}
+	
+	/*
+	 * This tests the queryDogRecords() method. It queries the database with
+	 * multiple properties (both Breed and Location) selected and expects to get a
+	 * set of dogs that contains the query.
+	 */
+	@Test
+	public void queryDogRecordsBreedAndLocationTest() {
+		List<String> propertyTypes = new ArrayList<String>();
+		propertyTypes.add("Breed");
+		propertyTypes.add("City");
+		Set<Dog> mockedDogs = new HashSet<Dog>();
+		Dog dog = new Dog("0000000000000003", "mark", "altered", "male", "yorkshire terrier", "red and white", "RYE");
+		mockedDogs.add(dog);
+		expect(dogDao.getDogsFromQuery(propertyTypes, "RYE")).andReturn(mockedDogs);
+		replay(dogDao);
+		Set<Dog> returnedDogs = recordService.queryDogRecords(propertyTypes, "rye");
+		assertTrue(returnedDogs.size() == 1);
+		assertTrue(returnedDogs.contains(dog));
+	}
+	
+	/*
+	 * This tests the queryDogRecords() method. It queries the database with
+	 * multiple properties (both Name and Location) selected and expects to get a
+	 * set of dogs that contains the query.
+	 */
+	@Test
+	public void queryDogRecordsNameAndLocationTest() {
+		List<String> propertyTypes = new ArrayList<String>();
+		propertyTypes.add("Name");
+		propertyTypes.add("City");
+		Set<Dog> mockedDogs = new HashSet<Dog>();
+		Dog dog = new Dog("0000000000000004", "JAMIE", "altered", "female", "PUG", "black", "White Plains");
+		mockedDogs.add(dog);
+		expect(dogDao.getDogsFromQuery(propertyTypes, "JAMIE")).andReturn(mockedDogs);
+		replay(dogDao);
+		Set<Dog> returnedDogs = recordService.queryDogRecords(propertyTypes, "jamie");
+		assertTrue(returnedDogs.size() == 1);
+		assertTrue(returnedDogs.contains(dog));
+	}
+	
+	/*
+	 * This tests the queryDogRecords() method. It queries the database with
+	 * all properties (Breed, Name and Location) selected and expects to get a
+	 * set of dogs that contains the query.
+	 */
+	@Test
+	public void queryDogRecordsBreedNameLocationTest() {
+		List<String> propertyTypes = new ArrayList<String>();
+		propertyTypes.add("Breed");
+		propertyTypes.add("Name");		
+		propertyTypes.add("City");
+		Set<Dog> mockedDogs = new HashSet<Dog>();
+		Dog dog = new Dog("0000000000000005", "bill", "altered", "male", "GOLDEN RETRIEVER", "cream", "UNKNOWN");
+		mockedDogs.add(dog);
+		expect(dogDao.getDogsFromQuery(propertyTypes, "GOLDEN RETRIEVER")).andReturn(mockedDogs);
+		replay(dogDao);
+		Set<Dog> returnedDogs = recordService.queryDogRecords(propertyTypes, "golden retriever");
 		assertTrue(returnedDogs.size() == 1);
 		assertTrue(returnedDogs.contains(dog));
 	}
