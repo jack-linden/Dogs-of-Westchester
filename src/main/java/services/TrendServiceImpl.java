@@ -33,9 +33,9 @@ public class TrendServiceImpl implements TrendService {
 	public void updateTrends() {
 		Set<Dog> dogs = dogDao.getAllDogs();
 		List<Trend> trends = new ArrayList<Trend>();
-		trends.add(getMostPopularNames(dogs));
-		trends.add(getMostPopularBreeds(dogs));
-
+		trends.add(getTrend(dogs, TrendType.MOST_POPULAR_NAME));
+		trends.add(getTrend(dogs, TrendType.MOST_POPULAR_BREED));
+		trends.add(getTrend(dogs, TrendType.MOST_POPULATED_CITY));
 		trendDao.updateTrends(trends);
 
 	}
@@ -44,16 +44,10 @@ public class TrendServiceImpl implements TrendService {
 		return trendDao.getAllTrends();
 	}
 
-	private Trend getMostPopularNames(Set<Dog> dogs) {
-		Trend nameTrends = new Trend(TrendType.MOST_POPULAR_NAME);
-		nameTrends.createTrendData(dogs);
-		return nameTrends;
-	}
-
-	private Trend getMostPopularBreeds(Set<Dog> dogs) {
-		Trend breedTrends = new Trend(TrendType.MOST_POPULAR_BREED);
-		breedTrends.createTrendData(dogs);
-		return breedTrends;
+	private Trend getTrend(Set<Dog> dogs, TrendType trendType) {
+		Trend trend = new Trend(trendType);
+		trend.createTrendData(dogs);
+		return trend;
 	}
 
 }
