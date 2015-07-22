@@ -36,10 +36,10 @@ public class UploadServlet extends HttpServlet {
 		BlobInfo blobInfo = getBlobInfo(req);
 		byte[] fileContents = blobstoreService.fetchData(blobInfo.getBlobKey(), 0, blobInfo.getSize());
 		byte[] newByteArray = uploadFileService.uploadCSV(fileContents);
-	
+
 		TrendService trendService = new TrendServiceImpl();
 		trendService.updateTrends();
-		
+
 		res.setContentType("text/csv");
 		res.getOutputStream().write(newByteArray);
 	}
@@ -52,6 +52,7 @@ public class UploadServlet extends HttpServlet {
 		BlobInfo blobInfo = blobInfoMap.get("myFile").get(0);
 		return blobInfo;
 	}
+
 	/**
 	 * The is a helper method that checks if a specific blob exists
 	 */

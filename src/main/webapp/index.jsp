@@ -75,160 +75,161 @@
 	/*
 	 * This method requests the query results and puts them into a table
 	 */
-	$(document).ready(function() {
-		$.ajax({
-			url : '/trends',
-			type : 'GET',
-			dataType : 'json',
-			success : function(data) {
-				var trendDiv = $('#trend-results');
-				for (var i = 0; i < data.trends.length; i++) {
-					var list = buildTopTenTables(data.trends[i]);
-					trendDiv.append(list);
-				}
-			}
-		});
-	});
+	 $(document).ready(function() {
+	 	$.ajax({
+	 		url : '/trends',
+	 		type : 'GET',
+	 		dataType : 'json',
+	 		success : function(data) {
+	 			var trendDiv = $('#trend-results');
+	 			for (var i = 0; i < data.trends.length; i++) {
+	 				var list = buildTopTenTables(data.trends[i]);
+	 				trendDiv.append(list);
+	 			}
+	 		}
+	 	});
+	 });
 
-	$('#myTabs a').click(function(e) {
-		e.preventDefault();
-		$(this).tab('show');		
-	});
+	 $('#myTabs a').click(function(e) {
+	 	e.preventDefault();
+	 	$(this).tab('show');		
+	 });
 
-	$("#submit-search").click(function() {
-		var arr = [];
-		$('input[name="search-property"]:checked:enabled').each(function() {
-			arr.push($(this).val());
-		});
-		if (arr.length == 0) {
-			return;
-		}
-		var queryText = $('#search-text').val();
-		var json = JSON.stringify(arr);
-		$.ajax({
-			url : "/search",
-			type : 'GET',
-			data : {
-				'search-text' : queryText,
-				'search-properties' : json
-			},
-			dataType : 'JSON',
-			success : function(data) {
-				var tableDiv = $("#search-results");
-				tableDiv.empty();
-				var arrayOfDogs = data.dogs;
-				var tableString = buildSearchResultsTableString(arrayOfDogs);
-				tableDiv.append(tableString);
-				$(document).ready(function() {
-					$("#search-results-table").dataTable();
-				});
-				populateMap(data.dogs, queryText);
-			}
-		});
-	});
+	 $("#submit-search").click(function() {
+	 	var arr = [];
+	 	$('input[name="search-property"]:checked:enabled').each(function() {
+	 		arr.push($(this).val());
+	 	});
+	 	if (arr.length == 0) {
+	 		return;
+	 	}
+	 	var queryText = $('#search-text').val();
+	 	var json = JSON.stringify(arr);
+	 	$.ajax({
+	 		url : "/search",
+	 		type : 'GET',
+	 		data : {
+	 			'search-text' : queryText,
+	 			'search-properties' : json
+	 		},
+	 		dataType : 'JSON',
+	 		success : function(data) {
+	 			var tableDiv = $("#search-results");
+	 			tableDiv.empty();
+	 			var arrayOfDogs = data.dogs;
+	 			var tableString = buildSearchResultsTableString(arrayOfDogs);
+	 			tableDiv.append(tableString);
+	 			$(document).ready(function() {
+	 				$("#search-results-table").dataTable();
+	 			});
+	 			populateMap(data.dogs, queryText);
+	 		}
+	 	});
+	 });
 
 	/*
 	 * This is a helper method that builds a table of dog records based on user queries,
 	 * which can be displayed to users
 	 */
-	function buildSearchResultsTableString(arrayOfDogs) {
-		var table = '';
-		table += '<table id=\"search-results-table\" data-toggle=\"table\" class=\"table table-bordered\">';
-		table += '<thead><tr>';
-		table += '<th data-field=\"name\">Name</th>';
-		table += '<th data-field=\"breed\">Breed</th>';
-		table += '<th data-field=\"sex\">Sex</th>';
-		table += '<th data-field=\"color\">Color</th>';
-		table += '<th data-field=\"condition\">Condition</th>';
-		table += '<th data-field=\"location\">Location</th>';
-		table += '</tr></thead>';
+	 function buildSearchResultsTableString(arrayOfDogs) {
+	 	var table = '';
+	 	table += '<table id=\"search-results-table\" data-toggle=\"table\" class=\"table table-bordered\">';
+	 	table += '<thead><tr>';
+	 	table += '<th data-field=\"name\">Name</th>';
+	 	table += '<th data-field=\"breed\">Breed</th>';
+	 	table += '<th data-field=\"sex\">Sex</th>';
+	 	table += '<th data-field=\"color\">Color</th>';
+	 	table += '<th data-field=\"condition\">Condition</th>';
+	 	table += '<th data-field=\"location\">Location</th>';
+	 	table += '</tr></thead>';
 
-		for (var i = 0; i < arrayOfDogs.length; i++) {
-			var dog = arrayOfDogs[i];
-			table += '<tr>';
-			table += '<td>' + dog.name + '</td>';
-			table += '<td>' + dog.breed + '</td>';
-			table += '<td>' + dog.sex + '</td>';
-			table += '<td>' + dog.color + '</td>';
-			table += '<td>' + dog.condition + '</td>';
-			table += '<td>' + dog.location + '</td>';
-			table += '</tr>';
-		}
-		return table;
-	}
+	 	for (var i = 0; i < arrayOfDogs.length; i++) {
+	 		var dog = arrayOfDogs[i];
+	 		table += '<tr>';
+	 		table += '<td>' + dog.name + '</td>';
+	 		table += '<td>' + dog.breed + '</td>';
+	 		table += '<td>' + dog.sex + '</td>';
+	 		table += '<td>' + dog.color + '</td>';
+	 		table += '<td>' + dog.condition + '</td>';
+	 		table += '<td>' + dog.location + '</td>';
+	 		table += '</tr>';
+	 	}
+	 	return table;
+	 }
 
 	/*
 	 * This is a helper method that builds a table of the 10 most common dog name/breed/location
 	 */
-	function buildTopTenTables(trend) {
-		var list = "";
-		var arrOfData = trend.trendData;
-		list += "<li class=\"side-by-side\">";
-		list += "<div class=\"small-list-div\">";
-		list += "<ul class=\"list-group small-list\">";
-		list += "<li style=\"font-weight: bold\" class=\"list-group-item\"><center>" + trend.trendType.replace(/_/g, " ") + "</center></li>";
-		for (var i = 0; i < arrOfData.length; i++) {
-			var trendData = arrOfData[i];
-			list += "<li class=\"list-group-item\"><span class=\"badge\">" + trendData.count + "</span>" + trendData.value + "</li>";
-		}
-		list += "</ul>";
-		list += "</div>";
-		list += "</li>";
-		return list;
-	}
-	var map = null;
-	var myLayer = null;
-	$(document).ready(function(){
-		L.mapbox.accessToken = 'pk.eyJ1IjoiMTUzMGRvZ3Byb2plY3QiLCJhIjoiNzFmYjZiNWNiYTg0ODcxYzYwNzM3OTZiY2JlNzc0ODQifQ._SJtkTq_1yyADMyNnQdRQA';
-		map = L.mapbox.map('map_simple', 'mapbox.comic', {zoomControl: false}).setView([ 41.079, -73.864 ], 10);
-		map.scrollWheelZoom.enable();
-		myLayer = L.mapbox.featureLayer().addTo(map);
-	});
-	
+	 function buildTopTenTables(trend) {
+	 	var list = "";
+	 	var arrOfData = trend.trendData;
+	 	list += "<li class=\"side-by-side\">";
+	 	list += "<div class=\"small-list-div\">";
+	 	list += "<ul class=\"list-group small-list\">";
+	 	list += "<li style=\"font-weight: bold\" class=\"list-group-item\"><center>" + trend.trendType.replace(/_/g, " ") + "</center></li>";
+	 	for (var i = 0; i < arrOfData.length; i++) {
+	 		var trendData = arrOfData[i];
+	 		list += "<li class=\"list-group-item\"><span class=\"badge\">" + trendData.count + "</span>" + trendData.value + "</li>";
+	 	}
+	 	list += "</ul>";
+	 	list += "</div>";
+	 	list += "</li>";
+	 	return list;
+	 }
+	 var map = null;
+	 var myLayer = null;
+	 $(document).ready(function(){
+	 	L.mapbox.accessToken = 'pk.eyJ1IjoiMTUzMGRvZ3Byb2plY3QiLCJhIjoiNzFmYjZiNWNiYTg0ODcxYzYwNzM3OTZiY2JlNzc0ODQifQ._SJtkTq_1yyADMyNnQdRQA';
+	 	map = L.mapbox.map('map_simple', 'mapbox.comic', {zoomControl: false}).setView([ 41.079, -73.864 ], 10);
+	 	map.scrollWheelZoom.enable();
+	 	myLayer = L.mapbox.featureLayer().addTo(map);
+	 });
+	 
 	/*
 	 * The method maps the search results of dog records on the map.
 	 * There will be a marker added to a specific location if any matched dogs are found in that region.
 	 */
-	function populateMap(dogsArray, query) {
-		var arrayOfCounts = parseDogs(dogsArray);
-		var geojson = getGeoLocations();
-		var filteredGeoJson = [];
-		
-		for (var i = 0; i < geojson.length; i++) {
-			var location = geojson[i].properties.title.toUpperCase();
-			if (arrayOfCounts[location] != undefined && arrayOfCounts[location] != 0) {
-				geojson[i].properties.description = "Found " + arrayOfCounts[location] + " dogs matching the query \"" + query + "\".";
-				filteredGeoJson.push(geojson[i]);
-			}
-		}
+	 function populateMap(dogsArray, query) {
+	 	var arrayOfCounts = parseDogs(dogsArray);
+	 	var geojson = getGeoLocations();
+	 	var filteredGeoJson = [];
+	 	
+	 	for (var i = 0; i < geojson.length; i++) {
+	 		var location = geojson[i].properties.title.toUpperCase();
+	 		if (arrayOfCounts[location] != undefined && arrayOfCounts[location] != 0) {
+	 			geojson[i].properties.description = "Found " + arrayOfCounts[location] + " dogs matching the query \"" + query + "\".";
+	 			filteredGeoJson.push(geojson[i]);
+	 		}
+	 	}
 
-		map.removeLayer(myLayer);
-		myLayer = L.mapbox.featureLayer().addTo(map);
-		myLayer.on('ready', function() {		   
-			map.fitBounds(myLayer.getBounds());
-		});
-		myLayer.on('mouseover', function(e) {
-			e.layer.openPopup();
-		});
-		myLayer.on('mouseout', function(e) {
-			e.layer.closePopup();
-		});
-		myLayer.setGeoJSON(filteredGeoJson)
-	}
+	 	map.removeLayer(myLayer);
+	 	myLayer = L.mapbox.featureLayer().addTo(map);
+	 	myLayer.on('ready', function() {		   
+	 		map.fitBounds(myLayer.getBounds());
+	 	});
+	 	myLayer.on('mouseover', function(e) {
+	 		e.layer.openPopup();
+	 	});
+	 	myLayer.on('mouseout', function(e) {
+	 		e.layer.closePopup();
+	 	});
+	 	myLayer.setGeoJSON(filteredGeoJson)
+	 }
 
 	/*
      * This is a helper method that prepares the GeoJSON objects that can be used by the map
-	 */
-	function parseDogs(dogsArray) {
-		var locationCounts = [];
-		for (var i = 0; i < dogsArray.length; i++) {
-			var location = dogsArray[i].location;
-			if (locationCounts[location] == undefined || locationCounts[location] == null) {
-				locationCounts[location] = 0;
-			}
-			locationCounts[location]++;
-		}
-		return locationCounts;
-	}
-	</script>
-	<jsp:include page="footer.jsp" />
+     */
+     function parseDogs(dogsArray) {
+     	var locationCounts = [];
+     	for (var i = 0; i < dogsArray.length; i++) {
+     		var location = dogsArray[i].location;
+     		if (locationCounts[location] == undefined || locationCounts[location] == null) {
+     			locationCounts[location] = 0;
+     		}
+     		locationCounts[location]++;
+     	}
+     	return locationCounts;
+     }
+     </script>
+     <jsp:include page="footer.jsp" />
+     
