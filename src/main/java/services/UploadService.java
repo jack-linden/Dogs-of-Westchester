@@ -6,7 +6,7 @@ import dataaccess.DogDaoImpl;
 
 public interface UploadService {
 
-	/*
+	/**
 	 * Sets dogDao (Dog data-access object)
 	 */
 	public void setDogDao(DogDaoImpl mockedDogDao);

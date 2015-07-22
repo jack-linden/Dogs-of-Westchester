@@ -17,24 +17,34 @@ public class TrendServiceImpl implements TrendService {
 	private DogDao dogDao;
 	private TrendDao trendDao;
 
-	/*
+	/**
 	 *  Class constructor
 	 */
 	public TrendServiceImpl() {
 		setDogDao(new DogDaoImpl());
 		setTrendDao(new TrendDaoImpl());
 	}
-	//Sets dogDao (Dog data-access object)
+	
+	/**
+	 *  This method sets dogDao (Dog data-access object)
+	 *  
+	 *  @param dogDao
+	 */
 	public void setDogDao(DogDaoImpl dogDao) {
 		this.dogDao = dogDao;
 	}
-	//Sets trendDao (Trend data-access object)
+	
+	/**
+	 *  This method sets trendDao (Trend data-access object)
+	 *  
+	 *  @param trendDao
+	 */	
 	public void setTrendDao(TrendDaoImpl trendDao) {
 		this.trendDao = trendDao;
 	}
 
 	/**
-	 * 	Gets and stores the Trend information for each type of Trend
+	 * 	This method gets and stores the Trend information for each type of Trend
 	 */
 	public void updateTrends() {
 		Set<Dog> dogs = dogDao.getAllDogs();
@@ -46,14 +56,15 @@ public class TrendServiceImpl implements TrendService {
 	}
 
 	/**
-	 * 	Gets all Trends from datastore
+	 * 	This method gets all Trends from Google App Engine's datastore
 	 */
 	public List<Trend> getAllTrends() {
 		return trendDao.getAllTrends();
 	}
 
 	/**
-	 * Gets Trend information based on TrendType specified
+	 * This method gets the Trend information based on TrendType specified
+	 * 
 	 * @param dogs
 	 * 		The dataset of Dogs
 	 * @param trendType
@@ -66,5 +77,4 @@ public class TrendServiceImpl implements TrendService {
 		trend.createTrendData(dogs);//Calculate trends
 		return trend;
 	}
-
 }

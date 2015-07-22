@@ -18,14 +18,18 @@ public class RecordRetrievalServiceImpl implements RecordRetrievalService{
 	public RecordRetrievalServiceImpl() {
 		setDogDao(new DogDaoImpl());
 	}
-
-	//Set dogDao (Dog data-access object)
+	
+	/**
+	 * This method sets the private field dogDao (Dog data-access object)
+	 * 
+	 * @param dogDao
+	 */
 	public void setDogDao(DogDaoImpl dogDao) {
 		this.dogDao = dogDao;
 	}
 
 	/**
-	 * This method will run queries against google's datastore
+	 * This method will run queries against Google App Engine's datastore
 	 * 
 	 * @param propertyTypes
 	 *            The property of the dog to search for (e.g. Name, Breed, City)
@@ -38,14 +42,19 @@ public class RecordRetrievalServiceImpl implements RecordRetrievalService{
 		if (propertyTypes == null || query == null) {
 			throw new IllegalArgumentException("Did not expect name to be null.");
 		}
+		
 		//Illegal input checks, will throw IAException
 		if (!propertyTypeIsValid(propertyTypes)) {
 			throw new IllegalArgumentException("Property type can only be Name, Condition, Sex, Breed, Color, or City.");
 		}
-
+		
 		Set<Dog> dogRecords = new HashSet<Dog>();
-		query = query.toUpperCase();// Dog fields are stored in uppercase
-		dogRecords = dogDao.getDogsFromQuery(propertyTypes, query); // Query datastore 
+		
+		// Dog fields are stored in uppercase
+		query = query.toUpperCase();
+		
+		// Query datastore
+		dogRecords = dogDao.getDogsFromQuery(propertyTypes, query);  
 
 		return dogRecords;
 	}

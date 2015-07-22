@@ -13,7 +13,7 @@ public class Dog {
 	private final int IDNUMBERLENGTH = 16;
 	private final String DEFAULTIDNUMBER = "";
 	private final String DEFAULTSEX = "UNKNOWN";
-	
+
 	/**
 	 * Class constructor.
 	 */
@@ -37,8 +37,7 @@ public class Dog {
 	/**
 	 * Override the equals() method so that Dog objects are comparable.
 	 * 
-	 * @param other
-	 *            the other Dog object to be compared.
+	 * @param other: the other Dog object to be compared.	           
 	 * @return true if two Dog objects have the same idNumber false if two Dog
 	 *         objects have different idNumber
 	 */
@@ -54,8 +53,8 @@ public class Dog {
 	}
 
 	public void setIdNumber(String idNumber) {
-		if (idNumber.matches("[0-9]+") && idNumber.length() == IDNUMBERLENGTH)			
-			this.idNumber = idNumber;	
+		if (idNumber.matches("[0-9]+") && idNumber.length() == IDNUMBERLENGTH)
+			this.idNumber = idNumber;
 		else
 			this.idNumber = "";
 	}

@@ -16,6 +16,9 @@ import services.TrendServiceImpl;
 public class TrendServlet extends HttpServlet {
 	public final Gson gson = new Gson();
 
+	/**
+	 * The method handles the data request from the Trend on the website
+	 */
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 

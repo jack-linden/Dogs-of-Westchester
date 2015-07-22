@@ -1,6 +1,6 @@
 /*
  * This method populates the markers on the map.
- * Currently, the dog licensing data visualization service are available
+ * Currently, the dog licensing data visualization service is available
  * in the following three locations: White Plains, Rye, and Bedford.
  */
 function getGeoLocations() {

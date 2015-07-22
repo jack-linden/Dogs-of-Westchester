@@ -7,12 +7,12 @@ import model.Trend;
 public interface TrendService {
 	
 	/**
-	 * 	Gets and stores the Trend information for each type of Trend
+	 * 	This method gets and stores the Trend information for each type of Trend
 	 */
 	public void updateTrends( );
 	
 	/**
-	 * 	Gets all Trends from datastore
+	 * 	This method gets all Trends from Google App Engine's datastore
 	 */
 	public List<Trend> getAllTrends( );
 }

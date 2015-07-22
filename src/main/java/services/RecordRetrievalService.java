@@ -9,7 +9,7 @@ import model.Dog;
 public interface RecordRetrievalService {
 
 	/**
-	 * This method will run queries against google's datastore
+	 * This method will run queries against Google App Engine's datastore
 	 * 
 	 * @param propertyTypes
 	 *            The property of the dog to search for (e.g. Name, Breed, City)

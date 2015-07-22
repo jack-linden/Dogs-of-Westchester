@@ -11,7 +11,7 @@ import model.Dog;
 import dataaccess.DogDao;
 import dataaccess.DogDaoImpl;
 
-public class UploadServiceImpl implements UploadService{
+public class UploadServiceImpl implements UploadService {
 	private final int ID_NUMBER_LENGTH = 16;
 	private final int EXPECTED_TOKENS_LENGTH = 6;
 	private static UploadServiceImpl _instance = null;
@@ -44,16 +44,15 @@ public class UploadServiceImpl implements UploadService{
 	/**
 	 * Sets the DogDao (data-access object)
 	 * 
-	 * @param dogDao
-	 *            the data-access object
+	 * @param dogDao (the data-access object)	            
 	 */
 	public void setDogDao(DogDaoImpl dogDao) {
 		this.dogDao = dogDao;
 	}
 
 	/**
-	 * This function will upload a CSV file to google's datastore. It will
-	 * return a byte array output file that contains each stored dogs'
+	 * This function will upload a CSV file to Google App Engine's datastore. It
+	 * will return a byte array output file that contains each stored dogs'
 	 * information and new idNumber. Refer to the excel template in test-files.
 	 * 
 	 * @param fileContents
@@ -62,7 +61,7 @@ public class UploadServiceImpl implements UploadService{
 	 *         dog id's on each line
 	 */
 	public byte[] uploadCSV(byte[] fileContents) throws IOException {
-		//Illegal input checks, will throw IAException if so
+		// Illegal input checks, will throw IAException if so
 		if (fileContents == null || fileContents.length == 0) {
 			throw new IllegalArgumentException("Did not expect a null filename argument or an empty/null byte array.");
 		}
@@ -72,38 +71,49 @@ public class UploadServiceImpl implements UploadService{
 
 		// First two lines contain the city name and excel headers
 		String firstLine = in.readLine();
-		String cityName = getCityName(firstLine); //Extract city name (Row 1 Cell 1) from first line
-		String headersLine = in.readLine(); //Line containing column headers
+		
+		// Extract city name (Row 1 Cell 1) from first line		
+		String cityName = getCityName(firstLine);
+		
+		// Line containing column headers
+		String headersLine = in.readLine(); 
 
 		// Create StringBuilder and append the first two lines
 		StringBuilder sb = new StringBuilder();
 		sb.append(firstLine);
-		sb.append("\r\n"); //Appends carridge return and newline
+		
+		// Appends carridge return and newline
+		sb.append("\r\n"); 
 		sb.append(headersLine);
 		sb.append("\r\n");
 
-		// Iterate through the file line by line storing each dog record in datastore
+		// Iterate through the file line by line storing each dog record in datastore		
 		for (String line = in.readLine(); line != null; line = in.readLine()) {
-			//Converts excel/csv line to 6 element String[] containing dog info.
-			String[] tokens = prepareTokens(line.toUpperCase()); 
+			// Converts excel/csv line to 6 element String[] containing dog info			
+			String[] tokens = prepareTokens(line.toUpperCase());
 			
-			Dog dog = createDogFromTokens(tokens, cityName);//Sets each dog field from the [] of tokens
+			Dog dog = createDogFromTokens(tokens, cityName);
 			String idNumber = dog.getIdNumber();
-			String newCSVLine = line; 
+			String newCSVLine = line;
 
 			// If an id doesn't exist we must store this dog in the datastore
 			if (!validIdExists(idNumber)) {
-				String newDogKeyString = dogDao.insertDog(dog); //Returns key for new Dog entity
+				// Returns key for new Dog entity				
+				String newDogKeyString = dogDao.insertDog(dog); 
 				String newIdNumber = extractIdNumberFromIdString(newDogKeyString);
-				newCSVLine = appendDogIdToCSVLine(line, newIdNumber); 
+				newCSVLine = appendDogIdToCSVLine(line, newIdNumber);
 			}
-			sb.append(newCSVLine); //Append update csv line with dog id to output filestream
+			
+			// Append update csv line with dog id to output filestream
+			sb.append(newCSVLine); 									
 			sb.append("\r\n");
 		}
 
-		is.close();// Close the input stream
+		// Close the input stream
+		is.close();
 
-		return sb.toString().getBytes(); //Returns byte[] of output file
+		// Returns byte[] of output file
+		return sb.toString().getBytes(); 
 	}
 
 	/**
@@ -117,11 +127,11 @@ public class UploadServiceImpl implements UploadService{
 	 * @return Dog object containing all the information
 	 */
 	private Dog createDogFromTokens(String[] tokens, String cityName) {
-		//Illegal input checks, iwll throw IAException
+		// Illegal input checks, iwll throw IAException
 		if (tokens == null || tokens.length != EXPECTED_TOKENS_LENGTH || cityName == null || cityName.length() == 0) {
 			throw new IllegalArgumentException("Expected tokens to be a non-null array of length 6 and cityName to be a non-null non empty string. ");
 		}
-		//Set Dog object fields
+		// Set Dog object fields
 		Dog dog = new Dog();
 		dog.setLocation(cityName);
 		dog.setName(tokens[0]);
@@ -144,22 +154,28 @@ public class UploadServiceImpl implements UploadService{
 	 * @return a list of non-empty string tokens
 	 */
 	private String[] prepareTokens(String line) {
-		//Illegal argument checks, will throw IAException
+		// Illegal argument checks, will throw IAException
 		if (line == null || line.length() == 0) {
 			throw new IllegalArgumentException("Did not expect line to be null or empty.");
 		}
-		String[] tokens = line.split(",");//Splits line on "," to get each column data
+		
+		// Splits line on "," to get each column data		
+		String[] tokens = line.split(",");
 
-		String[] preparedTokens = new String[6]; //Output [] should be length 6
-		Arrays.fill(preparedTokens, 0, 5, "UNKNOWN"); //Initialize each value to "UNKNOWN"
+		// Output [] should be length 6
+		String[] preparedTokens = new String[6]; 
+		
+		// Initialize each value to "UNKNOWN"
+		Arrays.fill(preparedTokens, 0, 5, "UNKNOWN"); 
+		
 		for (int i = 0; i < tokens.length; i++) {
-			//If column data exists, set it appropriately
+			// If column data exists, set it appropriately
 			if (!tokens[i].equals("")) {
 				preparedTokens[i] = tokens[i];
 			}
 		}
-		//If the idNumber column has data, set it
-		//Else it becomes the empty string
+		// If the idNumber column has data, set it
+		// Else it becomes the empty string
 		if (tokens.length == 6) {
 			preparedTokens[5] = tokens[5];
 		} else {
@@ -176,11 +192,11 @@ public class UploadServiceImpl implements UploadService{
 	 * @return true if idNumber is 16-digit long, otherwise return false
 	 */
 	private boolean validIdExists(String idNumber) {
-		//Illegal input check, will throw IAException
+		// Illegal input check, will throw IAException
 		if (idNumber == null) {
 			throw new IllegalArgumentException("Expected a non-null idNumber String.");
 		}
-		//Id must be a 16 digit number string
+		// Id must be a 16 digit number string
 		return idNumber.matches("[0-9]+") && idNumber.length() == ID_NUMBER_LENGTH;
 	}
 
@@ -195,11 +211,12 @@ public class UploadServiceImpl implements UploadService{
 	 * @return String of dog data that now has the idNumber appended to the end
 	 */
 	private String appendDogIdToCSVLine(String line, String idNumber) {
-		//Illegal input check, will throw IAException
+		// Illegal input check, will throw IAException
 		if (line == null || idNumber == null || line.length() == 0 || idNumber.length() == 0) {
 			throw new IllegalArgumentException("Did not expect line or idNumber Strings to be null or empty.");
 		}
-		//Append current line with newly generated id number
+		
+		// Append current line with newly generated id number
 		StringBuilder sb = new StringBuilder();
 		sb.append(line);
 		sb.append(idNumber);
@@ -207,20 +224,21 @@ public class UploadServiceImpl implements UploadService{
 	}
 
 	/**
-	 * Google App Engine datastore key strings are in the format
-	 * Dog(xxxxxxxxxxxxxxxx) where x's are digits in the 16 digit number. This method extracts
-	 * that number and returns it as a string
+	 * Google App Engine's datastore key strings are in the format
+	 * Dog(xxxxxxxxxxxxxxxx) where x's are digits in the 16 digit number. This
+	 * method extracts that number and returns it as a string
 	 * 
-	 * @param idString
-	 *            "Dog(xxxxxxxxxxxxxxxx)"
-	 * @return xxxxxxxxxxxxxxxx
+	 * @param idString, eg."Dog(0000000000000000)"
+	 *            
+	 * @return a 16-digit number, eg. 0000000000000000
 	 * 
 	 */
 	private String extractIdNumberFromIdString(String idString) {
-		//Illegal input check, will throw IAException
+		// Illegal input check, will throw IAException
 		if (idString == null || idString.length() != 21) {
 			throw new IllegalArgumentException("Expected a non null key string of length 21.");
 		}
+		
 		// The idNumber is between these two indices
 		return idString.substring(4, 20);
 	}
@@ -233,11 +251,12 @@ public class UploadServiceImpl implements UploadService{
 	 * @return String of city name.
 	 */
 	private String getCityName(String line) {
-		//Illegal input check, will throw IAException
+		// Illegal input check, will throw IAException
 		if (line == null || line.length() == 0) {
 			throw new IllegalArgumentException("Did not expect line to be null or empty.");
 		}
-		//City name is the first row, first cell in the file (line1[0])
+		
+		// City name is the first row, first cell in the file (line1[0])
 		return line.split(",")[0].toUpperCase();
 	}
 }
