@@ -215,8 +215,8 @@
 	 	});
 	 	myLayer.setGeoJSON(filteredGeoJson)
 	 }
-	 
-    /*
+    
+	/*
 	 * This is a helper method that prepares the GeoJSON objects that can be used by the map
 	 */
 	 function parseDogs(dogsArray) {
