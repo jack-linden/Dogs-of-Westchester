@@ -215,20 +215,20 @@
 	 	});
 	 	myLayer.setGeoJSON(filteredGeoJson)
 	 }
-
-	/*
-     * This is a helper method that prepares the GeoJSON objects that can be used by the map
-     */
-     function parseDogs(dogsArray) {
-     	var locationCounts = [];
-     	for (var i = 0; i < dogsArray.length; i++) {
-     		var location = dogsArray[i].location;
-     		if (locationCounts[location] == undefined || locationCounts[location] == null) {
-     			locationCounts[location] = 0;
-     		}
-     		locationCounts[location]++;
-     	}
-     	return locationCounts;
-     }
-     </script>
-     <jsp:include page="footer.jsp" />
+	 
+    /*
+	 * This is a helper method that prepares the GeoJSON objects that can be used by the map
+	 */
+	 function parseDogs(dogsArray) {
+	 	var locationCounts = [];
+	 	for (var i = 0; i < dogsArray.length; i++) {
+	 		var location = dogsArray[i].location;
+	 		if (locationCounts[location] == undefined || locationCounts[location] == null) {
+	 			locationCounts[location] = 0;
+	 		}
+	 		locationCounts[location]++;
+	 	}
+	 	return locationCounts;
+	 }
+	 </script>
+	 <jsp:include page="footer.jsp" />
