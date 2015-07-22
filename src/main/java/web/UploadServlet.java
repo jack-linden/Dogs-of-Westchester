@@ -44,12 +44,17 @@ public class UploadServlet extends HttpServlet {
 		res.getOutputStream().write(newByteArray);
 	}
 
+	/**
+	 * The is a helper method that gets a specific blob
+	 */
 	private BlobInfo getBlobInfo(HttpServletRequest req) {
 		Map<String, List<BlobInfo>> blobInfoMap = blobstoreService.getBlobInfos(req);
 		BlobInfo blobInfo = blobInfoMap.get("myFile").get(0);
 		return blobInfo;
 	}
-
+	/**
+	 * The is a helper method that checks if a specific blob exists
+	 */
 	private boolean blobExists(HttpServletRequest req) {
 		return !blobstoreService.getBlobInfos(req).isEmpty();
 	}

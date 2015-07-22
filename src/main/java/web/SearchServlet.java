@@ -21,7 +21,7 @@ public class SearchServlet extends HttpServlet {
 	public final Gson gson = new Gson();
 
 	/**
-	 * The method handles the search request from the website
+	 * The method handles the request from the Search Table tab on the website
 	 */
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
