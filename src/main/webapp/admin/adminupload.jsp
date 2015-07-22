@@ -4,15 +4,14 @@
 <%@ page import="com.google.appengine.api.blobstore.BlobstoreService"%>
 <jsp:include page="/header.jsp" />
 
-	<%
-		BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
-	%>
-	<div class="wrap">
-		<form action="<%=blobstoreService.createUploadUrl("/admin/upload")%>" method="post" enctype="multipart/form-data">
-			<input type="file" name="myFile"> 
-			<input type="submit" value="Submit">
-		</form>
-	</div>
+<%
+BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+%>
+<div class="wrap">
+	<form action="<%=blobstoreService.createUploadUrl("/admin/upload")%>" method="post" enctype="multipart/form-data">
+		<input type="file" name="myFile"> 
+		<input type="submit" value="Submit">
+	</form>
+</div>
 
 <jsp:include page="../footer.jsp" /> 
-	

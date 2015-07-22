@@ -1,32 +1,31 @@
 <jsp:include page="header.jsp" />
 <head>
-<style>
-#map_simple {
-	width: 900px;
-	height: 500px;
-	position: relative;
-}
-.custom-popup .leaflet-popup-content-wrapper {
-  background:#2c3e50;
-  color:#fff;
-  font-size:16px;
-  line-height:24px;
-  }
-.custom-popup .leaflet-popup-content-wrapper a {
-  color:rgba(255,255,255,0.5);
-  }
-.custom-popup .leaflet-popup-tip-container {
-  width:30px;
-  height:15px;
-  }
-.custom-popup .leaflet-popup-tip {
-  border-left:15px solid transparent;
-  border-right:15px solid transparent;
-  border-top:15px solid #2c3e50;
-  }
-</style>
+	<style>
+	#map_simple {
+		width: 900px;
+		height: 500px;
+		position: relative;
+	}
+	.custom-popup .leaflet-popup-content-wrapper {
+		background:#2c3e50;
+		color:#fff;
+		font-size:16px;
+		line-height:24px;
+	}
+	.custom-popup .leaflet-popup-content-wrapper a {
+		color:rgba(255,255,255,0.5);
+	}
+	.custom-popup .leaflet-popup-tip-container {
+		width:30px;
+		height:15px;
+	}
+	.custom-popup .leaflet-popup-tip {
+		border-left:15px solid transparent;
+		border-right:15px solid transparent;
+		border-top:15px solid #2c3e50;
+	}
+	</style>
 </head>
-
 <div class="wrap" id="search-bar">
 	<div class="row">
 		<div class="col-lg-6">
@@ -34,46 +33,44 @@
 				<span class="input-group-addon"> <input type="checkbox" aria-label="..." name="search-property" value="Name">
 					<label for="name">Name</label>
 				</span> <span class="input-group-addon"> <input type="checkbox" aria-label="..." name="search-property"
-					value="Breed"> <label for="breed">Breed</label>
-				</span> <span class="input-group-addon"> <input type="checkbox" aria-label="..." name="search-property" value="City">
-					<label for="location">Location</label>
-				</span> <input type="text" class="form-control" placeholder="Search for..." id="search-text"> <span
-					class="input-group-btn">
-					<button data-dismiss="alert" class="btn btn-default" type="button" id="submit-search">Go!</button>
-				</span>
-			</div>
-		</div>
-	</div>
+				value="Breed"> <label for="breed">Breed</label>
+			</span> <span class="input-group-addon"> <input type="checkbox" aria-label="..." name="search-property" value="City">
+			<label for="location">Location</label>
+		</span> <input type="text" class="form-control" placeholder="Search for..." id="search-text"> <span
+		class="input-group-btn">
+		<button data-dismiss="alert" class="btn btn-default" type="button" id="submit-search">Go!</button>
+	</span>
+</div>
+</div>
+</div>
 </div>
 <br>
 <br>
 <div class="wrap">
 	<div id="tabs">
-	<ul class="nav nav-tabs" role="tablist">
-		<li role="presentation" ><a href="#search-table" aria-controls="home" role="tab" data-toggle="tab">Search
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" ><a href="#search-table" aria-controls="home" role="tab" data-toggle="tab">Search
 				Table</a></li>
-		<li role="presentation" class="active"><a href="#map-div" aria-controls="profile" role="tab" data-toggle="tab">Maps</a></li>
-		<li role="presentation"><a href="#trends-div" aria-controls="messages" role="tab" data-toggle="tab">Trends</a></li>
-	</ul>
-	</div>
-	<div class="tab-content">
-		<div role="tabpanel" class="tab-pane" id="search-table">
-			<div id="search-results"></div>
+				<li role="presentation" class="active"><a href="#map-div" aria-controls="profile" role="tab" data-toggle="tab">Maps</a></li>
+				<li role="presentation"><a href="#trends-div" aria-controls="messages" role="tab" data-toggle="tab">Trends</a></li>
+			</ul>
 		</div>
-		<div role="tabpanel" class="tab-pane active" id="map-div">
-			<!-- <iframe name="map-frame" id="map-frame" width='100%' height='500px' frameBorder='0'></iframe> -->
-			<div id="map_simple" class="custom-popup"></div>
-			<p>If you are using Firefox, you may have trouble seeing the map.</p>
-		</div>
-		<div role="tabpanel" class="tab-pane" id="trends-div">
-			<div id="trend-results">
-				<br>
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane" id="search-table">
+				<div id="search-results"></div>
+			</div>
+			<div role="tabpanel" class="tab-pane active" id="map-div">
+				<div id="map_simple" class="custom-popup"></div>
+				<p>If you are using Firefox, you may have trouble seeing the map.</p>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="trends-div">
+				<div id="trend-results">
+					<br>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<script>
-
+	<script>
 	$(document).ready(function() {
 		$.ajax({
 			url : '/trends',
@@ -90,8 +87,7 @@
 	});
 	$('#myTabs a').click(function(e) {
 		e.preventDefault();
-		$(this).tab('show');
-		
+		$(this).tab('show');		
 	});
 	$("#submit-search").click(function() {
 		var arr = [];
@@ -114,18 +110,14 @@
 			success : function(data) {
 				var tableDiv = $("#search-results");
 				tableDiv.empty();
-
 				var arrayOfDogs = data.dogs;
-
 				var tableString = buildSearchResultsTableString(arrayOfDogs);
 				tableDiv.append(tableString);
 				$(document).ready(function() {
 					$("#search-results-table").dataTable();
 				});
-				//Pass data.dogs to map populating function
 				populateMap(data.dogs, queryText);
 			}
-
 		});
 	});
 
@@ -154,6 +146,7 @@
 		}
 		return table;
 	}
+
 	function buildTopTenTables(trend) {
 		var list = "";
 		var arrOfData = trend.trendData;
@@ -180,7 +173,6 @@
 	});
 	
 	function populateMap(dogsArray, query) {
-
 		var arrayOfCounts = parseDogs(dogsArray);
 		var geojson = getGeoLocations();
 		var filteredGeoJson = [];
@@ -195,24 +187,20 @@
 
 		map.removeLayer(myLayer);
 		myLayer = L.mapbox.featureLayer().addTo(map);
-		myLayer.on('ready', function() {
-		    // featureLayer.getBounds() returns the corners of the furthest-out markers,
-		    // and map.fitBounds() makes sure that the map contains these.
-
-		    map.fitBounds(myLayer.getBounds());
+		myLayer.on('ready', function() {		   
+			map.fitBounds(myLayer.getBounds());
 		});
 		myLayer.on('mouseover', function(e) {
-		    e.layer.openPopup();
+			e.layer.openPopup();
 		});
 		myLayer.on('mouseout', function(e) {
-		    e.layer.closePopup();
+			e.layer.closePopup();
 		});
 		myLayer.setGeoJSON(filteredGeoJson)
 	}
 
 	function parseDogs(dogsArray) {
 		var locationCounts = [];
-
 		for (var i = 0; i < dogsArray.length; i++) {
 			var location = dogsArray[i].location;
 			if (locationCounts[location] == undefined || locationCounts[location] == null) {
@@ -220,8 +208,7 @@
 			}
 			locationCounts[location]++;
 		}
-
 		return locationCounts;
 	}
-</script>
-<jsp:include page="footer.jsp" />
+	</script>
+	<jsp:include page="footer.jsp" />
