@@ -71,6 +71,10 @@
 		</div>
 	</div>
 	<script>
+
+	/*
+	 * This method requests the query results and puts them into a table
+	 */
 	$(document).ready(function() {
 		$.ajax({
 			url : '/trends',
@@ -85,10 +89,12 @@
 			}
 		});
 	});
+
 	$('#myTabs a').click(function(e) {
 		e.preventDefault();
 		$(this).tab('show');		
 	});
+
 	$("#submit-search").click(function() {
 		var arr = [];
 		$('input[name="search-property"]:checked:enabled').each(function() {
@@ -121,6 +127,10 @@
 		});
 	});
 
+	/*
+	 * This is a helper method that builds a table of dog records based on user queries,
+	 * which can be displayed to users
+	 */
 	function buildSearchResultsTableString(arrayOfDogs) {
 		var table = '';
 		table += '<table id=\"search-results-table\" data-toggle=\"table\" class=\"table table-bordered\">';
@@ -147,6 +157,9 @@
 		return table;
 	}
 
+	/*
+	 * This is a helper method that builds a table of the 10 most common dog name/breed/location
+	 */
 	function buildTopTenTables(trend) {
 		var list = "";
 		var arrOfData = trend.trendData;
@@ -172,6 +185,10 @@
 		myLayer = L.mapbox.featureLayer().addTo(map);
 	});
 	
+	/*
+	 * The method maps the search results of dog records on the map.
+	 * There will be a marker added to a specific location if any matched dogs are found in that region.
+	 */
 	function populateMap(dogsArray, query) {
 		var arrayOfCounts = parseDogs(dogsArray);
 		var geojson = getGeoLocations();
@@ -199,6 +216,9 @@
 		myLayer.setGeoJSON(filteredGeoJson)
 	}
 
+	/*
+     * This is a helper method that prepares the GeoJSON objects that can be used by the map
+	 */
 	function parseDogs(dogsArray) {
 		var locationCounts = [];
 		for (var i = 0; i < dogsArray.length; i++) {

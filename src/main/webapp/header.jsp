@@ -23,9 +23,7 @@
 </head>
 <body>
 	<div class="page-header wrap">
-		<h1>
-			Dogs of Westchester<small> Searchable database and mapping tool</small>
-		</h1>
+		<h1>Dogs of Westchester<small> Searchable database and mapping tool</small></h1>
 		<%
 		UserService userService = UserServiceFactory.getUserService();
 		User user = userService.getCurrentUser();
@@ -39,9 +37,7 @@
 		<%
 	} else {
 	%>
-	<p align="right">
-		<a href="<%=userService.createLoginURL("/admin")%>">Admin Login</a>
-	</p>
+	<p align="right"><a href="<%=userService.createLoginURL("/admin")%>">Admin Login</a></p>
 	<%
 }
 %>
