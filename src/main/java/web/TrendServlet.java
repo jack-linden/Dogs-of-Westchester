@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import model.Trend;
-import services.TrendService;
 import services.TrendServiceImpl;
 
 public class TrendServlet extends HttpServlet {
@@ -21,7 +20,7 @@ public class TrendServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		res.setContentType("application/json");
-		TrendService trendService = new TrendServiceImpl();
+		TrendServiceImpl trendService = new TrendServiceImpl();
 
 		List<Trend> trends = trendService.getAllTrends();
 		String jsonTrendString = gson.toJson(trends);
