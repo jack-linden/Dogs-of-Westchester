@@ -5,9 +5,11 @@
 /Users/jiayanzhang/Downloads/1530/1530_repo/src/main/java/dataaccess/TrendDao.java
 /Users/jiayanzhang/Downloads/1530/1530_repo/src/main/java/services/UploadService.java
 /Users/jiayanzhang/Downloads/1530/1530_repo/src/main/java/dataaccess/DogDaoImpl.java
+/Users/jiayanzhang/Downloads/1530/1530_repo/src/main/java/services/UploadServiceImpl.java
 /Users/jiayanzhang/Downloads/1530/1530_repo/src/main/java/services/TrendServiceImpl.java
 /Users/jiayanzhang/Downloads/1530/1530_repo/src/main/java/dataaccess/TrendDaoImpl.java
 /Users/jiayanzhang/Downloads/1530/1530_repo/src/main/java/web/AdminServlet.java
+/Users/jiayanzhang/Downloads/1530/1530_repo/src/main/java/services/RecordRetrievalServiceImpl.java
 /Users/jiayanzhang/Downloads/1530/1530_repo/src/main/java/model/Trend.java
 /Users/jiayanzhang/Downloads/1530/1530_repo/src/main/java/model/TrendType.java
 /Users/jiayanzhang/Downloads/1530/1530_repo/src/main/java/services/TrendService.java

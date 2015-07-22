@@ -9,6 +9,7 @@ model/Trend.class
 web/MainServlet.class
 dataaccess/TrendDaoImpl.class
 model/TrendType.class
+services/UploadServiceImpl.class
 model/TrendData.class
 services/UploadService.class
 model/Dog.class
@@ -16,3 +17,4 @@ services/RecordRetrievalService.class
 dataaccess/TrendDao.class
 dataaccess/DogDao.class
 web/SearchServlet.class
+services/RecordRetrievalServiceImpl.class
