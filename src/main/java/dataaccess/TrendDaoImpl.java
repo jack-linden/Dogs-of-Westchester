@@ -23,7 +23,8 @@ public class TrendDaoImpl implements TrendDao {
 	 *            The trends to insert
 	 */
 	public void updateTrends(List<Trend> trends) {
-		deleteAllTrends();
+		deleteAllTrends();//Remove all trends
+		//Store each trend
 		for (Trend trend : trends) {
 			dataStoreService.put(createTrendEntity(trend));
 		}

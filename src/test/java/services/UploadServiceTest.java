@@ -35,7 +35,7 @@ public class UploadServiceTest {
 
 	@Before
 	public void prepareTests() {
-		uploadService = new UploadService();
+		uploadService = new UploadServiceImpl();
 		mockedDogDao = createMock(DogDaoImpl.class);
 		uploadService.setDogDao(mockedDogDao);
 	}
@@ -44,11 +44,11 @@ public class UploadServiceTest {
 	 * This is a helper method that sets up tests on private methods with
 	 * reflection
 	 */
-	public Method getPrivateMethod(Class<UploadService> targetClass, String methodName, Class[] parameterTypes) {
+	public Method getPrivateMethod(Class<UploadServiceImpl> class1, String methodName, Class[] parameterTypes) {
 
 		Method method = null;
 		try {
-			method = targetClass.getDeclaredMethod(methodName, parameterTypes);
+			method = class1.getDeclaredMethod(methodName, parameterTypes);
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
 		} catch (SecurityException e) {
@@ -125,7 +125,7 @@ public class UploadServiceTest {
 	public void validIdExistsNullParameterTest() {
 		Class[] parameterTypes = { java.lang.String.class };
 		Object[] parameters = { null };
-		Method validIdExists = getPrivateMethod(UploadService.class, "validIdExists", parameterTypes);
+		Method validIdExists = getPrivateMethod(UploadServiceImpl.class, "validIdExists", parameterTypes);
 		try {
 			validIdExists.invoke(uploadService, parameters);
 			fail();
@@ -145,7 +145,7 @@ public class UploadServiceTest {
 	public void validIdExistsInvalidIdLengthTest() {
 		Class[] parameterTypes = { java.lang.String.class };
 		Object[] parameters = { "1234" };
-		Method validIdExists = getPrivateMethod(UploadService.class, "validIdExists", parameterTypes);
+		Method validIdExists = getPrivateMethod(UploadServiceImpl.class, "validIdExists", parameterTypes);
 		try {
 			boolean isValidId = (Boolean) validIdExists.invoke(uploadService, parameters);
 			assertFalse(isValidId);
@@ -162,7 +162,7 @@ public class UploadServiceTest {
 	public void validIdExistsInvalidCharactersTest() {
 		Class[] parameterTypes = { java.lang.String.class };
 		Object[] parameters = { "EEEEEE12EEEEEEEE" };
-		Method validIdExists = getPrivateMethod(UploadService.class, "validIdExists", parameterTypes);
+		Method validIdExists = getPrivateMethod(UploadServiceImpl.class, "validIdExists", parameterTypes);
 		try {
 			boolean isValidId = (Boolean) validIdExists.invoke(uploadService, parameters);
 			assertFalse(isValidId);
@@ -179,7 +179,7 @@ public class UploadServiceTest {
 	public void validIdExistsValidIdTest() {
 		Class[] parameterTypes = { java.lang.String.class };
 		Object[] parameters = { VALID_DOG_ID_NUMBER };
-		Method validIdExists = getPrivateMethod(UploadService.class, "validIdExists", parameterTypes);
+		Method validIdExists = getPrivateMethod(UploadServiceImpl.class, "validIdExists", parameterTypes);
 		try {
 			boolean isValidId = (Boolean) validIdExists.invoke(uploadService, parameters);
 			assertTrue(isValidId);
@@ -196,7 +196,7 @@ public class UploadServiceTest {
 	public void appendDogIdToCSVLineNullParameterTest() {
 		Class[] parameterTypes = { java.lang.String.class, java.lang.String.class };
 		Object[] parameters = { null, VALID_DOG_ID_NUMBER };
-		Method appendDogIdToCSVLine = getPrivateMethod(UploadService.class, "appendDogIdToCSVLine", parameterTypes);
+		Method appendDogIdToCSVLine = getPrivateMethod(UploadServiceImpl.class, "appendDogIdToCSVLine", parameterTypes);
 		try {
 			appendDogIdToCSVLine.invoke(uploadService, parameters);
 			fail();
@@ -226,7 +226,7 @@ public class UploadServiceTest {
 	public void appendDogIdToCSVLineEmptyStringTest() {
 		Class[] parameterTypes = { java.lang.String.class, java.lang.String.class };
 		Object[] parameters = { "", VALID_DOG_ID_NUMBER };
-		Method appendDogIdToCSVLine = getPrivateMethod(UploadService.class, "appendDogIdToCSVLine", parameterTypes);
+		Method appendDogIdToCSVLine = getPrivateMethod(UploadServiceImpl.class, "appendDogIdToCSVLine", parameterTypes);
 
 		try {
 			appendDogIdToCSVLine.invoke(uploadService, parameters);
@@ -257,7 +257,7 @@ public class UploadServiceTest {
 	public void appendDogIdToCSVLineNormalTest() {
 		Class[] parameterTypes = { java.lang.String.class, java.lang.String.class };
 		Object[] parameters = { "CSVLINE,", VALID_DOG_ID_NUMBER };
-		Method appendDogIdToCSVLine = getPrivateMethod(UploadService.class, "appendDogIdToCSVLine", parameterTypes);
+		Method appendDogIdToCSVLine = getPrivateMethod(UploadServiceImpl.class, "appendDogIdToCSVLine", parameterTypes);
 		String expectedResult = "CSVLINE,0123456789123456";
 		try {
 			String result = (String) appendDogIdToCSVLine.invoke(uploadService, parameters);
@@ -275,7 +275,7 @@ public class UploadServiceTest {
 	public void getCityNameNullParameterTest() {
 		Class[] parameterTypes = { java.lang.String.class };
 		Object[] parameters = { null };
-		Method getCityName = getPrivateMethod(UploadService.class, "getCityName", parameterTypes);
+		Method getCityName = getPrivateMethod(UploadServiceImpl.class, "getCityName", parameterTypes);
 		try {
 			getCityName.invoke(uploadService, parameters);
 			fail();
@@ -295,7 +295,7 @@ public class UploadServiceTest {
 	public void getCityNameEmptyStringTest() {
 		Class[] parameterTypes = { java.lang.String.class };
 		Object[] parameters = { "" };
-		Method getCityName = getPrivateMethod(UploadService.class, "getCityName", parameterTypes);
+		Method getCityName = getPrivateMethod(UploadServiceImpl.class, "getCityName", parameterTypes);
 		try {
 			getCityName.invoke(uploadService, parameters);
 			fail();
@@ -315,7 +315,7 @@ public class UploadServiceTest {
 	public void getCityNameNormalTest() {
 		Class[] parameterTypes = { java.lang.String.class };
 		Object[] parameters = { "NEW YORK CITY,,,,," };
-		Method getCityName = getPrivateMethod(UploadService.class, "getCityName", parameterTypes);
+		Method getCityName = getPrivateMethod(UploadServiceImpl.class, "getCityName", parameterTypes);
 		String expectedCityName = "NEW YORK CITY";
 		try {
 			String returnedCityName = (String) getCityName.invoke(uploadService, parameters);
@@ -334,7 +334,7 @@ public class UploadServiceTest {
 	public void prepareTokensNullParameterTest() {
 		Class[] parameterTypes = { java.lang.String.class };
 		Object[] parameters = { null };
-		Method prepareTokens = getPrivateMethod(UploadService.class, "prepareTokens", parameterTypes);
+		Method prepareTokens = getPrivateMethod(UploadServiceImpl.class, "prepareTokens", parameterTypes);
 		try {
 			prepareTokens.invoke(uploadService, parameters);
 			fail();
@@ -354,7 +354,7 @@ public class UploadServiceTest {
 	public void prepareTokensEmptyStringTest() {
 		Class[] parameterTypes = { java.lang.String.class };
 		Object[] parameters = { "" };
-		Method prepareTokens = getPrivateMethod(UploadService.class, "prepareTokens", parameterTypes);
+		Method prepareTokens = getPrivateMethod(UploadServiceImpl.class, "prepareTokens", parameterTypes);
 		try {
 			prepareTokens.invoke(uploadService, parameters);
 			fail();
@@ -376,7 +376,7 @@ public class UploadServiceTest {
 		Class[] parameterTypes = { java.lang.String.class };
 		String csvLine = "MAGGIE,,FEMALE,GOLDEN RETRIEVER,,";
 		Object[] parameters = { csvLine };
-		Method prepareTokens = getPrivateMethod(UploadService.class, "prepareTokens", parameterTypes);
+		Method prepareTokens = getPrivateMethod(UploadServiceImpl.class, "prepareTokens", parameterTypes);
 		String[] expectedTokens = { "MAGGIE", "UNKNOWN", "FEMALE", "GOLDEN RETRIEVER", "UNKNOWN", "" };
 
 		try {
@@ -399,7 +399,7 @@ public class UploadServiceTest {
 		Class[] parameterTypes = { java.lang.String.class };
 		String csvLine = "MAGGIE,,FEMALE,GOLDEN RETRIEVER,,0123456789123456";
 		Object[] parameters = { csvLine };
-		Method prepareTokens = getPrivateMethod(UploadService.class, "prepareTokens", parameterTypes);
+		Method prepareTokens = getPrivateMethod(UploadServiceImpl.class, "prepareTokens", parameterTypes);
 		String[] expectedTokens = { "MAGGIE", "UNKNOWN", "FEMALE", "GOLDEN RETRIEVER", "UNKNOWN", VALID_DOG_ID_NUMBER };
 
 		try {
@@ -421,7 +421,7 @@ public class UploadServiceTest {
 		Class[] parameterTypes = { java.lang.String.class };
 		String csvLine = "MAGGIE,NEUTERED,FEMALE,GOLDEN RETRIEVER,BROWN,0123456789123456";
 		Object[] parameters = { csvLine };
-		Method prepareTokens = getPrivateMethod(UploadService.class, "prepareTokens", parameterTypes);
+		Method prepareTokens = getPrivateMethod(UploadServiceImpl.class, "prepareTokens", parameterTypes);
 		String[] expectedTokens = { "MAGGIE", "NEUTERED", "FEMALE", "GOLDEN RETRIEVER", "BROWN", VALID_DOG_ID_NUMBER };
 
 		try {
@@ -442,7 +442,7 @@ public class UploadServiceTest {
 	public void extractIdNumberFromIdStringNullParameterTest() {
 		Class[] parameterTypes = { java.lang.String.class };
 		Object[] parameters = { null };
-		Method extractIdNumberFromIdString = getPrivateMethod(UploadService.class, "extractIdNumberFromIdString", parameterTypes);
+		Method extractIdNumberFromIdString = getPrivateMethod(UploadServiceImpl.class, "extractIdNumberFromIdString", parameterTypes);
 		try {
 			extractIdNumberFromIdString.invoke(uploadService, parameters);
 			fail();
@@ -462,7 +462,7 @@ public class UploadServiceTest {
 	public void extractIdNumberFromIdStringInvalidIdLengthTest() {
 		Class[] parameterTypes = { java.lang.String.class };
 		Object[] parameters = { "1234" };
-		Method extractIdNumberFromIdString = getPrivateMethod(UploadService.class, "extractIdNumberFromIdString", parameterTypes);
+		Method extractIdNumberFromIdString = getPrivateMethod(UploadServiceImpl.class, "extractIdNumberFromIdString", parameterTypes);
 		try {
 			extractIdNumberFromIdString.invoke(uploadService, parameters);
 			fail();
@@ -482,7 +482,7 @@ public class UploadServiceTest {
 	public void extractIdNumberFromIdStringNormalTest() {
 		Class[] parameterTypes = { java.lang.String.class };
 		Object[] parameters = { VALID_DOG_ID_STRING };
-		Method extractIdNumberFromIdString = getPrivateMethod(UploadService.class, "extractIdNumberFromIdString", parameterTypes);
+		Method extractIdNumberFromIdString = getPrivateMethod(UploadServiceImpl.class, "extractIdNumberFromIdString", parameterTypes);
 		try {
 			String result = (String) extractIdNumberFromIdString.invoke(uploadService, parameters);
 			assertEquals(result, VALID_DOG_ID_NUMBER);

@@ -15,6 +15,7 @@ import com.google.gson.reflect.TypeToken;
 
 import model.Dog;
 import services.RecordRetrievalService;
+import services.RecordRetrievalServiceImpl;
 
 public class SearchServlet extends HttpServlet {
 
@@ -26,7 +27,7 @@ public class SearchServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		resp.setContentType("application/json");
-		RecordRetrievalService recordService = new RecordRetrievalService();
+		RecordRetrievalService recordService = new RecordRetrievalServiceImpl();
 		String queryText = req.getParameter("search-text");
 
 		Type collectionType = new TypeToken<List<String>>() {

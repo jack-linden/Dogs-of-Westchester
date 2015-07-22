@@ -28,7 +28,7 @@ public class RecordRetrievalServiceTest {
 
 	@Before
 	public void prepareTests() {
-		recordService = new RecordRetrievalService();
+		recordService = new RecordRetrievalServiceImpl();
 		dogDao = createMock(DogDaoImpl.class);
 		recordService.setDogDao(dogDao);
 	}

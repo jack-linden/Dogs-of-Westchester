@@ -16,6 +16,7 @@ import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import services.TrendService;
 import services.TrendServiceImpl;
 import services.UploadService;
+import services.UploadServiceImpl;
 
 public class UploadServlet extends HttpServlet {
 	private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
@@ -31,7 +32,7 @@ public class UploadServlet extends HttpServlet {
 			res.getWriter().println("Error uploading file.");
 			return;
 		}
-		UploadService uploadFileService = UploadService.getInstance();
+		UploadService uploadFileService = UploadServiceImpl.getInstance();
 
 		BlobInfo blobInfo = getBlobInfo(req);
 		byte[] fileContents = blobstoreService.fetchData(blobInfo.getBlobKey(), 0, blobInfo.getSize());
